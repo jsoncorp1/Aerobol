@@ -42,7 +42,7 @@ var connectionString = builder.Configuration.GetConnectionString("Aerobol");
 if (string.IsNullOrWhiteSpace(connectionString))
     throw new InvalidOperationException("Configura ConnectionStrings__Aerobol en el servidor o .local/database.json en desarrollo.");
 
-builder.Services.AddDbContext<AerobolDbContext>(options => options.UseNpgsql(connectionString));
+builder.Services.AddDbContext<AerobolDbContext>(options => options.UseNpgsql(connectionString, npgsql => npgsql.MigrationsHistoryTable("__EFMigrationsHistory", "aerobol")));
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 {
     options.User.RequireUniqueEmail = true;
@@ -119,6 +119,7 @@ if (args.Any(arg => arg is "--init-db" or "--init-leads" or "--migrate"))
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AerobolDbContext>();
     await db.Database.OpenConnectionAsync();
+    await MigrationHistory.AdoptAsync(db);
     await using var count = new NpgsqlCommand("SELECT count(*) FROM information_schema.tables WHERE table_schema = 'aerobol'", (NpgsqlConnection)db.Database.GetDbConnection());
     var existing = (long)(await count.ExecuteScalarAsync())!;
     var applied = (await db.Database.GetAppliedMigrationsAsync()).ToArray();
@@ -167,6 +168,14 @@ if (args.Contains("--init-demo"))
     Console.WriteLine("Administrador de demostración creado. Contraseña almacenada mediante Identity como hash.");
     return;
 }
+var demoMode = app.Configuration.GetValue<bool>("Aerobol:ModoDemo");
+var demoEmail = app.Configuration["Aerobol:DemoEmail"] ?? "demo@aerobol.test";
+var demoPassword = app.Configuration["Aerobol:DemoPassword"] ?? "";
+if (demoMode)
+{
+    if (demoPassword.Length < 12) throw new InvalidOperationException("Configura Aerobol__DemoPassword con al menos 12 caracteres para el modo demo.");
+    await DemoSeed.RunAsync(app.Services, demoEmail, demoPassword);
+}
 if (behindProxy) app.UseForwardedHeaders();
 if (!app.Environment.IsDevelopment())
 {
@@ -212,6 +221,7 @@ app.MapGet("/health/ready", async (AerobolDbContext db) =>
     catch { return Results.StatusCode(503); }
 });
 app.MapGet("/error", () => Results.Problem("No se pudo completar la solicitud."));
+if (demoMode) app.MapGet("/api/demo", () => Results.Ok(new { email = demoEmail, password = demoPassword }));
 app.MapPost("/api/preinscripciones", async (Dictionary<string, string> datos, HttpContext context, IAntiforgery antiforgery, AerobolDbContext db) =>
 {
     try { await antiforgery.ValidateRequestAsync(context); }

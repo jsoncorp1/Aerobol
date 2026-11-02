@@ -36,6 +36,12 @@ Host=HOST;Port=5432;Database=BASE;Username=USUARIO;Password=SECRETO;SSL Mode=Ver
 
 Para PostgreSQL 17 en la misma red privada de Docker, cuando el servicio no tiene TLS configurado, usar su hostname interno y `SSL Mode=Disable` (sin `Channel Binding=Require`). No exponer ese puerto de base de datos a internet. El cifrado HTTPS del navegador lo gestiona Coolify.
 
+## Modo demo
+
+Con `Aerobol__ModoDemo=true` y `Aerobol__DemoPassword` (12 caracteres o más, con mayúscula, minúscula, número y símbolo), cada arranque aplica las migraciones, crea la cuenta demo (`Aerobol__DemoEmail`, por defecto `demo@aerobol.test`) y carga 12 preinscripciones ficticias si la tabla está vacía. El login muestra el botón «Llenar datos de demo».
+
+Cualquier visitante obtiene así acceso de administrador: no activar con datos reales. Sin esas variables la aplicación se comporta como en la inicialización explícita.
+
 ## Inicialización explícita
 
 En la terminal de la aplicación, con la conexión configurada:

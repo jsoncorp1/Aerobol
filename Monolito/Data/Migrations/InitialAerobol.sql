@@ -1,4 +1,6 @@
-﻿CREATE TABLE IF NOT EXISTS "__EFMigrationsHistory" (
+﻿CREATE SCHEMA IF NOT EXISTS aerobol;
+
+CREATE TABLE IF NOT EXISTS aerobol."__EFMigrationsHistory" (
     "MigrationId" character varying(150) NOT NULL,
     "ProductVersion" character varying(32) NOT NULL,
     CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
@@ -110,7 +112,7 @@ CREATE UNIQUE INDEX "UserNameIndex" ON aerobol."AspNetUsers" ("NormalizedUserNam
 
 CREATE INDEX "IX_Preinscripciones_CreatedAt" ON aerobol."Preinscripciones" ("CreatedAt");
 
-INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+INSERT INTO aerobol."__EFMigrationsHistory" ("MigrationId", "ProductVersion")
 VALUES ('20261030132658_InitialAerobol', '10.0.14');
 
 COMMIT;

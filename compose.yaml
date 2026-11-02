@@ -28,6 +28,8 @@ services:
       AllowedHosts: ${AEROBOL_ALLOWED_HOSTS:-localhost;127.0.0.1}
       Aerobol__DetrasDeProxy: ${AEROBOL_BEHIND_PROXY:-false}
       Aerobol__ProxiesConfiables: ${AEROBOL_TRUSTED_PROXY_CIDRS:-}
+      Aerobol__ModoDemo: ${AEROBOL_DEMO:-false}
+      Aerobol__DemoPassword: ${AEROBOL_DEMO_PASSWORD:-}
     volumes:
       - aerobol-keys:/keys
     ports:

@@ -5,6 +5,12 @@ document.querySelector('.password-toggle').addEventListener('click', event => {
   event.currentTarget.textContent = visible ? 'Ocultar' : 'Mostrar';
   event.currentTarget.setAttribute('aria-label', visible ? 'Ocultar contraseña' : 'Mostrar contraseña');
 });
+const demoFill = document.querySelector('#demo-fill');
+fetch('/api/demo', { cache: 'no-store' }).then(response => response.ok ? response.json() : null).then(demo => {
+  if (!demo) return;
+  demoFill.hidden = false;
+  demoFill.addEventListener('click', () => { document.querySelector('#email').value = demo.email; password.value = demo.password; });
+}).catch(() => {});
 document.querySelector('#login-form').addEventListener('submit', async event => {
   event.preventDefault();
   const error = document.querySelector('#login-error');
