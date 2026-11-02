@@ -1,0 +1,42 @@
+/* Formación: cabina al atardecer y tarjetas de lectura independientes. */
+#porque { position: relative; isolation: isolate; background: #0a1727; color: var(--luna); overflow: hidden; }
+#porque::before {
+  content: ""; position: absolute; z-index: -1; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(7,17,31,.34), rgba(7,17,31,.2) 40%, #0a1727 76%),
+    linear-gradient(180deg, rgba(7,17,31,.84), transparent 58%, rgba(7,17,31,.3)),
+    url("assets/cabina-atardecer.webp") left center / auto 100% no-repeat;
+}
+#porque .wrap { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(32px, 5vw, 72px); align-items: start; }
+#porque .sec-head { margin-bottom: 0; max-width: 420px; }
+#porque h2 { color: var(--papel); }
+#porque .lead { color: #d2dce8; }
+.porque-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; }
+.porque-item {
+  display: grid; grid-template-columns: minmax(0,1fr); align-content: start; gap: 16px;
+  padding: 26px 24px; border: 1px solid rgba(178,203,231,.2); border-radius: 16px;
+  background: rgba(13,29,47,.94); box-shadow: 0 12px 32px rgba(0,0,0,.1);
+}
+.porque-item svg { color: var(--ambar); width: 34px; height: 34px; }
+.porque-item h3 { color: #fff; font-size: 1.12rem; line-height: 1.25; }
+.porque-item p { color: #c0ccdc; font-size: .94rem; line-height: 1.65; }
+@media (max-width: 960px) {
+  #porque .wrap { grid-template-columns: 1fr; gap: 0; }
+  #porque .sec-head { max-width: 540px; margin-bottom: 210px; }
+  #porque::before {
+    background:
+      linear-gradient(180deg, rgba(7,17,31,.82), rgba(7,17,31,.12) 36%, #0a1727 680px),
+      url("assets/cabina-atardecer.webp") center top / auto 740px no-repeat;
+  }
+}
+@media (max-width: 600px) {
+  #porque .sec-head { margin-bottom: 180px; }
+  #porque::before {
+    background:
+      linear-gradient(180deg, rgba(7,17,31,.88), rgba(7,17,31,.12) 330px, #0a1727 640px),
+      url("assets/cabina-atardecer-movil.webp") 48% top / auto 650px no-repeat;
+  }
+  .porque-grid { grid-template-columns: 1fr; gap: 12px; }
+  .porque-item { grid-template-columns: 34px minmax(0,1fr); gap: 8px 18px; padding: 22px; }
+  .porque-item svg { grid-row: span 2; }
+}

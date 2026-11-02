@@ -1,0 +1,20 @@
+/* ───────── FAQ ───────── */
+.faq { display: grid; gap: 0; border-top: 2px solid var(--tinta); max-width: 860px; }
+.faq details { border-bottom: 1px solid var(--linea-claro); }
+.faq summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 22px 0; font-weight: 700; font-size: 1.1rem; font-stretch: 104%; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; flex: none; width: 32px; height: 32px; display: grid; place-items: center; border-radius: 50%; background: var(--papel); color: var(--morado); font-size: 1.3rem; font-weight: 500; transition: transform .2s ease; }
+.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details p { padding: 0 48px 24px 0; color: var(--tinta-suave); max-width: 68ch; }
+
+/* Fondo de hangar con tarjetas claras para facilitar la lectura. */
+.faq-seccion { background: linear-gradient(90deg, rgba(8,19,31,.88), rgba(8,19,31,.55)), url("assets/hangar-atardecer.webp") center / cover no-repeat; }
+.faq-seccion h2 { color: #fff; text-shadow: 0 3px 20px rgba(0,0,0,.3); }
+.faq-seccion .wrap { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: 60px; align-items: start; }
+.faq-etiqueta { color: #f0c47c; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 700; }
+.faq { border-top: 0; gap: 12px; }
+.faq details { background: #fff; border: 1px solid #d8e0ea; border-radius: 12px; padding-inline: 22px; }
+.faq summary { font-size: 1rem; line-height: 1.4; }
+.faq summary::after { background: #edf2f6; color: #17374b; }
+@media (max-width: 860px) { .faq-seccion .wrap { grid-template-columns: 1fr; gap: 0; } }
+@media (max-width: 600px) { .faq-seccion { background-image: linear-gradient(180deg, rgba(8,19,31,.8), rgba(8,19,31,.65)), url("assets/hangar-atardecer-movil.webp"); background-position: 65% center; } }

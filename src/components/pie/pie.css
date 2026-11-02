@@ -1,0 +1,14 @@
+.pie { background: #fff; color: var(--tinta-suave); font-size: .9rem; border-top: 1px solid #e2e9ef; }
+.pie .wrap { display: grid; grid-template-columns: .85fr 1.1fr 1.1fr; gap: 36px; padding-block: 48px 24px; }
+.pie .marca { color: var(--tinta) !important; }
+.pie h3 { font-size: 1rem; color: var(--tinta); margin: 0 0 18px; font-weight: 700; }
+.pie address { font-style: normal; line-height: 1.7; }
+.pie-horario { margin-top: 12px; font-size: .82rem; }
+.pie-mapa { display: inline-block; margin-top: 14px; color: var(--verde); font-weight: 600; text-underline-offset: 4px; }
+.pie ul { padding: 0; margin: 0; list-style: none; display: grid; gap: 12px; }
+.pie li { display: grid; gap: 2px; overflow-wrap: anywhere; }
+.pie-etiqueta { font-size: .72rem; font-weight: 600; color: var(--tinta); }
+.pie-datos a { text-underline-offset: 4px; }
+.pie .legal { grid-column: 1/-1; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px 24px; padding-top: 22px; border-top: 1px solid #e2e9ef; font-size: .72rem; }
+@media(max-width: 700px) { .pie .wrap { grid-template-columns: 1fr 1fr; gap: 32px 24px; padding-block: 36px 24px; } .pie .wrap > div:first-child { grid-column: 1/-1; } }
+@media(max-width: 420px) { .pie .wrap { grid-template-columns: 1fr; } }

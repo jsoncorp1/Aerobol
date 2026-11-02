@@ -1,0 +1,126 @@
+  <!-- FORMULARIO -->
+  <section class="band pista" id="preinscripcion" aria-labelledby="form-titulo">
+    <div class="wrap">
+      <div class="pista-intro">
+        <h2 id="form-titulo">Da el primer paso</h2>
+        <p class="lead">Déjanos tus datos. Te ayudamos a elegir tu camino en la aviación.</p>
+      </div>
+
+      <div id="form-zona">
+        <form class="form-card" id="form" novalidate>
+          <div class="form-grid">
+            <div class="campo full">
+              <label for="f-nombre">Nombre completo</label>
+              <input id="f-nombre" name="nombre" autocomplete="name" placeholder="Ej. Camila Rojas Suárez">
+              <span class="msg" id="e-nombre"></span>
+            </div>
+
+            <div class="campo full">
+              <label for="f-tel">WhatsApp</label>
+              <div class="tel">
+                <select id="f-pais" name="pais" aria-label="Código de país"></select>
+                <input id="f-tel" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="71234567">
+              </div>
+              <span class="msg" id="e-tel"></span>
+            </div>
+
+            <div class="campo">
+              <label for="f-correo">Correo <span class="opc">(opcional)</span></label>
+              <input id="f-correo" name="correo" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com">
+              <span class="msg" id="e-correo"></span>
+            </div>
+
+            <div class="campo">
+              <label for="f-ciudad">Ciudad</label>
+              <select id="f-ciudad" name="ciudad"></select>
+              <span class="msg" id="e-ciudad"></span>
+            </div>
+
+            <div class="campo full">
+              <label for="f-carrera">Carrera de interés</label>
+              <select id="f-carrera" name="carrera"></select>
+              <span class="msg" id="e-carrera"></span>
+            </div>
+
+            <fieldset class="campo full">
+              <legend>¿Cuándo te gustaría empezar?</legend>
+              <div class="chips" id="g-inicio">
+                <label class="chip"><input type="radio" name="inicio" value="Lo antes posible"><span>Lo antes posible</span></label>
+                <label class="chip"><input type="radio" name="inicio" value="Gestión 2027"><span>Gestión 2027</span></label>
+                <label class="chip"><input type="radio" name="inicio" value="Solo estoy averiguando"><span>Solo estoy averiguando</span></label>
+              </div>
+              <span class="msg" id="e-inicio"></span>
+            </fieldset>
+
+            <div class="campo">
+              <label for="f-edad">Edad</label>
+              <input id="f-edad" name="edad" type="number" inputmode="numeric" min="14" max="70" placeholder="18">
+              <span class="msg" id="e-edad"></span>
+            </div>
+
+            <fieldset class="campo">
+              <legend>¿Ya saliste bachiller?</legend>
+              <div class="chips" id="g-bachiller">
+                <label class="chip"><input type="radio" name="bachiller" value="Sí"><span>Sí</span></label>
+                <label class="chip"><input type="radio" name="bachiller" value="Este año"><span>Este año</span></label>
+                <label class="chip"><input type="radio" name="bachiller" value="No"><span>No</span></label>
+              </div>
+              <span class="msg" id="e-bachiller"></span>
+            </fieldset>
+
+            <div class="tutor" id="tutor" hidden>
+              <p>Como eres menor de edad, necesitamos el contacto de tu padre, madre o tutor.</p>
+              <div class="campo">
+                <label for="f-tutor-nombre">Nombre del padre, madre o tutor</label>
+                <input id="f-tutor-nombre" name="tutor_nombre" autocomplete="off">
+                <span class="msg" id="e-tutor-nombre"></span>
+              </div>
+              <div class="campo">
+                <label for="f-tutor-tel">Celular del padre, madre o tutor</label>
+                <input id="f-tutor-tel" name="tutor_celular" type="tel" inputmode="tel" placeholder="71234567">
+                <span class="msg" id="e-tutor-tel"></span>
+              </div>
+            </div>
+
+            <fieldset class="campo full">
+              <legend>¿A qué hora prefieres que te llamemos?</legend>
+              <div class="chips" id="g-horario">
+                <label class="chip"><input type="radio" name="horario" value="Mañana"><span>Mañana</span></label>
+                <label class="chip"><input type="radio" name="horario" value="Tarde"><span>Tarde</span></label>
+                <label class="chip"><input type="radio" name="horario" value="Noche"><span>Noche</span></label>
+              </div>
+              <span class="msg" id="e-horario"></span>
+            </fieldset>
+
+            <div class="campo full">
+              <label for="f-fuente">¿Cómo nos conociste? <span class="opc">(opcional)</span></label>
+              <select id="f-fuente" name="como_nos_conocio">
+                <option value="">Elige una opción</option>
+                <option>Facebook</option><option>Instagram</option><option>TikTok</option>
+                <option>Recomendación de alguien</option><option>Otro</option>
+              </select>
+            </div>
+
+            <div class="campo full">
+              <label class="check" for="f-privacidad">
+                <input id="f-privacidad" name="privacidad" type="checkbox">
+                <span>Acepto que Aerobol Academy use mis datos para contactarme, según su <a href="#" data-link="privacidad">política de privacidad</a>.</span>
+              </label>
+              <span class="msg" id="e-privacidad"></span>
+            </div>
+
+            <div class="hp" aria-hidden="true">
+              <label for="f-web">No llenar</label>
+              <input id="f-web" name="botcheck" tabindex="-1" autocomplete="off">
+            </div>
+          </div>
+
+          <button class="btn enviar" id="enviar" type="submit">Quiero que me llamen</button>
+          <div class="form-error" id="form-error" role="alert" hidden>
+            <span>No pudimos enviar tu registro. Revisa tu conexión o escríbenos directo por WhatsApp con tus datos ya cargados.</span>
+            <a class="btn" id="wa-respaldo" href="#" target="_blank" rel="noopener">Enviar mis datos por WhatsApp</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Acceso corporativo · Aerobol Academy</title><link rel="stylesheet" href="corporativo.css"></head>
+<body class="login-page">
+  <main class="login-shell">
+    <section class="login-story">
+      <a class="brand brand-light" href="../"><img class="logo-oficial" src="../assets/logo-aerobol-transparente.png" alt="AeroBol Academy" width="180" height="80"></a>
+      <div class="story-copy"><span class="eyebrow">PORTAL CORPORATIVO</span><h1>Cada gran vuelo <br>empieza con <br>una conversación.</h1><p>Acompaña a los futuros profesionales de la aviación desde su primer contacto.</p></div>
+      <span class="story-foot">Aerobol Academy · Equipo de admisiones</span>
+    </section>
+    <section class="login-content" aria-labelledby="login-title">
+      <a class="back-link" href="../">← Volver al sitio web</a>
+      <div class="login-form-wrap"><span class="login-symbol" aria-hidden="true">↗</span><h2 id="login-title">Bienvenido de nuevo</h2><p class="muted">Ingresa al panel de admisiones.</p>
+        <form id="login-form">
+          <label for="email">Correo electrónico</label><input id="email" type="email" autocomplete="username" placeholder="tu.nombre@aerobol.com" required>
+          <label for="password">Contraseña</label><div class="password-wrap"><input id="password" type="password" autocomplete="current-password" placeholder="Ingresa tu contraseña" required><button type="button" class="password-toggle" aria-label="Mostrar contraseña">Mostrar</button></div>
+          <p id="login-error" class="login-error" role="alert" hidden></p>
+          <button class="primary login-submit" type="submit">Iniciar sesión <span>→</span></button>
+        </form>
+        <div class="demo-note"><strong>Acceso de demostración</strong><p>Ingresa con la cuenta temporal del equipo. El panel recibe las preinscripciones de la landing.</p></div>
+      </div><p class="login-foot">Acceso exclusivo para el equipo de Aerobol Academy.</p>
+    </section>
+  </main><script src="login.js"></script>
+</body></html>

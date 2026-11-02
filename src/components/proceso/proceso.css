@@ -1,0 +1,10 @@
+/* Pasos de inscripción sobre el cielo del inicio. */
+#proceso { position: relative; color: #fff; background: linear-gradient(180deg, rgba(7,17,31,.75), rgba(7,17,31,.68) 40%, #0b1828), url("assets/nubes.jpg") center 60% / cover no-repeat; }
+#proceso .sec-head { max-width: 660px; margin-bottom: 52px; }
+.proceso { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 18px; counter-reset: paso; }
+.proceso li { position: relative; padding: 28px 24px; counter-increment: paso; border: 1px solid rgba(213,225,239,.24); border-radius: 16px; background: rgba(10,24,40,.88); }
+.proceso li::before { content: "0" counter(paso); display: block; margin-bottom: 28px; color: #f0c47c; font-size: 2.2rem; font-weight: 700; line-height: 1; letter-spacing: -.04em; }
+.proceso h3 { margin-bottom: 12px; font-size: 1.12rem; line-height: 1.25; }
+.proceso p { color: #c7d3e1; font-size: .94rem; line-height: 1.65; }
+@media (max-width: 1000px) { .proceso { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+@media (max-width: 600px) { .proceso { grid-template-columns: 1fr; gap: 12px; } .proceso li { padding: 24px 24px 24px 84px; } .proceso li::before { position: absolute; top: 26px; left: 24px; font-size: 1.8rem; } }

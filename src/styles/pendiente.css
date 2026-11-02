@@ -1,0 +1,6 @@
+/* Pendiente de confirmar (solo visible en revisión) */
+.tbd {
+  background: rgba(244,183,64,.22); color: inherit;
+  border-bottom: 2px dashed var(--ambar);
+  padding: 0 4px; border-radius: 3px; font-weight: 600;
+}

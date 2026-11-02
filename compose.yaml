@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: aerobol
+      POSTGRES_USER: aerobol
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Configura POSTGRES_PASSWORD en .env}
+      TZ: America/La_Paz
+    volumes:
+      - aerobol-db17:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U aerobol -d aerobol"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - database
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${AEROBOL_ENVIRONMENT:-Development}
+      ConnectionStrings__Aerobol: "Host=postgres;Port=5432;Database=aerobol;Username=aerobol;Password=${POSTGRES_PASSWORD};SSL Mode=Disable"
+      AllowedHosts: ${AEROBOL_ALLOWED_HOSTS:-localhost;127.0.0.1}
+      Aerobol__DetrasDeProxy: ${AEROBOL_BEHIND_PROXY:-false}
+      Aerobol__ProxiesConfiables: ${AEROBOL_TRUSTED_PROXY_CIDRS:-}
+    volumes:
+      - aerobol-keys:/keys
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      - database
+      - frontend
+networks:
+  database:
+    internal: true
+  frontend: {}
+volumes:
+  aerobol-db17:
+  aerobol-keys:

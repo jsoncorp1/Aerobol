@@ -1,0 +1,14 @@
+/* Pase de abordar (confirmación) */
+.pase { background: var(--papel); color: var(--tinta); border-radius: 18px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
+.pase-top { background: var(--morado); color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 700; font-stretch: 112%; }
+.pase-body { padding: 24px; display: grid; gap: 20px; }
+.pase-ruta { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 12px; }
+.pase-ruta .lbl, .pase-datos .lbl { color: var(--tinta-suave); font-size: .78rem; font-weight: 600; letter-spacing: .03em; }
+.pase-ruta strong { display: block; font-size: 1.35rem; font-stretch: 118%; line-height: 1.15; }
+.pase-ruta .der { text-align: right; }
+.pase-datos { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; padding-top: 18px; border-top: 2px dashed var(--linea-claro); }
+.pase-datos strong { display: block; font-variant-numeric: tabular-nums; }
+.pase-body > p { color: var(--tinta-suave); }
+@media (max-width: 480px) { .pase-datos { grid-template-columns: 1fr 1fr; } }
+
+.pase-top > span:last-child { max-width: 62%; font-size: .68rem; overflow-wrap: anywhere; text-align: right; }

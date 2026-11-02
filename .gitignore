@@ -1,0 +1,11 @@
+# Backend .NET y configuración privada local
+**/bin/
+**/obj/
+.local/
+Monolito/wwwroot/
+*.user
+*.suo
+.env
+.env.*
+!.env.example
+!.env.coolify.example

@@ -1,0 +1,12 @@
+/* ───────── PROMOCIÓN ───────── */
+.promo { background: linear-gradient(115deg, #15283f, #162339 60%, #382c30); color: var(--luna); border-block: 1px solid rgba(244,183,64,.2); }
+.promo .wrap { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 24px 40px; padding-block: 32px; }
+.promo h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); }
+.promo p { color: var(--luna-suave); margin-top: 8px; max-width: 62ch; }
+.promo .letra { font-size: .8rem; margin-top: 10px; color: var(--luna-suave); opacity: .85; }
+.reloj { display: grid; justify-items: start; gap: 12px; padding: 22px 26px; border: 1px solid rgba(244,183,64,.28); border-radius: 14px; background: rgba(7,17,31,.38); }
+.reloj .dias { display: flex; align-items: baseline; gap: 10px; color: var(--ambar); font-variant-numeric: tabular-nums; }
+.reloj .dias b { font-size: 2.6rem; font-weight: 800; font-stretch: 125%; line-height: 1; }
+.reloj .dias span { font-weight: 600; }
+.reloj .cupos { font-size: var(--t-small); color: var(--luna); }
+@media (max-width: 760px) { .promo .wrap { grid-template-columns: 1fr; } }

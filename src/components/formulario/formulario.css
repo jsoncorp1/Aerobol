@@ -1,0 +1,70 @@
+/* Formulario sobre una pista al atardecer. */
+.pista { position: relative; isolation: isolate; overflow: hidden; background: #081522; color: var(--luna); }
+.pista::before { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 1160px; max-height: 100%; background: linear-gradient(180deg, rgba(8,21,34,.8), rgba(8,21,34,.25) 55%, #081522), url("assets/pista-atardecer.webp") 36% top / auto 1160px no-repeat; }
+.pista-intro .lead, .pista-intro ul { color: #d5dfeb; }
+.form-cabecera { margin-bottom: 26px; padding-bottom: 22px; border-bottom: 1px solid #d8e0ea; }
+.form-cabecera span { font-size: 1.3rem; font-weight: 700; line-height: 1.3; }
+.form-cabecera p { color: var(--tinta-suave); font-size: .9rem; margin-top: 6px; }
+@media (max-width: 600px) { .pista::before { height: 860px; background: linear-gradient(180deg, rgba(8,21,34,.88), rgba(8,21,34,.4) 55%, #081522), url("assets/pista-atardecer-movil.webp") 40% top / auto 860px no-repeat; } .pista .wrap { gap: 130px; } }
+.pista .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.35fr); gap: clamp(32px, 6vw, 72px); align-items: start; }
+.pista h2 { color: var(--papel); }
+.pista-intro { display: grid; gap: 20px; position: sticky; top: 24px; padding: 28px; border-radius: 18px; border: 1px solid rgba(213,225,239,.2); background: rgba(8,21,34,.78); }
+.pista-intro ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; color: var(--luna-suave); }
+.pista-intro li { display: flex; gap: 10px; }
+.pista-intro li svg { flex: none; color: var(--verde-claro); margin-top: 4px; }
+@media (max-width: 900px) { .pista .wrap { grid-template-columns: 1fr; } .pista-intro { position: static; } }
+
+.form-card { background: var(--papel); color: var(--tinta); border-radius: 18px; padding: clamp(22px, 4vw, 36px); box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px 16px; }
+.campo { display: grid; gap: 6px; min-width: 0; }
+.campo.full { grid-column: 1 / -1; }
+.campo label, .campo legend { font-weight: 600; font-size: .95rem; }
+.campo .opc { font-weight: 400; color: var(--tinta-suave); }
+.campo input, .campo select {
+  width: 100%; min-height: 50px; padding: 0 14px; border-radius: 10px;
+  border: 1.5px solid var(--linea-claro); background: #F8FAFC; color: var(--tinta);
+  font: 400 1rem var(--f);
+}
+.campo input:focus, .campo select:focus { outline: none; border-color: var(--morado); box-shadow: 0 0 0 3px rgba(91,37,99,.18); background: #fff; }
+.campo.err input, .campo.err select { border-color: var(--error); }
+.campo .msg { color: var(--error); font-size: .85rem; line-height: 1.35; }
+.validado .campo .msg { min-height: 1.35em; } /* tras el primer intento, el espacio queda reservado: nada salta al corregir */
+.validado .tutor .campo .msg { min-height: 2.7em; }
+.tel { display: grid; grid-template-columns: 112px minmax(0,1fr); gap: 8px; }
+fieldset.campo { border: 0; margin: 0; padding: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.chip span {
+  display: inline-flex; align-items: center; min-height: 42px; padding: 0 16px; border-radius: 999px;
+  border: 1.5px solid var(--linea-claro); background: #F8FAFC; font-size: .95rem; font-weight: 500;
+}
+.chip input:checked + span { background: var(--morado); border-color: var(--morado); color: #fff; }
+.chip input:focus-visible + span { outline: 3px solid var(--ambar); outline-offset: 2px; }
+.tutor { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px 16px; padding: 18px; border-radius: 12px; background: #F1F5FA; border: 1px dashed var(--linea-claro); }
+.tutor > p { grid-column: 1 / -1; font-size: .9rem; color: var(--tinta-suave); }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: .92rem; color: var(--tinta-suave); }
+.check input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--morado); flex: none; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.enviar { width: 100%; margin-top: 8px; min-height: 56px; font-size: 1.1rem; }
+.form-error { margin-top: 14px; padding: 14px 16px; border-radius: 10px; background: #FDECEA; color: var(--error); font-size: .95rem; display: grid; gap: 10px; }
+@media (max-width: 560px) { .form-grid, .tutor { grid-template-columns: 1fr; } }
+
+@media (max-width: 600px) { .pista .wrap { gap: 130px; } .pista-intro { padding: 24px; } }
+
+/* Superficies claras y menos elementos decorativos. */
+.pista { background: #f2f6f9; color: var(--tinta); }
+.pista::before { display: none; }
+.pista h2 { color: var(--tinta); }
+.pista-intro { padding: 12px 0; border: 0; background: none; border-radius: 0; gap: 18px; }
+.pista-intro .lead { color: var(--tinta-suave); }
+.form-card { border: 1px solid #e2e9ef; box-shadow: 0 12px 40px -20px #243e5626; }
+@media(max-width: 900px) { .pista .wrap { gap: 32px; } }
+
+/* Pista al atardecer: conserva el paisaje sin la capa nocturna. */
+.pista { background: #284454; color: #fff; }
+.pista::before { display: block; inset: 0; height: 100%; max-height: none; background: linear-gradient(180deg,rgba(17,40,56,.34),rgba(17,40,56,.46)),url("assets/pista-atardecer.webp") center / cover no-repeat; }
+.pista h2 { color: #fff; text-shadow: 0 2px 18px #10253644; }
+.pista-intro .lead { color: #f0f4f8; text-shadow: 0 1px 8px #10253666; }
+.form-card { background: rgba(255,255,255,.95); border-color: rgba(255,255,255,.6); box-shadow: 0 16px 48px #10253633; }
+@media(max-width: 600px) { .pista::before { background: linear-gradient(180deg,rgba(17,40,56,.3),rgba(17,40,56,.48)),url("assets/pista-atardecer-movil.webp") center / cover no-repeat; } }

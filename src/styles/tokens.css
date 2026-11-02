@@ -1,0 +1,31 @@
+/* Concepto "Despegue": la página es un vuelo. Cielo al amanecer (portada) → tablero de salidas (carreras) → pista nocturna (formulario) → pase de abordar (confirmación). Una sola familia, Archivo, jugando con su ancho: expandida para titulares, como la rotulación de un fuselaje. */
+:root {
+  --noche: #0D1B2E;      /* cielo nocturno, tablero, pista */
+  --noche-2: #15283F;    /* superficies sobre la noche */
+  --morado: #5B2563;     /* morado Aerobol (marca) [CONFIRMAR código exacto] */
+  --verde: #0F8A66;      /* verde Aerobol: acciones */
+  --verde-claro: #3FD3A4;/* verde sobre fondos oscuros */
+  --lavanda: #F2F5F9;    /* secciones claras */
+  --papel: #FFFFFF;      /* tarjetas claras, pase de abordar */
+  --tinta: #14202F;      /* texto sobre claro */
+  --tinta-suave: #5B6878;/* texto secundario sobre claro */
+  --luna: #E9EEF5;       /* texto sobre oscuro */
+  --luna-suave: #A9B7C9; /* secundario sobre oscuro */
+  --ambar: #F4B740;      /* luces de pista, cuenta regresiva */
+  --error: #B42318;
+  --error-oscuro: #FF9C8F;
+  --linea-claro: #D8E0EA;
+  --linea-oscuro: #29415E;
+
+  --f: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --t-hero: clamp(2.4rem, 7vw, 4.9rem);
+  --t-h2: clamp(1.8rem, 4.2vw, 2.9rem);
+  --t-h3: 1.25rem;
+  --t-body: 1.0625rem;
+  --t-small: 0.875rem;
+
+  --ancho: 1120px;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: light;
+}

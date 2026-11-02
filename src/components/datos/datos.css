@@ -1,0 +1,17 @@
+/* ───────── DATOS RÁPIDOS ───────── */
+.resumen { background: #07111F; color: var(--luna); padding-block: clamp(32px, 6vw, 64px); }
+.datos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.dato {
+  display: grid; gap: 6px; align-content: start; padding: 20px 22px; border-radius: 14px;
+  background: rgba(10,22,38,.62); border: 1px solid rgba(233,238,245,.16);
+  opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+  transition-delay: calc(var(--i, 0) * 120ms);
+}
+.dato.visible { opacity: 1; transform: none; }
+.dato .eti { font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--ambar); }
+.dato:nth-child(2) .eti { color: #8FC5FF; }
+.dato:nth-child(3) .eti { color: var(--verde-claro); }
+.dato strong { font-size: 1.2rem; font-weight: 800; font-stretch: 88%; text-transform: uppercase; color: #fff; }
+.dato .txt { color: var(--luna); opacity: .78; font-size: var(--t-small); }
+@media (max-width: 760px) { .datos { grid-template-columns: 1fr; gap: 12px; } }
+@media (prefers-reduced-motion: reduce) { .dato { opacity: 1; transform: none; transition: none; } }

@@ -1,0 +1,5 @@
+/* Logo derivado del archivo oficial, sin el fondo de presentación. */
+.marca { display: inline-flex; align-items: center; flex-shrink: 0; text-decoration: none; }
+.logo-oficial { display: block; width: 200px; height: 76px; object-fit: contain; }
+.hero .logo-oficial { filter: none; }
+@media(max-width:600px) { .logo-oficial { width: 150px; height: 60px; } }

@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/Monolito/">
+    <Project Path="Monolito/Aerobol.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <Project Path="Tests/Aerobol.Tests.csproj" />
+  </Folder>
+</Solution>

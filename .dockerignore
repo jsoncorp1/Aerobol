@@ -1,0 +1,14 @@
+.git
+.local
+**/bin
+**/obj
+Monolito/wwwroot
+**/*.xlsx
+**/vista-*.png
+**/prueba-*.png
+**/*.user
+**/*.suo
+.env
+.env.*
+!.env.example
+!.env.coolify.example

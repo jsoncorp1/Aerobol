@@ -1,0 +1,944 @@
+<title>Aerobol Academy</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Preinscríbete gratis en Aerobol Academy y asegura tu cupo para la gestión 2027. Pilotos, tripulantes de cabina, despachadores y técnicos aeronáuticos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap">
+<style>
+/* Concepto "Despegue": la página es un vuelo. Cielo al amanecer (portada) → tablero de salidas (carreras) → pista nocturna (formulario) → pase de abordar (confirmación). Una sola familia, Archivo, jugando con su ancho: expandida para titulares, como la rotulación de un fuselaje. */
+:root {
+  --noche: #0D1B2E;      /* cielo nocturno, tablero, pista */
+  --noche-2: #15283F;    /* superficies sobre la noche */
+  --morado: #5B2563;     /* morado Aerobol (marca) [CONFIRMAR código exacto] */
+  --verde: #0F8A66;      /* verde Aerobol: acciones */
+  --verde-claro: #3FD3A4;/* verde sobre fondos oscuros */
+  --lavanda: #F2F5F9;    /* secciones claras */
+  --papel: #FFFFFF;      /* tarjetas claras, pase de abordar */
+  --tinta: #14202F;      /* texto sobre claro */
+  --tinta-suave: #5B6878;/* texto secundario sobre claro */
+  --luna: #E9EEF5;       /* texto sobre oscuro */
+  --luna-suave: #A9B7C9; /* secundario sobre oscuro */
+  --ambar: #F4B740;      /* luces de pista, cuenta regresiva */
+  --error: #B42318;
+  --error-oscuro: #FF9C8F;
+  --linea-claro: #D8E0EA;
+  --linea-oscuro: #29415E;
+
+  --f: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --t-hero: clamp(2.4rem, 7vw, 4.9rem);
+  --t-h2: clamp(1.8rem, 4.2vw, 2.9rem);
+  --t-h3: 1.25rem;
+  --t-body: 1.0625rem;
+  --t-small: 0.875rem;
+
+  --ancho: 1120px;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--lavanda);
+  color: var(--tinta);
+  font-family: var(--f);
+  font-size: var(--t-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+h1, h2, h3 { margin: 0; line-height: 1.08; text-wrap: balance; }
+h2 { font-size: var(--t-h2); font-weight: 800; font-stretch: 118%; letter-spacing: -0.01em; }
+h3 { font-size: var(--t-h3); font-weight: 700; font-stretch: 105%; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--ambar); outline-offset: 3px; border-radius: 4px; }
+
+.wrap { max-width: var(--ancho); margin: 0 auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.band { padding-block: clamp(64px, 10vw, 120px); }
+.lead { color: var(--tinta-suave); max-width: 60ch; font-size: 1.125rem; }
+.oscuro .lead { color: var(--luna-suave); }
+.sec-head { display: grid; gap: 16px; margin-bottom: clamp(32px, 5vw, 56px); max-width: 720px; }
+.seccion-etiqueta { display: flex; align-items: center; gap: 12px; color: var(--ambar); font-size: .72rem; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; line-height: 1.6; }
+.seccion-etiqueta::before { content: ""; width: 28px; height: 1px; background: currentColor; flex: none; }
+
+/* Botones */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 52px; padding: 0 26px; border: 0; border-radius: 999px;
+  font: 700 1.0625rem/1 var(--f); font-stretch: 108%;
+  text-decoration: none; cursor: pointer;
+  background: var(--verde); color: #fff;
+  transition: transform .15s ease, background .15s ease;
+}
+.btn:hover { background: #0B7656; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn[disabled] { opacity: .65; cursor: progress; transform: none; }
+.btn-linea { background: transparent; color: inherit; box-shadow: inset 0 0 0 2px currentColor; }
+.btn-linea:hover { background: rgba(255,255,255,.08); }
+
+/* Pendiente de confirmar (solo visible en revisión) */
+.tbd {
+  background: rgba(244,183,64,.22); color: inherit;
+  border-bottom: 2px dashed var(--ambar);
+  padding: 0 4px; border-radius: 3px; font-weight: 600;
+}
+
+/* Logo derivado del archivo oficial, sin el fondo de presentación. */
+.marca { display: inline-flex; align-items: center; flex-shrink: 0; text-decoration: none; }
+.logo-oficial { display: block; width: 200px; height: 76px; object-fit: contain; }
+.hero .logo-oficial { filter: none; }
+@media(max-width:600px) { .logo-oficial { width: 150px; height: 60px; } }
+
+/* ───────── PORTADA ───────── */
+.hero {
+  position: relative; overflow: hidden; color: var(--luna);
+  min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column;
+  background: linear-gradient(180deg, #071120 0%, var(--noche) 45%, #1F3A5F 100%);
+}
+.hero-marco { position: relative; z-index: 3; display: flex; flex-direction: column; flex: 1; width: 100%; }
+
+/* Video decorativo con portada estática de respaldo. */
+.escena { position: absolute; z-index: 1; inset: 0; pointer-events: none; background: #071120 url("assets/efa-avion-poster.jpg") center / cover no-repeat; }
+.hero-video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,17,31,.16), transparent 30%, rgba(7,17,31,.06) 55%, rgba(7,17,31,.5)); }
+
+/* Menú: solo logo y un botón */
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
+.btn-claro { min-height: 44px; padding: 0 20px; font-size: .9rem; background: rgba(7,17,31,.5); color: #fff; border: 1px solid rgba(255,255,255,.55); }
+.btn-claro span { font-size: 1.2rem; }
+.btn.btn-claro:hover { background: #fff; color: var(--noche); }
+@media (max-width: 420px) { .nav { gap: 10px; } .btn-claro { padding-inline: 13px; font-size: .78rem; gap: 6px; } }
+
+/* Contenido: título y subtítulo en la zona baja, como en la referencia */
+.hero-body { flex: 1; display: grid; justify-items: center; align-content: end; gap: 14px; text-align: center; padding-block: 40px 28px; }
+.hero h1 {
+  max-width: 20ch; font-size: clamp(1.75rem, 3.8vw, 2.9rem); font-weight: 700; font-stretch: 100%;
+  letter-spacing: -.02em; line-height: 1.08; text-shadow: 0 4px 34px rgba(0,0,0,.6);
+}
+.hero .sub { max-width: 52ch; text-wrap: balance; font-size: clamp(.95rem, 1.5vw, 1.1rem); color: var(--luna); opacity: .92; text-shadow: 0 2px 16px rgba(0,0,0,.65); }
+
+.deslice {
+  position: relative; z-index: 3; align-self: center; display: grid; justify-items: center; gap: 2px;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  color: var(--luna); font-size: .66rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; text-decoration: none;
+  transition: opacity .4s ease, transform .4s ease;
+}
+.deslice.oculto { opacity: 0; transform: translateY(10px); pointer-events: none; }
+.deslice svg { animation: rebote 1.8s ease-in-out infinite; }
+@keyframes rebote { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+.hero-body > *, .deslice { animation: sube .9s cubic-bezier(.2,.7,.2,1) backwards; animation-delay: calc(var(--i, 0) * 140ms + 300ms); }
+@keyframes sube { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .deslice svg, .hero-body > *, .deslice { animation: none !important; }
+}
+
+
+/* Compensa la exposición del clip para una portada más luminosa. */
+.hero-video { filter: brightness(1.3) saturate(1.06); }
+
+/* Presentación clara, con el video como protagonista. */
+.conocenos { background: #fff; color: var(--tinta); }
+.conocenos-layout { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: clamp(32px,6vw,80px); align-items: center; }
+.conocenos-contenido { display: grid; justify-items: start; gap: 22px; max-width: 380px; }
+.conocenos h2 { font-size: clamp(2.2rem,4.5vw,3.6rem); letter-spacing: -.035em; }
+.conocenos .lead { color: var(--tinta-suave); line-height: 1.7; }
+.conocenos-accion { margin-top: 4px; font-size: .95rem; }
+.conocenos-media { position: relative; overflow: hidden; border-radius: 16px; background: #edf3f8; border: 1px solid #dfe8ef; }
+.conocenos-media iframe { display: block; width: 100%; aspect-ratio: 16/9; border: 0; }
+.conocenos-media img { display: block; width: 100%; }
+.video-pendiente { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; aspect-ratio: 16/9; padding: 24px; text-align: center; background: linear-gradient(140deg,#eaf3fa,#dbe9f2); }
+.video-play { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; background: #fff; color: var(--verde); box-shadow: 0 8px 30px #28486412; }
+.video-pendiente strong { color: var(--tinta); font-size: 1rem; }
+.video-pendiente p { color: var(--tinta-suave); font-size: .8rem; }
+.conocenos-media .video-portada { position: absolute; inset: 0; height: 100%; object-fit: cover; }
+@media(max-width: 800px) { .conocenos-layout { grid-template-columns: 1fr; } .conocenos-contenido { max-width: 520px; } }
+
+/* Fondo de cabina con luz natural y contenido legible. */
+.conocenos { position: relative; isolation: isolate; background: #203c50; color: #fff; }
+.conocenos::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg,rgba(12,31,48,.66),rgba(12,31,48,.36) 50%,rgba(12,31,48,.12)),url("assets/asientos-avion.webp") center 52% / cover no-repeat; }
+.conocenos h2 { color: #fff; }
+.conocenos .lead { color: #f0f4f8; text-shadow: 0 1px 8px #10253644; }
+.conocenos-media { background: rgba(235,244,250,.12); border-color: rgba(255,255,255,.32); box-shadow: 0 16px 40px #10253624; }
+.video-pendiente { background: linear-gradient(135deg,rgba(34,68,90,.42),rgba(17,43,62,.62)); }
+.video-pendiente strong { color: #fff; }
+.video-pendiente p { color: #e3edf4; }
+.video-play { background: rgba(255,255,255,.92); }
+@media(max-width: 800px) { .conocenos::before { background: linear-gradient(180deg,rgba(12,31,48,.64),rgba(12,31,48,.28)),url("assets/asientos-avion-movil.webp") center / cover no-repeat; } }
+
+.video-credito { padding: 10px 16px; color: #e3edf4; font-size: .75rem; background: rgba(12,31,48,.5); }
+.video-credito a { text-underline-offset: 3px; }
+
+/* En móvil, cada visita a Conócenos presenta una pantalla completa. */
+@media (max-width: 800px) {
+  .conocenos {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding-block: max(32px, env(safe-area-inset-top, 0px)) max(32px, env(safe-area-inset-bottom, 0px));
+    scroll-margin-top: 0;
+  }
+  .conocenos-layout { width: 100%; gap: clamp(24px, 5svh, 44px); }
+  .conocenos-contenido { gap: 18px; }
+}
+
+/* Formulario sobre una pista al atardecer. */
+.pista { position: relative; isolation: isolate; overflow: hidden; background: #081522; color: var(--luna); }
+.pista::before { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 1160px; max-height: 100%; background: linear-gradient(180deg, rgba(8,21,34,.8), rgba(8,21,34,.25) 55%, #081522), url("assets/pista-atardecer.webp") 36% top / auto 1160px no-repeat; }
+.pista-intro .lead, .pista-intro ul { color: #d5dfeb; }
+.form-cabecera { margin-bottom: 26px; padding-bottom: 22px; border-bottom: 1px solid #d8e0ea; }
+.form-cabecera span { font-size: 1.3rem; font-weight: 700; line-height: 1.3; }
+.form-cabecera p { color: var(--tinta-suave); font-size: .9rem; margin-top: 6px; }
+@media (max-width: 600px) { .pista::before { height: 860px; background: linear-gradient(180deg, rgba(8,21,34,.88), rgba(8,21,34,.4) 55%, #081522), url("assets/pista-atardecer-movil.webp") 40% top / auto 860px no-repeat; } .pista .wrap { gap: 130px; } }
+.pista .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.35fr); gap: clamp(32px, 6vw, 72px); align-items: start; }
+.pista h2 { color: var(--papel); }
+.pista-intro { display: grid; gap: 20px; position: sticky; top: 24px; padding: 28px; border-radius: 18px; border: 1px solid rgba(213,225,239,.2); background: rgba(8,21,34,.78); }
+.pista-intro ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; color: var(--luna-suave); }
+.pista-intro li { display: flex; gap: 10px; }
+.pista-intro li svg { flex: none; color: var(--verde-claro); margin-top: 4px; }
+@media (max-width: 900px) { .pista .wrap { grid-template-columns: 1fr; } .pista-intro { position: static; } }
+
+.form-card { background: var(--papel); color: var(--tinta); border-radius: 18px; padding: clamp(22px, 4vw, 36px); box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px 16px; }
+.campo { display: grid; gap: 6px; min-width: 0; }
+.campo.full { grid-column: 1 / -1; }
+.campo label, .campo legend { font-weight: 600; font-size: .95rem; }
+.campo .opc { font-weight: 400; color: var(--tinta-suave); }
+.campo input, .campo select {
+  width: 100%; min-height: 50px; padding: 0 14px; border-radius: 10px;
+  border: 1.5px solid var(--linea-claro); background: #F8FAFC; color: var(--tinta);
+  font: 400 1rem var(--f);
+}
+.campo input:focus, .campo select:focus { outline: none; border-color: var(--morado); box-shadow: 0 0 0 3px rgba(91,37,99,.18); background: #fff; }
+.campo.err input, .campo.err select { border-color: var(--error); }
+.campo .msg { color: var(--error); font-size: .85rem; line-height: 1.35; }
+.validado .campo .msg { min-height: 1.35em; } /* tras el primer intento, el espacio queda reservado: nada salta al corregir */
+.validado .tutor .campo .msg { min-height: 2.7em; }
+.tel { display: grid; grid-template-columns: 112px minmax(0,1fr); gap: 8px; }
+fieldset.campo { border: 0; margin: 0; padding: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { position: relative; }
+.chip input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+.chip span {
+  display: inline-flex; align-items: center; min-height: 42px; padding: 0 16px; border-radius: 999px;
+  border: 1.5px solid var(--linea-claro); background: #F8FAFC; font-size: .95rem; font-weight: 500;
+}
+.chip input:checked + span { background: var(--morado); border-color: var(--morado); color: #fff; }
+.chip input:focus-visible + span { outline: 3px solid var(--ambar); outline-offset: 2px; }
+.tutor { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px 16px; padding: 18px; border-radius: 12px; background: #F1F5FA; border: 1px dashed var(--linea-claro); }
+.tutor > p { grid-column: 1 / -1; font-size: .9rem; color: var(--tinta-suave); }
+.check { display: flex; gap: 12px; align-items: flex-start; font-size: .92rem; color: var(--tinta-suave); }
+.check input { width: 22px; height: 22px; margin: 2px 0 0; accent-color: var(--morado); flex: none; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.enviar { width: 100%; margin-top: 8px; min-height: 56px; font-size: 1.1rem; }
+.form-error { margin-top: 14px; padding: 14px 16px; border-radius: 10px; background: #FDECEA; color: var(--error); font-size: .95rem; display: grid; gap: 10px; }
+@media (max-width: 560px) { .form-grid, .tutor { grid-template-columns: 1fr; } }
+
+@media (max-width: 600px) { .pista .wrap { gap: 130px; } .pista-intro { padding: 24px; } }
+
+/* Superficies claras y menos elementos decorativos. */
+.pista { background: #f2f6f9; color: var(--tinta); }
+.pista::before { display: none; }
+.pista h2 { color: var(--tinta); }
+.pista-intro { padding: 12px 0; border: 0; background: none; border-radius: 0; gap: 18px; }
+.pista-intro .lead { color: var(--tinta-suave); }
+.form-card { border: 1px solid #e2e9ef; box-shadow: 0 12px 40px -20px #243e5626; }
+@media(max-width: 900px) { .pista .wrap { gap: 32px; } }
+
+/* Pista al atardecer: conserva el paisaje sin la capa nocturna. */
+.pista { background: #284454; color: #fff; }
+.pista::before { display: block; inset: 0; height: 100%; max-height: none; background: linear-gradient(180deg,rgba(17,40,56,.34),rgba(17,40,56,.46)),url("assets/pista-atardecer.webp") center / cover no-repeat; }
+.pista h2 { color: #fff; text-shadow: 0 2px 18px #10253644; }
+.pista-intro .lead { color: #f0f4f8; text-shadow: 0 1px 8px #10253666; }
+.form-card { background: rgba(255,255,255,.95); border-color: rgba(255,255,255,.6); box-shadow: 0 16px 48px #10253633; }
+@media(max-width: 600px) { .pista::before { background: linear-gradient(180deg,rgba(17,40,56,.3),rgba(17,40,56,.48)),url("assets/pista-atardecer-movil.webp") center / cover no-repeat; } }
+
+/* Pase de abordar (confirmación) */
+.pase { background: var(--papel); color: var(--tinta); border-radius: 18px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
+.pase-top { background: var(--morado); color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 700; font-stretch: 112%; }
+.pase-body { padding: 24px; display: grid; gap: 20px; }
+.pase-ruta { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 12px; }
+.pase-ruta .lbl, .pase-datos .lbl { color: var(--tinta-suave); font-size: .78rem; font-weight: 600; letter-spacing: .03em; }
+.pase-ruta strong { display: block; font-size: 1.35rem; font-stretch: 118%; line-height: 1.15; }
+.pase-ruta .der { text-align: right; }
+.pase-datos { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; padding-top: 18px; border-top: 2px dashed var(--linea-claro); }
+.pase-datos strong { display: block; font-variant-numeric: tabular-nums; }
+.pase-body > p { color: var(--tinta-suave); }
+@media (max-width: 480px) { .pase-datos { grid-template-columns: 1fr 1fr; } }
+
+.pase-top > span:last-child { max-width: 62%; font-size: .68rem; overflow-wrap: anywhere; text-align: right; }
+
+.pie { background: #fff; color: var(--tinta-suave); font-size: .9rem; border-top: 1px solid #e2e9ef; }
+.pie .wrap { display: grid; grid-template-columns: .85fr 1.1fr 1.1fr; gap: 36px; padding-block: 48px 24px; }
+.pie .marca { color: var(--tinta) !important; }
+.pie h3 { font-size: 1rem; color: var(--tinta); margin: 0 0 18px; font-weight: 700; }
+.pie address { font-style: normal; line-height: 1.7; }
+.pie-horario { margin-top: 12px; font-size: .82rem; }
+.pie-mapa { display: inline-block; margin-top: 14px; color: var(--verde); font-weight: 600; text-underline-offset: 4px; }
+.pie ul { padding: 0; margin: 0; list-style: none; display: grid; gap: 12px; }
+.pie li { display: grid; gap: 2px; overflow-wrap: anywhere; }
+.pie-etiqueta { font-size: .72rem; font-weight: 600; color: var(--tinta); }
+.pie-datos a { text-underline-offset: 4px; }
+.pie .legal { grid-column: 1/-1; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px 24px; padding-top: 22px; border-top: 1px solid #e2e9ef; font-size: .72rem; }
+@media(max-width: 700px) { .pie .wrap { grid-template-columns: 1fr 1fr; gap: 32px 24px; padding-block: 36px 24px; } .pie .wrap > div:first-child { grid-column: 1/-1; } }
+@media(max-width: 420px) { .pie .wrap { grid-template-columns: 1fr; } }
+
+/* ───────── FLOTANTES ───────── */
+.wa-float {
+  position: fixed; z-index: 30;
+  right: calc(20px + env(safe-area-inset-right, 0px)); bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center;
+  background: #25D366; color: #fff; box-shadow: 0 10px 24px -8px rgba(0,0,0,.45);
+}
+.barra-movil {
+  position: fixed; z-index: 30; left: 0; right: 0; bottom: 0;
+  padding: 10px max(16px, env(safe-area-inset-right, 0px)) calc(10px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(13,27,46,.96); display: none; gap: 10px; align-items: center;
+  transform: translateY(110%); transition: transform .25s ease;
+}
+.barra-movil .btn { flex: 1; min-height: 50px; }
+.barra-movil .wa-mini { width: 50px; height: 50px; flex: none; border-radius: 50%; display: grid; place-items: center; background: #25D366; color: #fff; }
+.barra-movil.visible { transform: translateY(0); }
+@media (max-width: 760px) {
+  .barra-movil { display: flex; }
+  .wa-float { display: none; }
+}
+
+.cookies {
+  position: fixed; z-index: 40; left: 0; right: 0; bottom: 0;
+  padding: 16px max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+}
+.cookies .caja { max-width: 760px; margin: 0 auto; background: var(--papel); color: var(--tinta); border-radius: 14px; padding: 18px 20px; box-shadow: 0 20px 50px -20px rgba(0,0,0,.5); display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; justify-content: space-between; }
+.cookies p { font-size: .9rem; color: var(--tinta-suave); flex: 1 1 320px; }
+.cookies .acc { display: flex; gap: 10px; }
+.cookies .btn { min-height: 44px; padding: 0 18px; font-size: .95rem; }
+.cookies .btn-linea { color: var(--morado); }
+</style>
+
+<!-- PORTADA -->
+<header class="hero" id="inicio">
+  <div class="escena" aria-hidden="true">
+    <video class="hero-video" id="hero-video" muted loop playsinline preload="metadata" poster="assets/efa-avion-poster.jpg">
+      <source src="assets/efa-avion.mp4" type="video/mp4">
+    </video>
+    <div class="velo"></div>
+  </div>
+
+  <div class="wrap hero-marco">
+    <nav class="nav" aria-label="Principal">
+      <a class="marca" href="#inicio"><img class="logo-oficial" src="assets/logo-aerobol-transparente.png" alt="AeroBol Academy" width="180" height="80"></a>
+      <a class="btn btn-claro" href="#vive">Conoce la academia <span aria-hidden="true">↗</span></a>
+    </nav>
+
+    <div class="hero-body">
+      <h1 id="hero-titulo" style="--i:0">Haz de tu pasión por volar tu futuro.</h1>
+      <p class="sub" style="--i:1">Descubre tu camino en la aviación con Aerobol Academy.</p>
+    </div>
+
+    <a class="deslice" id="deslice" href="#vive" style="--i:2">Deslice
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
+    </a>
+  </div>
+</header>
+
+<main>
+  <!-- CONÓCENOS -->
+  <section class="band conocenos con-media" id="vive" aria-labelledby="vive-titulo">
+    <div class="wrap conocenos-layout">
+      <div class="conocenos-contenido">
+        <h2 id="vive-titulo">Conócenos</h2>
+        <p class="lead" id="vive-texto"></p>
+        <a class="btn conocenos-accion" href="#preinscripcion">Solicitar información <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="conocenos-media" id="conocenos-media">
+        <div class="video-pendiente">
+          <span class="video-play" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <strong>Descubre nuestra academia</strong>
+          <p>Video de presentación <span aria-hidden="true">·</span> Próximamente</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO -->
+  <section class="band pista" id="preinscripcion" aria-labelledby="form-titulo">
+    <div class="wrap">
+      <div class="pista-intro">
+        <h2 id="form-titulo">Da el primer paso</h2>
+        <p class="lead">Déjanos tus datos. Te ayudamos a elegir tu camino en la aviación.</p>
+      </div>
+
+      <div id="form-zona">
+        <form class="form-card" id="form" novalidate>
+          <div class="form-grid">
+            <div class="campo full">
+              <label for="f-nombre">Nombre completo</label>
+              <input id="f-nombre" name="nombre" autocomplete="name" placeholder="Ej. Camila Rojas Suárez">
+              <span class="msg" id="e-nombre"></span>
+            </div>
+
+            <div class="campo full">
+              <label for="f-tel">WhatsApp</label>
+              <div class="tel">
+                <select id="f-pais" name="pais" aria-label="Código de país"></select>
+                <input id="f-tel" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="71234567">
+              </div>
+              <span class="msg" id="e-tel"></span>
+            </div>
+
+            <div class="campo">
+              <label for="f-correo">Correo <span class="opc">(opcional)</span></label>
+              <input id="f-correo" name="correo" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com">
+              <span class="msg" id="e-correo"></span>
+            </div>
+
+            <div class="campo">
+              <label for="f-ciudad">Ciudad</label>
+              <select id="f-ciudad" name="ciudad"></select>
+              <span class="msg" id="e-ciudad"></span>
+            </div>
+
+            <div class="campo full">
+              <label for="f-carrera">Carrera de interés</label>
+              <select id="f-carrera" name="carrera"></select>
+              <span class="msg" id="e-carrera"></span>
+            </div>
+
+            <fieldset class="campo full">
+              <legend>¿Cuándo te gustaría empezar?</legend>
+              <div class="chips" id="g-inicio">
+                <label class="chip"><input type="radio" name="inicio" value="Lo antes posible"><span>Lo antes posible</span></label>
+                <label class="chip"><input type="radio" name="inicio" value="Gestión 2027"><span>Gestión 2027</span></label>
+                <label class="chip"><input type="radio" name="inicio" value="Solo estoy averiguando"><span>Solo estoy averiguando</span></label>
+              </div>
+              <span class="msg" id="e-inicio"></span>
+            </fieldset>
+
+            <div class="campo">
+              <label for="f-edad">Edad</label>
+              <input id="f-edad" name="edad" type="number" inputmode="numeric" min="14" max="70" placeholder="18">
+              <span class="msg" id="e-edad"></span>
+            </div>
+
+            <fieldset class="campo">
+              <legend>¿Ya saliste bachiller?</legend>
+              <div class="chips" id="g-bachiller">
+                <label class="chip"><input type="radio" name="bachiller" value="Sí"><span>Sí</span></label>
+                <label class="chip"><input type="radio" name="bachiller" value="Este año"><span>Este año</span></label>
+                <label class="chip"><input type="radio" name="bachiller" value="No"><span>No</span></label>
+              </div>
+              <span class="msg" id="e-bachiller"></span>
+            </fieldset>
+
+            <div class="tutor" id="tutor" hidden>
+              <p>Como eres menor de edad, necesitamos el contacto de tu padre, madre o tutor.</p>
+              <div class="campo">
+                <label for="f-tutor-nombre">Nombre del padre, madre o tutor</label>
+                <input id="f-tutor-nombre" name="tutor_nombre" autocomplete="off">
+                <span class="msg" id="e-tutor-nombre"></span>
+              </div>
+              <div class="campo">
+                <label for="f-tutor-tel">Celular del padre, madre o tutor</label>
+                <input id="f-tutor-tel" name="tutor_celular" type="tel" inputmode="tel" placeholder="71234567">
+                <span class="msg" id="e-tutor-tel"></span>
+              </div>
+            </div>
+
+            <fieldset class="campo full">
+              <legend>¿A qué hora prefieres que te llamemos?</legend>
+              <div class="chips" id="g-horario">
+                <label class="chip"><input type="radio" name="horario" value="Mañana"><span>Mañana</span></label>
+                <label class="chip"><input type="radio" name="horario" value="Tarde"><span>Tarde</span></label>
+                <label class="chip"><input type="radio" name="horario" value="Noche"><span>Noche</span></label>
+              </div>
+              <span class="msg" id="e-horario"></span>
+            </fieldset>
+
+            <div class="campo full">
+              <label for="f-fuente">¿Cómo nos conociste? <span class="opc">(opcional)</span></label>
+              <select id="f-fuente" name="como_nos_conocio">
+                <option value="">Elige una opción</option>
+                <option>Facebook</option><option>Instagram</option><option>TikTok</option>
+                <option>Recomendación de alguien</option><option>Otro</option>
+              </select>
+            </div>
+
+            <div class="campo full">
+              <label class="check" for="f-privacidad">
+                <input id="f-privacidad" name="privacidad" type="checkbox">
+                <span>Acepto que Aerobol Academy use mis datos para contactarme, según su <a href="#" data-link="privacidad">política de privacidad</a>.</span>
+              </label>
+              <span class="msg" id="e-privacidad"></span>
+            </div>
+
+            <div class="hp" aria-hidden="true">
+              <label for="f-web">No llenar</label>
+              <input id="f-web" name="botcheck" tabindex="-1" autocomplete="off">
+            </div>
+          </div>
+
+          <button class="btn enviar" id="enviar" type="submit">Quiero que me llamen</button>
+          <div class="form-error" id="form-error" role="alert" hidden>
+            <span>No pudimos enviar tu registro. Revisa tu conexión o escríbenos directo por WhatsApp con tus datos ya cargados.</span>
+            <a class="btn" id="wa-respaldo" href="#" target="_blank" rel="noopener">Enviar mis datos por WhatsApp</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pie" id="contacto">
+  <div class="wrap">
+    <div>
+      <a class="marca" href="#" style="color:var(--luna)"><img class="logo-oficial" src="assets/logo-aerobol-transparente.png" alt="AeroBol Academy" width="180" height="80"></a>
+    </div>
+    <div class="pie-datos">
+      <h3>Visítanos</h3>
+      <address data-cfg="direccion"></address>
+      <p class="pie-horario" data-cfg="horarioAtencion"></p>
+      <a class="pie-mapa" id="pie-mapa" target="_blank" rel="noopener" hidden>Ver ubicación en el mapa ↗</a>
+    </div>
+    <div class="pie-datos">
+      <h3>Hablemos</h3>
+      <ul>
+        <li><span class="pie-etiqueta">WhatsApp</span><span id="pie-whatsapp"></span></li>
+        <li><span class="pie-etiqueta">Teléfono</span><span id="pie-telefono"></span></li>
+        <li><span class="pie-etiqueta">Correo</span><span id="pie-correo"></span></li>
+      </ul>
+    </div>
+    <div class="legal">
+      <span>© <span id="anio"></span> Aerobol Academy. Todos los derechos reservados.</span>
+      <span><a href="#" data-link="privacidad">Política de privacidad</a> · <a href="#" data-link="terminos">Términos y condiciones</a> · Desarrollado por JsonCorp</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" data-wa="float" href="#" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.2Z"/></svg>
+</a>
+
+<div class="barra-movil" id="barra-movil">
+  <a class="btn" href="#preinscripcion">Quiero información</a>
+  <a class="wa-mini" data-wa="barra" href="#" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.9 11.9 0 0 0 4.6 4c1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.8-1.2.2-.6.2-1.1.1-1.2l-.5-.2Z"/></svg>
+  </a>
+</div>
+
+<div class="cookies" id="cookies" hidden>
+  <div class="caja" role="dialog" aria-label="Aviso de cookies">
+    <p>Usamos almacenamiento esencial para que el formulario funcione. No usamos cookies de medición ni de publicidad. El video de Conócenos lo sirve YouTube. No vendemos tus datos.</p>
+    <div class="acc">
+      <button class="btn" type="button" id="ck-aceptar">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   CONFIGURACIÓN DE LA ACADEMIA
+   Todo lo que dice la página sale de aquí. Lo que empieza con "[" es un
+   dato pendiente de confirmar con Aerobol: se resalta en amarillo y la
+   página muestra un aviso de revisión hasta que no quede ninguno.
+   ===================================================================== */
+const CONFIG = {
+  academia: "Aerobol Academy",
+  whatsappNumero: "[CONFIRMAR: número con código 591]", // solo dígitos, ej. "59171234567"
+  whatsappVisible: "[CONFIRMAR]",
+  telefono: "[CONFIRMAR]",
+  correo: "[CONFIRMAR]",
+  direccion: "[CONFIRMAR: dirección de la academia]",
+  horarioAtencion: "[CONFIRMAR: horario de atención]",
+  mensajeWhatsapp: "Hola Aerobol, quiero información sobre sus carreras.",
+
+  // El formulario usa la API del monolito: /api/preinscripciones.
+
+  enlaces: { privacidad: "#", terminos: "#" },
+  redes: [
+    { nombre: "Facebook", url: "[CONFIRMAR]" },
+    { nombre: "Instagram", url: "[CONFIRMAR]" },
+    { nombre: "TikTok", url: "[CONFIRMAR]" }
+  ],
+
+  datosRapidos: [
+    { etiqueta: "Trayectoria", valor: "[CONFIRMAR] años", texto: "formando profesionales de la aviación" },
+    { etiqueta: "Egresados", valor: "[CONFIRMAR] egresados", texto: "trabajando en el sector aeronáutico" },
+    { etiqueta: "Validez oficial", valor: "Certificación [CONFIRMAR]", texto: "programas con validez oficial" }
+  ],
+
+
+  beneficios: [
+    { icono: "certificado", titulo: "Formación certificada", texto: "Programas avalados por [CONFIRMAR: DGAC u otra entidad], para que tu título tenga validez real." },
+    { icono: "piloto", titulo: "Instructores con experiencia real", texto: "Aprendes de pilotos y profesionales que vuelan o han volado en [CONFIRMAR: aerolíneas]." },
+    { icono: "despegue", titulo: "Práctica desde el inicio", texto: "[CONFIRMAR: simulador, aeronaves o prácticas en aeropuerto] para que llegues preparado a tu primer trabajo." },
+    { icono: "maleta", titulo: "Te acompañamos al empleo", texto: "[CONFIRMAR: convenios o bolsa de trabajo] con empresas del sector aeronáutico." }
+  ],
+
+  carreras: [
+    { codigo: "AB-101", nombre: "Piloto Privado", desc: "El primer paso para tomar los controles de un avión.", duracion: "[CONFIRMAR]", modalidad: "[CONFIRMAR]" },
+    { codigo: "AB-201", nombre: "Piloto Comercial", desc: "Conviértete en piloto profesional y vuela para una aerolínea.", duracion: "[CONFIRMAR]", modalidad: "[CONFIRMAR]" },
+    { codigo: "AB-301", nombre: "Tripulante de Cabina (TCP)", desc: "Seguridad y servicio a bordo: la cara de la aerolínea en cada vuelo.", duracion: "[CONFIRMAR]", modalidad: "[CONFIRMAR]" },
+    { codigo: "AB-401", nombre: "Despachador de Vuelo", desc: "Planificas desde tierra que cada vuelo salga y llegue seguro.", duracion: "[CONFIRMAR]", modalidad: "[CONFIRMAR]" },
+    { codigo: "AB-501", nombre: "Técnico en Mantenimiento Aeronáutico", desc: "Te aseguras de que cada avión esté listo para volar.", duracion: "[CONFIRMAR]", modalidad: "[CONFIRMAR]" }
+  ],
+
+  // «Conócenos»: espacio permanente para el video que entregará el cliente.
+  presentacion: {
+    titulo: "Conócenos",
+    texto: "Hay muchas formas de ser parte de la aviación. Descubre la tuya con Aerobol Academy.",
+    videoYoutubeId: "Nyr6UImPgbA", // ID del video promocional de YouTube, sin la URL completa.
+    imagen: "",         // Portada opcional mientras llega el video, ej. "assets/campana-aerobol.webp".
+    imagenAlt: "Presentación de Aerobol Academy"
+  },
+
+  ciudades: ["Santa Cruz", "La Paz", "Cochabamba", "Sucre", "Tarija", "Oruro", "Potosí", "Beni", "Pando", "Fuera de Bolivia"],
+  paises: [
+    { cod: "+591", nombre: "Bolivia", bandera: "🇧🇴" },
+    { cod: "+54", nombre: "Argentina", bandera: "🇦🇷" },
+    { cod: "+55", nombre: "Brasil", bandera: "🇧🇷" },
+    { cod: "+56", nombre: "Chile", bandera: "🇨🇱" },
+    { cod: "+51", nombre: "Perú", bandera: "🇵🇪" },
+    { cod: "+595", nombre: "Paraguay", bandera: "🇵🇾" },
+    { cod: "+34", nombre: "España", bandera: "🇪🇸" },
+    { cod: "+1", nombre: "Estados Unidos", bandera: "🇺🇸" }
+  ],
+
+  faq: [
+    { p: "¿La preinscripción tiene costo?", r: "No. Es gratuita y no te compromete a nada. Solo reservas tu interés y un asesor te contacta." },
+    { p: "¿Qué requisitos necesito?", r: "[CONFIRMAR: edad mínima, bachillerato, examen médico y otros requisitos]." },
+    { p: "¿Cuánto cuesta la carrera?", r: "[CONFIRMAR: precio, precio desde, o explicado por un asesor]." },
+    { p: "¿Hay planes de pago o becas?", r: "[CONFIRMAR]." },
+    { p: "¿El título tiene validez oficial?", r: "[CONFIRMAR: entidad que certifica]." },
+    { p: "¿Qué horarios tienen las clases?", r: "[CONFIRMAR]." },
+    { p: "¿Puedo preinscribirme si todavía estoy en el colegio?", r: "Sí. Puedes preinscribirte ahora y asegurar tu cupo para cuando salgas bachiller." }
+  ]
+};
+
+(function () {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  let pendientes = 0;
+  // Texto con marcas [CONFIRMAR …] resaltadas
+  const t = s => esc(s).replace(/\[[^\]]*\]/g, m => { pendientes++; return '<span class="tbd">' + m + "</span>"; });
+  const pendiente = v => typeof v === "string" && v.trim().startsWith("[");
+
+  const ss = {
+    get(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
+  };
+  const ls = {
+    get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  /* ---------- WhatsApp ---------- */
+  const whatsappDisponible = !pendiente(CONFIG.whatsappNumero) && /^\d{8,15}$/.test(String(CONFIG.whatsappNumero).replace(/\D/g, ""));
+  function waLink(texto) {
+    const num = pendiente(CONFIG.whatsappNumero) ? "" : String(CONFIG.whatsappNumero).replace(/\D/g, "");
+    if (!whatsappDisponible) return "#preinscripcion";
+    return "https://wa.me/" + num + "?text=" + encodeURIComponent(texto);
+  }
+  $$("[data-wa]").forEach(a => { a.hidden = !whatsappDisponible; if (whatsappDisponible) a.href = waLink(CONFIG.mensajeWhatsapp); });
+
+  /* ---------- Datos simples ---------- */
+  $$("[data-cfg]").forEach(el => el.innerHTML = t(CONFIG[el.dataset.cfg]));
+  $$("[data-link]").forEach(a => a.href = CONFIG.enlaces[a.dataset.link] || "#");
+
+  /* ---------- Campaña (UTM) ---------- */
+  const CLAVES = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "promo"];
+  const qs = new URLSearchParams(location.search);
+  const campana = {};
+  CLAVES.forEach(k => {
+    const v = qs.get(k);
+    if (v) ss.set("ab_" + k, v);
+    campana[k] = v || ss.get("ab_" + k) || "";
+  });
+  const origen = campana.utm_source || (campana.fbclid ? "facebook" : "directo");
+
+  // No hay una promoción activa en esta página.
+  const codigoPromo = "";
+
+  const hero = $(".hero");
+  const videoInicio = $("#hero-video");
+  const movimientoReducido = matchMedia("(prefers-reduced-motion: reduce)");
+  let inicioVisible = false;
+  videoInicio.muted = true;
+
+  function sincronizarVideoInicio() {
+    if (!movimientoReducido.matches && inicioVisible && !document.hidden) {
+      videoInicio.play().catch(() => {});
+    } else {
+      videoInicio.pause();
+    }
+  }
+  movimientoReducido.addEventListener("change", sincronizarVideoInicio);
+  document.addEventListener("visibilitychange", sincronizarVideoInicio);
+  new IntersectionObserver(([entrada]) => {
+    inicioVisible = entrada.isIntersecting;
+    sincronizarVideoInicio();
+  }, { threshold: 0 }).observe(hero);
+
+  /* El indicador se oculta al empezar a recorrer la página. */
+  const deslice = $("#deslice");
+  let pendienteFrame = false;
+  addEventListener("scroll", () => {
+    if (pendienteFrame) return;
+    pendienteFrame = true;
+    requestAnimationFrame(() => {
+      pendienteFrame = false;
+      deslice.classList.toggle("oculto", scrollY > 40);
+    });
+  }, { passive: true });
+
+  /* ---------- Conócenos: video de la academia, con portada mientras llega ---------- */
+  const presentacion = CONFIG.presentacion;
+  $("#vive-titulo").textContent = presentacion.titulo;
+  $("#vive-texto").textContent = presentacion.texto;
+  const medioPresentacion = $("#conocenos-media");
+  if (presentacion.videoYoutubeId && /^[a-zA-Z0-9_-]{11}$/.test(presentacion.videoYoutubeId)) {
+    const video = document.createElement("iframe");
+    video.src = "https://www.youtube-nocookie.com/embed/" + presentacion.videoYoutubeId;
+    video.title = "Instrucción de vuelo: tomas y despegues | One Air";
+    video.referrerPolicy = "strict-origin-when-cross-origin";
+    video.allow = "encrypted-media; picture-in-picture; fullscreen";
+    video.allowFullscreen = true;
+    video.loading = "lazy";
+    medioPresentacion.replaceChildren(video);
+    const creditoVideo = document.createElement("p");
+    creditoVideo.className = "video-credito";
+    const enlaceVideo = document.createElement("a");
+    enlaceVideo.href = "https://www.youtube.com/watch?v=" + presentacion.videoYoutubeId;
+    enlaceVideo.target = "_blank";
+    enlaceVideo.rel = "noopener";
+    enlaceVideo.textContent = "Tomas y despegues · One Air · Ver en YouTube";
+    creditoVideo.append(enlaceVideo);
+    medioPresentacion.append(creditoVideo);
+  } else if (presentacion.imagen) {
+    const imagen = document.createElement("img");
+    imagen.src = presentacion.imagen;
+    imagen.alt = presentacion.imagenAlt || "Presentación de Aerobol Academy";
+    imagen.loading = "lazy";
+    imagen.decoding = "async";
+    imagen.className = "video-portada";
+    medioPresentacion.prepend(imagen);
+  }
+
+  /* ---------- Opciones de los selects ---------- */
+  const selCarrera = $("#f-carrera");
+  selCarrera.innerHTML = '<option value="">Elige una carrera</option>' +
+    CONFIG.carreras.map(c => '<option value="' + esc(c.nombre) + '">' + esc(c.nombre) + "</option>").join("") +
+    '<option value="Aún no sé">Aún no sé, quiero orientación</option>';
+
+  $("#f-ciudad").innerHTML = '<option value="">Elige tu ciudad</option>' +
+    CONFIG.ciudades.map(c => '<option value="' + esc(c) + '">' + esc(c) + "</option>").join("");
+
+  $("#f-pais").innerHTML = CONFIG.paises.map(p =>
+    '<option value="' + esc(p.cod) + '">' + p.bandera + " " + esc(p.cod) + "</option>").join("");
+
+  /* ---------- Formulario ---------- */
+  const form = $("#form");
+  const edad = $("#f-edad");
+  const tutor = $("#tutor");
+
+  function setError(id, msg) {
+    const m = $("#e-" + id); if (!m) return;
+    m.textContent = msg || "";
+    const campo = m.closest(".campo"); if (campo) campo.classList.toggle("err", !!msg);
+  }
+  function limpiarError(id) { setError(id, ""); }
+
+  function elegirCarrera(nombre) {
+    selCarrera.value = nombre;
+    limpiarError("carrera");
+    $("#preinscripcion").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    setTimeout(() => $("#f-nombre").focus({ preventScroll: true }), 500);
+  }
+
+  const valRadio = n => (form.querySelector('input[name="' + n + '"]:checked') || {}).value || "";
+
+  function telValido(cod, num) {
+    const d = num.replace(/\D/g, "");
+    if (cod === "+591") return /^[67]\d{7}$/.test(d);
+    return d.length >= 7 && d.length <= 15;
+  }
+  const esMenor = () => { const v = parseInt(edad.value, 10); return !isNaN(v) && v < 18; };
+
+  const REGLAS = {
+    nombre: () => $("#f-nombre").value.trim().split(/\s+/).filter(w => /^[\p{L}'.-]{2,}$/u.test(w)).length >= 2 ? "" : "Escribe tu nombre y apellido.",
+    tel: () => telValido($("#f-pais").value, $("#f-tel").value) ? "" : "Revisa tu número de WhatsApp, parece incompleto.",
+    correo: () => { const v = $("#f-correo").value.trim(); return !v || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? "" : "Ese correo no parece válido."; },
+    ciudad: () => $("#f-ciudad").value ? "" : "Elige tu ciudad.",
+    carrera: () => selCarrera.value ? "" : "Elige la carrera que te interesa.",
+    inicio: () => valRadio("inicio") ? "" : "Elige cuándo te gustaría empezar.",
+    edad: () => { const v = Number(edad.value); return Number.isInteger(v) && v >= 14 && v <= 70 ? "" : "Escribe una edad válida."; },
+    bachiller: () => valRadio("bachiller") ? "" : "Cuéntanos si ya saliste bachiller.",
+    "tutor-nombre": () => !esMenor() || $("#f-tutor-nombre").value.trim().length >= 3 ? "" : "Necesitamos el nombre de tu padre, madre o tutor porque eres menor de edad.",
+    "tutor-tel": () => !esMenor() || telValido("+591", $("#f-tutor-tel").value) ? "" : "Necesitamos un celular válido de tu padre, madre o tutor.",
+    horario: () => valRadio("horario") ? "" : "Elige en qué horario te llamamos.",
+    privacidad: () => $("#f-privacidad").checked ? "" : "Debes aceptar la política de privacidad para continuar."
+  };
+  const CAMPO_DE = { "f-nombre": "nombre", "f-tel": "tel", "f-pais": "tel", "f-correo": "correo", "f-ciudad": "ciudad", "f-carrera": "carrera", "f-edad": "edad", "f-tutor-nombre": "tutor-nombre", "f-tutor-tel": "tutor-tel", "f-privacidad": "privacidad" };
+
+  form.addEventListener("focusout", e => {
+    if (!form.classList.contains("validado")) return; // antes del primer intento no se muestran errores
+    const k = CAMPO_DE[e.target.id];
+    if (k && (e.target.value || e.target.type === "checkbox")) setError(k, REGLAS[k]());
+  });
+  form.addEventListener("change", e => {
+    const k = CAMPO_DE[e.target.id] || (e.target.type === "radio" ? e.target.name : "");
+    if (k && $("#e-" + k) && $("#e-" + k).textContent) setError(k, REGLAS[k]());
+  });
+  edad.addEventListener("input", () => {
+    tutor.hidden = !esMenor();
+    if (!esMenor()) { limpiarError("tutor-nombre"); limpiarError("tutor-tel"); }
+  });
+
+  function datosLead() {
+    const pais = $("#f-pais").value;
+    const ahora = new Date();
+    const fecha = ahora.toLocaleString("es-BO", { timeZone: "America/La_Paz", dateStyle: "short", timeStyle: "short" });
+    const d = {
+      nombre: $("#f-nombre").value.trim(),
+      whatsapp: pais + " " + $("#f-tel").value.replace(/\D/g, ""),
+      correo: $("#f-correo").value.trim(),
+      ciudad: $("#f-ciudad").value,
+      carrera: selCarrera.value,
+      inicio: valRadio("inicio"),
+      edad: edad.value,
+      bachiller: valRadio("bachiller"),
+      horario_contacto: valRadio("horario"),
+      como_nos_conocio: $("#f-fuente").value,
+      promo: codigoPromo,
+      origen: origen,
+      fecha_registro: fecha + " (hora de Bolivia)"
+    };
+    if (esMenor()) {
+      d.tutor_nombre = $("#f-tutor-nombre").value.trim();
+      d.tutor_celular = "+591 " + $("#f-tutor-tel").value.replace(/\D/g, "");
+    }
+    CLAVES.filter(k => k !== "promo").forEach(k => { if (campana[k]) d[k] = campana[k]; });
+    return d;
+  }
+
+  function textoWhatsapp(d) {
+    return "Hola Aerobol, quiero preinscribirme.\n" +
+      "Nombre: " + d.nombre + "\nWhatsApp: " + d.whatsapp + "\nCiudad: " + d.ciudad +
+      "\nCarrera: " + d.carrera + "\nInicio: " + d.inicio + "\nEdad: " + d.edad +
+      (d.tutor_nombre ? "\nTutor: " + d.tutor_nombre + " (" + d.tutor_celular + ")" : "") +
+      "\nBachiller: " + d.bachiller + "\nMejor horario: " + d.horario_contacto;
+  }
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    $("#form-error").hidden = true;
+    form.classList.add("validado");
+    let primero = null;
+    Object.keys(REGLAS).forEach(k => {
+      const msg = REGLAS[k](); setError(k, msg);
+      if (msg && !primero) primero = $("#e-" + k).closest(".campo");
+    });
+    if (primero) {
+      const foco = primero.querySelector("input:not([type=radio]), select") || primero.querySelector("input");
+      primero.scrollIntoView({ behavior: "auto", block: "center" });
+      if (foco) foco.focus({ preventScroll: true });
+      return;
+    }
+
+    const d = datosLead();
+    d.botcheck = $("#f-web").value;
+
+    const btn = $("#enviar");
+    btn.disabled = true; btn.textContent = "Enviando…";
+
+
+    try {
+      const tokenResponse = await fetch('/api/auth/token', { cache: 'no-store' });
+      if (!tokenResponse.ok) throw new Error('token');
+      const { token } = await tokenResponse.json();
+      const res = await fetch('/api/preinscripciones', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-CSRF-TOKEN': token },
+        body: JSON.stringify({ ...d, privacidad: 'true' })
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok || json.success === false) throw new Error(json.message || "No pudimos enviar tu registro. Revisa tu conexión y vuelve a intentarlo.");
+      mostrarPase(d, json.codigo);
+    } catch (err) {
+      btn.disabled = false; btn.textContent = "Quiero que me llamen";
+      $("#form-error span").textContent = err.message === "token" ? "No pudimos conectar. Recarga la página y vuelve a intentarlo." : err.message;
+      $("#wa-respaldo").hidden = !whatsappDisponible;
+      if (whatsappDisponible) $("#wa-respaldo").href = waLink(textoWhatsapp(d));
+      $("#form-error").hidden = false;
+    }
+  });
+
+  function mostrarPase(d, codigo) {
+
+    const primer = d.nombre.split(/\s+/)[0];
+    $("#form-zona").innerHTML =
+      '<div class="pase" role="status" tabindex="-1" id="pase">' +
+        '<div class="pase-top"><span>Pase de preinscripción</span><span>' + esc(codigo) + "</span></div>" +
+        '<div class="pase-body">' +
+          "<h3 style=\"font-size:1.5rem;font-stretch:118%\">¡Listo, " + esc(primer) + "! Ya estás preinscrito.</h3>" +
+          '<div class="pase-ruta">' +
+            '<div><span class="lbl">Pasajero</span><strong>' + esc(d.nombre) + "</strong></div>" +
+            '<svg width="34" height="34" viewBox="-17 -17 34 34" aria-hidden="true"><path d="M14 0 L4 -3 L-2 -12 L-6 -12 L-3 -3 L-10 -3 L-13 -7 L-16 -7 L-14 0 L-16 7 L-13 7 L-10 3 L-3 3 L-6 12 L-2 12 L4 3 Z" fill="#5B2563"/></svg>' +
+            '<div class="der"><span class="lbl">Destino</span><strong>' + esc(d.carrera) + "</strong></div>" +
+          "</div>" +
+          '<div class="pase-datos">' +
+            '<div><span class="lbl">Salida</span><strong>' + esc(d.inicio) + "</strong></div>" +
+            '<div><span class="lbl">Te llamamos</span><strong>' + esc(d.horario_contacto) + "</strong></div>" +
+            '<div><span class="lbl">Al número</span><strong>' + esc(d.whatsapp) + "</strong></div>" +
+          "</div>" +
+          "<p>Un asesor de Aerobol te llamará en el horario que elegiste." + (whatsappDisponible ? " Si no quieres esperar, escríbenos ahora por WhatsApp." : "") + "</p>" +
+          '<a class="btn" href="' + esc(waLink(textoWhatsapp(d))) + '" target="_blank" rel="noopener">Escribir por WhatsApp</a>' +
+        "</div>" +
+      "</div>";
+    if (!whatsappDisponible) { const enlace = $("#pase .btn"); if (enlace) enlace.remove(); }
+    const pase = $("#pase"); pase.focus({ preventScroll: true });
+    $("#preinscripcion").scrollIntoView({ behavior: "auto", block: "start" });
+  }
+
+  $("#anio").textContent = new Date().getFullYear();
+  function contactoPie(selector, valor, enlace) {
+    const contenedor = $(selector);
+    if (pendiente(valor)) { contenedor.textContent = "Por confirmar"; return; }
+    const a = document.createElement("a");
+    a.textContent = valor;
+    a.href = enlace;
+    contenedor.append(a);
+  }
+  contactoPie("#pie-whatsapp", CONFIG.whatsappVisible, waLink(CONFIG.mensajeWhatsapp));
+  contactoPie("#pie-telefono", CONFIG.telefono, "tel:" + String(CONFIG.telefono).replace(/[^+0-9]/g, ""));
+  contactoPie("#pie-correo", CONFIG.correo, "mailto:" + CONFIG.correo);
+  if (!pendiente(CONFIG.direccion)) {
+    $("#pie-mapa").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.academia + " " + CONFIG.direccion);
+    $("#pie-mapa").hidden = false;
+  }
+  ["direccion", "horarioAtencion"].forEach(clave => {
+    if (pendiente(CONFIG[clave])) $(".pie [data-cfg=" + clave + "]").textContent = clave === "direccion" ? "Dirección por confirmar" : "Horario por confirmar";
+  });
+
+  /* ---------- Barra móvil ---------- */
+  const barra = $("#barra-movil");
+  if ("IntersectionObserver" in window) {
+    let heroVisible = true, formVisible = false;
+    const actualizar = () => barra.classList.toggle("visible", !heroVisible && !formVisible);
+    new IntersectionObserver(([en]) => { heroVisible = en.isIntersecting; actualizar(); }).observe($(".hero"));
+    new IntersectionObserver(([en]) => { formVisible = en.isIntersecting; actualizar(); }, { threshold: 0.15 }).observe($("#preinscripcion"));
+  }
+
+  /* ---------- Cookies ---------- */
+  // Aviso informativo: no hay medición. Si se agrega Meta Pixel o Analytics, pedir aquí el consentimiento y ajustar la CSP.
+  if (!ls.get("ab_cookies")) $("#cookies").hidden = false;
+  $("#ck-aceptar").addEventListener("click", () => { ls.set("ab_cookies", "esenciales"); $("#cookies").hidden = true; });
+})();
+</script>

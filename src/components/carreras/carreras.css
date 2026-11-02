@@ -1,0 +1,63 @@
+/* Carreras: tarjetas de orientación sobre un hangar al atardecer. */
+.carreras-sec { position: relative; isolation: isolate; background: #08131f; color: var(--luna); }
+.carreras-sec::before {
+  content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 780px; max-height: 100%;
+  background:
+    linear-gradient(180deg, rgba(8,19,31,.14) 45%, #08131f 100%),
+    linear-gradient(90deg, rgba(8,19,31,.93), rgba(8,19,31,.62) 36%, rgba(8,19,31,.08) 75%),
+    url("assets/hangar-atardecer.webp") center 52% / cover no-repeat;
+}
+.carreras-sec .sec-head { max-width: 570px; margin-bottom: clamp(180px, 19vw, 280px); }
+.carreras-sec .lead { color: #d2dce8; max-width: 42ch; }
+.carreras-sec h2 { color: var(--papel); }
+.carreras-grid { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 20px; }
+.carrera-card {
+  --acento-carrera: #f4c577;
+  grid-column: span 2; display: flex; flex-direction: column; min-width: 0;
+  padding: clamp(24px, 3vw, 32px); border-radius: 20px; border: 1px solid #324354;
+  background: linear-gradient(145deg, #192c40, #0c1a2a 80%);
+  box-shadow: 0 18px 38px rgba(0,0,0,.16);
+  transition: border-color .2s ease, transform .2s ease;
+}
+.carrera-card:nth-child(n+4) { grid-column: span 3; }
+.carrera-card:nth-child(2), .carrera-card:nth-child(4) { --acento-carrera: #a8d1f0; }
+.carrera-card:nth-child(3), .carrera-card:nth-child(5) { --acento-carrera: #90d9be; }
+.carrera-card:hover, .carrera-card:focus-within { border-color: var(--acento-carrera); }
+.carrera-card-top { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; }
+.carrera-icono { display: grid; place-items: center; width: 48px; height: 48px; flex: none; border-radius: 14px; border: 1px solid #415264; color: var(--acento-carrera); background: rgba(255,255,255,.035); }
+.carrera-area { color: var(--acento-carrera); font-size: .68rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.carrera-card h3 { color: #fff; font-size: clamp(1.3rem, 2vw, 1.55rem); line-height: 1.15; max-width: 26ch; }
+.carrera-desc { color: #c3cfdd; font-size: .97rem; line-height: 1.65; margin: 14px 0 24px; }
+.carrera-detalles { margin-top: auto; border-top: 1px solid #304151; font-size: .85rem; }
+.carrera-detalles summary { cursor: pointer; padding-block: 16px; color: #c3cfdd; }
+.carrera-detalles summary:hover { color: #fff; }
+.carrera-detalles dl { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin: 0 0 20px; }
+.carrera-detalles dt { color: #9eafc2; font-size: .75rem; margin-bottom: 4px; }
+.carrera-detalles dd { margin: 0; overflow-wrap: anywhere; }
+.carrera-accion { width: 100%; min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border: 1px solid #5c7184; border-radius: 10px; background: rgba(255,255,255,.03); color: #fff; font: 600 .92rem var(--f); cursor: pointer; transition: background .2s ease, color .2s ease; }
+.carrera-accion span { color: var(--acento-carrera); font-size: 1.3rem; line-height: 1; }
+.carrera-accion:hover { background: #e9eef5; color: #0c1a2a; }
+.carrera-accion:hover span { color: inherit; }
+.carreras-orientacion { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 36px; padding: 28px 0 0; border-top: 1px solid #304151; }
+.carreras-orientacion h3 { color: #e9eef5; font-size: 1.05rem; line-height: 1.4; }
+.carreras-orientacion p { color: #a9b7c9; font-size: .9rem; margin-top: 4px; }
+.carreras-orientacion a { flex: none; color: #f4c577; font-size: .9rem; font-weight: 600; text-underline-offset: 6px; padding-block: 12px; }
+.carreras-orientacion a span { margin-left: 12px; }
+@media (max-width: 1000px) {
+  .carreras-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .carrera-card, .carrera-card:nth-child(n+4) { grid-column: auto; }
+  .carrera-card:last-child { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .carreras-sec::before {
+    height: 660px;
+    background:
+      linear-gradient(180deg, rgba(8,19,31,.92), rgba(8,19,31,.58) 30%, rgba(8,19,31,.04) 57%, #08131f 100%),
+      url("assets/hangar-atardecer-movil.webp") 68% top / auto 650px no-repeat;
+  }
+  .carreras-sec .sec-head { margin-bottom: 200px; }
+  .carreras-grid { grid-template-columns: 1fr; gap: 16px; }
+  .carrera-card-top { margin-bottom: 20px; }
+  .carreras-orientacion { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .carrera-card, .carrera-accion { transition: none; } }

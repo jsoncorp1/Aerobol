@@ -1,0 +1,12 @@
+@page "/sistema"
+@rendermode InteractiveServer
+<PageTitle>Aerobol · Monolito</PageTitle>
+<main style="max-width:680px;margin:60px auto;padding:24px;font-family:Arial,sans-serif;color:#172a35">
+    <h1>Aerobol Academy</h1>
+    <p>La aplicación ASP.NET Core está en marcha.</p>
+    <p>Base de Blazor Interactive Server preparada. El acceso real y la gestión de preinscritos siguen pendientes de implementación.</p>
+    <button @onclick="() => comprobaciones++">Comprobar interactividad</button>
+    <p role="status">Comprobaciones: @comprobaciones</p>
+    <a href="/">Ver landing</a> · <a href="/corporativo/">Ver demostración corporativa</a>
+</main>
+@code { private int comprobaciones; }
