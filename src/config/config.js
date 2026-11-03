@@ -7,10 +7,11 @@
 const CONFIG = {
   academia: "Aerobol Academy",
   whatsappNumero: "[CONFIRMAR: número con código 591]", // solo dígitos, ej. "59171234567"
-  whatsappVisible: "[CONFIRMAR]",
-  telefono: "[CONFIRMAR]",
+  whatsappVisible: "Escríbenos por WhatsApp",
+  whatsappUrl: "https://wa.link/ykijh4",
+  telefono: "+591 710 58088",
   correo: "[CONFIRMAR]",
-  direccion: "[CONFIRMAR: dirección de la academia]",
+  direccion: "Galería Colón, Santa Cruz de la Sierra, Bolivia",
   horarioAtencion: "[CONFIRMAR: horario de atención]",
   mensajeWhatsapp: "Hola Aerobol, quiero información sobre sus carreras.",
 
@@ -49,9 +50,9 @@ const CONFIG = {
   presentacion: {
     titulo: "Conócenos",
     texto: "Hay muchas formas de ser parte de la aviación. Descubre la tuya con Aerobol Academy.",
-    videoYoutubeId: "Nyr6UImPgbA", // ID del video promocional de YouTube, sin la URL completa.
-    imagen: "",         // Portada opcional mientras llega el video, ej. "assets/campana-aerobol.webp".
-    imagenAlt: "Presentación de Aerobol Academy"
+    videoYoutubeId: "", // ID del video promocional de YouTube, sin la URL completa.
+    imagen: "assets/formacion-cessna.webp",         // Portada opcional mientras llega el video, ej. "assets/campana-aerobol.webp".
+    imagenAlt: "Una instructora y un alumno junto a un Cessna 172 de entrenamiento"
   },
 
   ciudades: ["Santa Cruz", "La Paz", "Cochabamba", "Sucre", "Tarija", "Oruro", "Potosí", "Beni", "Pando", "Fuera de Bolivia"],

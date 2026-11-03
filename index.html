@@ -168,7 +168,7 @@ a { color: inherit; }
 
 /* Fondo de cabina con luz natural y contenido legible. */
 .conocenos { position: relative; isolation: isolate; background: #203c50; color: #fff; }
-.conocenos::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg,rgba(12,31,48,.66),rgba(12,31,48,.36) 50%,rgba(12,31,48,.12)),url("assets/asientos-avion.webp") center 52% / cover no-repeat; }
+.conocenos::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg,rgba(12,31,48,.66),rgba(12,31,48,.36) 50%,rgba(12,31,48,.12)),url("assets/aula-navegacion.webp") center 52% / cover no-repeat; }
 .conocenos h2 { color: #fff; }
 .conocenos .lead { color: #f0f4f8; text-shadow: 0 1px 8px #10253644; }
 .conocenos-media { background: rgba(235,244,250,.12); border-color: rgba(255,255,255,.32); box-shadow: 0 16px 40px #10253624; }
@@ -176,7 +176,7 @@ a { color: inherit; }
 .video-pendiente strong { color: #fff; }
 .video-pendiente p { color: #e3edf4; }
 .video-play { background: rgba(255,255,255,.92); }
-@media(max-width: 800px) { .conocenos::before { background: linear-gradient(180deg,rgba(12,31,48,.64),rgba(12,31,48,.28)),url("assets/asientos-avion-movil.webp") center / cover no-repeat; } }
+@media(max-width: 800px) { .conocenos::before { background: linear-gradient(180deg,rgba(12,31,48,.64),rgba(12,31,48,.28)),url("assets/aula-navegacion-movil.webp") center / cover no-repeat; } }
 
 .video-credito { padding: 10px 16px; color: #e3edf4; font-size: .75rem; background: rgba(12,31,48,.5); }
 .video-credito a { text-underline-offset: 3px; }
@@ -197,12 +197,12 @@ a { color: inherit; }
 
 /* Formulario sobre una pista al atardecer. */
 .pista { position: relative; isolation: isolate; overflow: hidden; background: #081522; color: var(--luna); }
-.pista::before { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 1160px; max-height: 100%; background: linear-gradient(180deg, rgba(8,21,34,.8), rgba(8,21,34,.25) 55%, #081522), url("assets/pista-atardecer.webp") 36% top / auto 1160px no-repeat; }
+.pista::before { content: ""; position: absolute; z-index: -1; inset: 0 0 auto; height: 1160px; max-height: 100%; background: linear-gradient(180deg, rgba(8,21,34,.8), rgba(8,21,34,.25) 55%, #081522), url("assets/practica-simulador.webp") 36% top / auto 1160px no-repeat; }
 .pista-intro .lead, .pista-intro ul { color: #d5dfeb; }
 .form-cabecera { margin-bottom: 26px; padding-bottom: 22px; border-bottom: 1px solid #d8e0ea; }
 .form-cabecera span { font-size: 1.3rem; font-weight: 700; line-height: 1.3; }
 .form-cabecera p { color: var(--tinta-suave); font-size: .9rem; margin-top: 6px; }
-@media (max-width: 600px) { .pista::before { height: 860px; background: linear-gradient(180deg, rgba(8,21,34,.88), rgba(8,21,34,.4) 55%, #081522), url("assets/pista-atardecer-movil.webp") 40% top / auto 860px no-repeat; } .pista .wrap { gap: 130px; } }
+@media (max-width: 600px) { .pista::before { height: 860px; background: linear-gradient(180deg, rgba(8,21,34,.88), rgba(8,21,34,.4) 55%, #081522), url("assets/practica-simulador-movil.webp") 40% top / auto 860px no-repeat; } .pista .wrap { gap: 130px; } }
 .pista .wrap { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.35fr); gap: clamp(32px, 6vw, 72px); align-items: start; }
 .pista h2 { color: var(--papel); }
 .pista-intro { display: grid; gap: 20px; position: sticky; top: 24px; padding: 28px; border-radius: 18px; border: 1px solid rgba(213,225,239,.2); background: rgba(8,21,34,.78); }
@@ -260,11 +260,11 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 
 /* Pista al atardecer: conserva el paisaje sin la capa nocturna. */
 .pista { background: #284454; color: #fff; }
-.pista::before { display: block; inset: 0; height: 100%; max-height: none; background: linear-gradient(180deg,rgba(17,40,56,.34),rgba(17,40,56,.46)),url("assets/pista-atardecer.webp") center / cover no-repeat; }
+.pista::before { display: block; inset: 0; height: 100%; max-height: none; background: linear-gradient(180deg,rgba(17,40,56,.34),rgba(17,40,56,.46)),url("assets/practica-simulador.webp") center / cover no-repeat; }
 .pista h2 { color: #fff; text-shadow: 0 2px 18px #10253644; }
 .pista-intro .lead { color: #f0f4f8; text-shadow: 0 1px 8px #10253666; }
 .form-card { background: rgba(255,255,255,.95); border-color: rgba(255,255,255,.6); box-shadow: 0 16px 48px #10253633; }
-@media(max-width: 600px) { .pista::before { background: linear-gradient(180deg,rgba(17,40,56,.3),rgba(17,40,56,.48)),url("assets/pista-atardecer-movil.webp") center / cover no-repeat; } }
+@media(max-width: 600px) { .pista::before { background: linear-gradient(180deg,rgba(17,40,56,.3),rgba(17,40,56,.48)),url("assets/practica-simulador-movil.webp") center / cover no-repeat; } }
 
 /* Pase de abordar (confirmación) */
 .pase { background: var(--papel); color: var(--tinta); border-radius: 18px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
@@ -559,10 +559,11 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 const CONFIG = {
   academia: "Aerobol Academy",
   whatsappNumero: "[CONFIRMAR: número con código 591]", // solo dígitos, ej. "59171234567"
-  whatsappVisible: "[CONFIRMAR]",
-  telefono: "[CONFIRMAR]",
+  whatsappVisible: "Escríbenos por WhatsApp",
+  whatsappUrl: "https://wa.link/ykijh4",
+  telefono: "+591 710 58088",
   correo: "[CONFIRMAR]",
-  direccion: "[CONFIRMAR: dirección de la academia]",
+  direccion: "Galería Colón, Santa Cruz de la Sierra, Bolivia",
   horarioAtencion: "[CONFIRMAR: horario de atención]",
   mensajeWhatsapp: "Hola Aerobol, quiero información sobre sus carreras.",
 
@@ -601,9 +602,9 @@ const CONFIG = {
   presentacion: {
     titulo: "Conócenos",
     texto: "Hay muchas formas de ser parte de la aviación. Descubre la tuya con Aerobol Academy.",
-    videoYoutubeId: "Nyr6UImPgbA", // ID del video promocional de YouTube, sin la URL completa.
-    imagen: "",         // Portada opcional mientras llega el video, ej. "assets/campana-aerobol.webp".
-    imagenAlt: "Presentación de Aerobol Academy"
+    videoYoutubeId: "", // ID del video promocional de YouTube, sin la URL completa.
+    imagen: "assets/formacion-cessna.webp",         // Portada opcional mientras llega el video, ej. "assets/campana-aerobol.webp".
+    imagenAlt: "Una instructora y un alumno junto a un Cessna 172 de entrenamiento"
   },
 
   ciudades: ["Santa Cruz", "La Paz", "Cochabamba", "Sucre", "Tarija", "Oruro", "Potosí", "Beni", "Pando", "Fuera de Bolivia"],
@@ -735,8 +736,10 @@ const CONFIG = {
     imagen.alt = presentacion.imagenAlt || "Presentación de Aerobol Academy";
     imagen.loading = "lazy";
     imagen.decoding = "async";
-    imagen.className = "video-portada";
-    medioPresentacion.prepend(imagen);
+    const creditoImagen = document.createElement("p");
+    creditoImagen.className = "video-credito";
+    creditoImagen.textContent = "Imagen ilustrativa · Ahunt / Wikimedia Commons";
+    medioPresentacion.replaceChildren(imagen, creditoImagen);
   }
 
   /* ---------- Opciones de los selects ---------- */
@@ -924,7 +927,7 @@ const CONFIG = {
     a.href = enlace;
     contenedor.append(a);
   }
-  contactoPie("#pie-whatsapp", CONFIG.whatsappVisible, waLink(CONFIG.mensajeWhatsapp));
+  contactoPie("#pie-whatsapp", CONFIG.whatsappVisible, CONFIG.whatsappUrl || waLink(CONFIG.mensajeWhatsapp));
   contactoPie("#pie-telefono", CONFIG.telefono, "tel:" + String(CONFIG.telefono).replace(/[^+0-9]/g, ""));
   contactoPie("#pie-correo", CONFIG.correo, "mailto:" + CONFIG.correo);
   if (!pendiente(CONFIG.direccion)) {

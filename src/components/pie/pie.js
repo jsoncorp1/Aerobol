@@ -7,7 +7,7 @@
     a.href = enlace;
     contenedor.append(a);
   }
-  contactoPie("#pie-whatsapp", CONFIG.whatsappVisible, waLink(CONFIG.mensajeWhatsapp));
+  contactoPie("#pie-whatsapp", CONFIG.whatsappVisible, CONFIG.whatsappUrl || waLink(CONFIG.mensajeWhatsapp));
   contactoPie("#pie-telefono", CONFIG.telefono, "tel:" + String(CONFIG.telefono).replace(/[^+0-9]/g, ""));
   contactoPie("#pie-correo", CONFIG.correo, "mailto:" + CONFIG.correo);
   if (!pendiente(CONFIG.direccion)) {

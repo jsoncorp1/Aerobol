@@ -27,6 +27,8 @@
     imagen.alt = presentacion.imagenAlt || "Presentación de Aerobol Academy";
     imagen.loading = "lazy";
     imagen.decoding = "async";
-    imagen.className = "video-portada";
-    medioPresentacion.prepend(imagen);
+    const creditoImagen = document.createElement("p");
+    creditoImagen.className = "video-credito";
+    creditoImagen.textContent = "Imagen ilustrativa · Ahunt / Wikimedia Commons";
+    medioPresentacion.replaceChildren(imagen, creditoImagen);
   }

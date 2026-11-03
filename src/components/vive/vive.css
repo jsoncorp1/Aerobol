@@ -17,7 +17,7 @@
 
 /* Fondo de cabina con luz natural y contenido legible. */
 .conocenos { position: relative; isolation: isolate; background: #203c50; color: #fff; }
-.conocenos::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg,rgba(12,31,48,.66),rgba(12,31,48,.36) 50%,rgba(12,31,48,.12)),url("assets/asientos-avion.webp") center 52% / cover no-repeat; }
+.conocenos::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg,rgba(12,31,48,.66),rgba(12,31,48,.36) 50%,rgba(12,31,48,.12)),url("assets/aula-navegacion.webp") center 52% / cover no-repeat; }
 .conocenos h2 { color: #fff; }
 .conocenos .lead { color: #f0f4f8; text-shadow: 0 1px 8px #10253644; }
 .conocenos-media { background: rgba(235,244,250,.12); border-color: rgba(255,255,255,.32); box-shadow: 0 16px 40px #10253624; }
@@ -25,7 +25,7 @@
 .video-pendiente strong { color: #fff; }
 .video-pendiente p { color: #e3edf4; }
 .video-play { background: rgba(255,255,255,.92); }
-@media(max-width: 800px) { .conocenos::before { background: linear-gradient(180deg,rgba(12,31,48,.64),rgba(12,31,48,.28)),url("assets/asientos-avion-movil.webp") center / cover no-repeat; } }
+@media(max-width: 800px) { .conocenos::before { background: linear-gradient(180deg,rgba(12,31,48,.64),rgba(12,31,48,.28)),url("assets/aula-navegacion-movil.webp") center / cover no-repeat; } }
 
 .video-credito { padding: 10px 16px; color: #e3edf4; font-size: .75rem; background: rgba(12,31,48,.5); }
 .video-credito a { text-underline-offset: 3px; }
