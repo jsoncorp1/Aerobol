@@ -1,45 +1,6 @@
-/* Presentación clara, con el video como protagonista. */
-.conocenos { background: #fff; color: var(--tinta); }
-.conocenos-layout { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: clamp(32px,6vw,80px); align-items: center; }
-.conocenos-contenido { display: grid; justify-items: start; gap: 22px; max-width: 380px; }
-.conocenos h2 { font-size: clamp(2.2rem,4.5vw,3.6rem); letter-spacing: -.035em; }
-.conocenos .lead { color: var(--tinta-suave); line-height: 1.7; }
-.conocenos-accion { margin-top: 4px; font-size: .95rem; }
-.conocenos-media { position: relative; overflow: hidden; border-radius: 16px; background: #edf3f8; border: 1px solid #dfe8ef; }
-.conocenos-media iframe { display: block; width: 100%; aspect-ratio: 16/9; border: 0; }
-.conocenos-media img { display: block; width: 100%; }
-.video-pendiente { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; aspect-ratio: 16/9; padding: 24px; text-align: center; background: linear-gradient(140deg,#eaf3fa,#dbe9f2); }
-.video-play { display: grid; place-items: center; width: 62px; height: 62px; border-radius: 50%; background: #fff; color: var(--verde); box-shadow: 0 8px 30px #28486412; }
-.video-pendiente strong { color: var(--tinta); font-size: 1rem; }
-.video-pendiente p { color: var(--tinta-suave); font-size: .8rem; }
-.conocenos-media .video-portada { position: absolute; inset: 0; height: 100%; object-fit: cover; }
-@media(max-width: 800px) { .conocenos-layout { grid-template-columns: 1fr; } .conocenos-contenido { max-width: 520px; } }
-
-/* Fondo de cabina con luz natural y contenido legible. */
-.conocenos { position: relative; isolation: isolate; background: #203c50; color: #fff; }
-.conocenos::before { content: ""; position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg,rgba(12,31,48,.66),rgba(12,31,48,.36) 50%,rgba(12,31,48,.12)),url("assets/aula-navegacion.webp") center 52% / cover no-repeat; }
-.conocenos h2 { color: #fff; }
-.conocenos .lead { color: #f0f4f8; text-shadow: 0 1px 8px #10253644; }
-.conocenos-media { background: rgba(235,244,250,.12); border-color: rgba(255,255,255,.32); box-shadow: 0 16px 40px #10253624; }
-.video-pendiente { background: linear-gradient(135deg,rgba(34,68,90,.42),rgba(17,43,62,.62)); }
-.video-pendiente strong { color: #fff; }
-.video-pendiente p { color: #e3edf4; }
-.video-play { background: rgba(255,255,255,.92); }
-@media(max-width: 800px) { .conocenos::before { background: linear-gradient(180deg,rgba(12,31,48,.64),rgba(12,31,48,.28)),url("assets/aula-navegacion-movil.webp") center / cover no-repeat; } }
-
-.video-credito { padding: 10px 16px; color: #e3edf4; font-size: .75rem; background: rgba(12,31,48,.5); }
-.video-credito a { text-underline-offset: 3px; }
-
-/* En móvil, cada visita a Conócenos presenta una pantalla completa. */
-@media (max-width: 800px) {
-  .conocenos {
-    min-height: 100vh;
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
-    padding-block: max(32px, env(safe-area-inset-top, 0px)) max(32px, env(safe-area-inset-bottom, 0px));
-    scroll-margin-top: 0;
-  }
-  .conocenos-layout { width: 100%; gap: clamp(24px, 5svh, 44px); }
-  .conocenos-contenido { gap: 18px; }
-}
+.conocenos-referencia { position: relative; }
+.conocenos-referencia img { display: block; width: 100%; height: auto; }
+.conocenos-referencia a { position: absolute; }
+.conocenos-referencia a:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+.conocenos-solicitud { inset: 58% 66.4% 33% 21.2%; border-radius: 100px; }
+.conocenos-video { inset: 18.5% 21% 23% 47.7%; border-radius: 10px; }
