@@ -444,6 +444,10 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
               </div>
               <span class="msg" id="e-bachiller"></span>
             </fieldset>
+            <label class="check" for="f-titulo">
+              <input id="f-titulo" name="titulo_profesional_tecnico" type="checkbox">
+              <span>Tengo título profesional o técnico</span>
+            </label>
 
             <div class="tutor" id="tutor" hidden>
               <p>Como eres menor de edad, necesitamos el contacto de tu padre, madre o tutor.</p>
@@ -558,13 +562,12 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
    ===================================================================== */
 const CONFIG = {
   academia: "Aerobol Academy",
-  whatsappNumero: "[CONFIRMAR: número con código 591]", // solo dígitos, ej. "59171234567"
-  whatsappVisible: "Escríbenos por WhatsApp",
-  whatsappUrl: "https://wa.link/ykijh4",
+  whatsappNumero: "59171058088", // solo dígitos, ej. "59171234567"
+  whatsappVisible: "71058088",
   telefono: "+591 710 58088",
-  correo: "[CONFIRMAR]",
-  direccion: "Galería Colón, Santa Cruz de la Sierra, Bolivia",
-  horarioAtencion: "[CONFIRMAR: horario de atención]",
+  correo: "aerobolacademy.ceo@gmail.com",
+  direccion: "Calle Colón, esquina Ingavi y Ayacucho, primer anillo, centro de Santa Cruz",
+  horarioAtencion: "09:00 a 20:00",
   mensajeWhatsapp: "Hola Aerobol, quiero información sobre sus carreras.",
 
   // El formulario usa la API del monolito: /api/preinscripciones.
@@ -825,6 +828,7 @@ const CONFIG = {
       inicio: valRadio("inicio"),
       edad: edad.value,
       bachiller: valRadio("bachiller"),
+      titulo_profesional_tecnico: String($("#f-titulo").checked),
       horario_contacto: valRadio("horario"),
       como_nos_conocio: $("#f-fuente").value,
       promo: codigoPromo,
@@ -927,7 +931,7 @@ const CONFIG = {
     a.href = enlace;
     contenedor.append(a);
   }
-  contactoPie("#pie-whatsapp", CONFIG.whatsappVisible, CONFIG.whatsappUrl || waLink(CONFIG.mensajeWhatsapp));
+  contactoPie("#pie-whatsapp", CONFIG.whatsappVisible, waLink(CONFIG.mensajeWhatsapp));
   contactoPie("#pie-telefono", CONFIG.telefono, "tel:" + String(CONFIG.telefono).replace(/[^+0-9]/g, ""));
   contactoPie("#pie-correo", CONFIG.correo, "mailto:" + CONFIG.correo);
   if (!pendiente(CONFIG.direccion)) {

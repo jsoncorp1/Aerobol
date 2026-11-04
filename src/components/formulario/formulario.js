@@ -81,6 +81,7 @@
       inicio: valRadio("inicio"),
       edad: edad.value,
       bachiller: valRadio("bachiller"),
+      titulo_profesional_tecnico: String($("#f-titulo").checked),
       horario_contacto: valRadio("horario"),
       como_nos_conocio: $("#f-fuente").value,
       promo: codigoPromo,

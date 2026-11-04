@@ -6,13 +6,12 @@
    ===================================================================== */
 const CONFIG = {
   academia: "Aerobol Academy",
-  whatsappNumero: "[CONFIRMAR: número con código 591]", // solo dígitos, ej. "59171234567"
-  whatsappVisible: "Escríbenos por WhatsApp",
-  whatsappUrl: "https://wa.link/ykijh4",
+  whatsappNumero: "59171058088", // solo dígitos, ej. "59171234567"
+  whatsappVisible: "71058088",
   telefono: "+591 710 58088",
-  correo: "[CONFIRMAR]",
-  direccion: "Galería Colón, Santa Cruz de la Sierra, Bolivia",
-  horarioAtencion: "[CONFIRMAR: horario de atención]",
+  correo: "aerobolacademy.ceo@gmail.com",
+  direccion: "Calle Colón, esquina Ingavi y Ayacucho, primer anillo, centro de Santa Cruz",
+  horarioAtencion: "09:00 a 20:00",
   mensajeWhatsapp: "Hola Aerobol, quiero información sobre sus carreras.",
 
   // El formulario usa la API del monolito: /api/preinscripciones.

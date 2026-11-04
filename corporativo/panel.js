@@ -25,6 +25,7 @@ function mapRecord(r) {
   const d = r.datos;
   return { id: r.id, code: r.codigo, name: d.nombre, phone: d.whatsapp, email: d.correo, city: d.ciudad, career: d.carrera, age: d.edad, time: d.horario_contacto, start: d.inicio,
     source: d.utm_source || d.origen || 'directo', declaredSource: d.como_nos_conocio || '', bachiller: d.bachiller,
+    tituloProfesionalTecnico: ({ true: "Sí", false: "No" })[d.titulo_profesional_tecnico] ?? "No indicado",
     tutorName: d.tutor_nombre || '', tutorPhone: d.tutor_celular || '', campaign: d.utm_campaign || '', medium: d.utm_medium || '', content: d.utm_content || '', term: d.utm_term || '', fbclid: d.fbclid || '',
     status: r.status, date: Date.parse(r.createdAt), attendedBy: r.attendedBy, attendedAt: r.attendedAt };
 }
@@ -123,7 +124,7 @@ $('#sort-date').addEventListener('click', () => { descending = !descending; curr
 $('#sort-date').closest('th').setAttribute('aria-sort', 'descending');
 function openDetail(id) {
   detailId = id; const r = records.find(r => r.id === id); $('#detail-name').textContent = r.name;
-  const fields = [['Fecha', formatDate.format(r.date)], ['Ciudad', r.city], ['Carrera', r.career], ['Edad', `${r.age} años`], ['Inicio de interés', r.start], ['Horario de contacto', r.time], ['Origen de campaña', r.source], ['Cómo nos conoció', r.declaredSource || 'No indicado'], ['Bachiller', r.bachiller || 'No indicado'], ['Tutor', r.tutorName || 'No aplica'], ['Celular del tutor', r.tutorPhone || 'No aplica'], ['Campaña UTM', r.campaign || 'No indicada'], ['Medio UTM', r.medium || 'No indicado'], ['Contenido UTM', r.content || 'No indicado'], ['Término UTM', r.term || 'No indicado'], ['FBCLID', r.fbclid || 'No indicado'], ['Código', r.code], ['Fecha de atención', r.attendedAt ? formatDate.format(new Date(r.attendedAt)) : 'Pendiente'], ['WhatsApp', r.phone], ['Correo', r.email || 'No indicado'], ['Atendido por', r.attendedBy || 'Pendiente']];
+  const fields = [['Fecha', formatDate.format(r.date)], ['Ciudad', r.city], ['Carrera', r.career], ['Edad', `${r.age} años`], ['Inicio de interés', r.start], ['Horario de contacto', r.time], ['Origen de campaña', r.source], ['Cómo nos conoció', r.declaredSource || 'No indicado'], ['Bachiller', r.bachiller || 'No indicado'], ['Título profesional o técnico', r.tituloProfesionalTecnico], ['Tutor', r.tutorName || 'No aplica'], ['Celular del tutor', r.tutorPhone || 'No aplica'], ['Campaña UTM', r.campaign || 'No indicada'], ['Medio UTM', r.medium || 'No indicado'], ['Contenido UTM', r.content || 'No indicado'], ['Término UTM', r.term || 'No indicado'], ['FBCLID', r.fbclid || 'No indicado'], ['Código', r.code], ['Fecha de atención', r.attendedAt ? formatDate.format(new Date(r.attendedAt)) : 'Pendiente'], ['WhatsApp', r.phone], ['Correo', r.email || 'No indicado'], ['Atendido por', r.attendedBy || 'Pendiente']];
   $('#detail-fields').replaceChildren(...fields.flatMap(([key, value]) => { const dt = document.createElement('dt'); dt.textContent = key; const dd = document.createElement('dd'); dd.textContent = value; return [dt, dd]; }));
   $('#detail-status').textContent = r.status === 'pending' ? 'Marcar como atendido' : 'Marcar como pendiente'; $('#detail-dialog').showModal();
 }

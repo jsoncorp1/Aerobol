@@ -26,6 +26,7 @@ public static class LeadValidation
         if (!new[] { "Mañana", "Tarde", "Noche" }.Contains(V("horario_contacto"))
             || !new[] { "Sí", "Este año", "No" }.Contains(V("bachiller"))
             || !new[] { "Lo antes posible", "Gestión 2027", "Solo estoy averiguando" }.Contains(V("inicio"))
+            || V("titulo_profesional_tecnico") is not ("" or "true" or "false")
             || !Ciudades.Contains(V("ciudad"))
             || !Carreras.Contains(V("carrera"))
             || !Fuentes.Contains(V("como_nos_conocio")))
