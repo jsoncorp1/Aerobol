@@ -189,6 +189,8 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
   display: inline-flex; align-items: center; min-height: 42px; padding: 0 16px; border-radius: 999px;
   border: 1.5px solid var(--linea-claro); background: #F8FAFC; font-size: .95rem; font-weight: 500;
 }
+#g-bachiller { margin-top: 6px; }
+#g-bachiller .chip span { min-height: 50px; }
 .chip input:checked + span { background: var(--morado); border-color: var(--morado); color: #fff; }
 .chip input:focus-visible + span { outline: 3px solid var(--ambar); outline-offset: 2px; }
 .tutor { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px 16px; padding: 18px; border-radius: 12px; background: #F1F5FA; border: 1px dashed var(--linea-claro); }
@@ -222,6 +224,7 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 /* Composición de la preinscripción inspirada en la referencia. */
 .pista .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); }
 .pista-intro { position: static; padding-top: clamp(24px, 10vw, 155px); }
+.pista-logo { width: clamp(130px, 16vw, 200px); height: auto; margin-bottom: clamp(8px, 2vw, 32px); }
 .pista-intro h2 { max-width: 11ch; font-size: clamp(2.7rem, 5vw, 5rem); line-height: 1; }
 .pista-intro .lead { max-width: 34ch; font-size: clamp(1.1rem, 1.65vw, 1.55rem); }
 .pista .form-card { border-radius: 30px; background: #f8f9fd; }
@@ -304,7 +307,7 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 
   <div class="wrap hero-marco">
     <nav class="nav" aria-label="Principal">
-      <a class="marca" href="#inicio"><img class="logo-oficial" src="assets/logo-aerobol-transparente.webp" alt="AeroBol Academy" width="180" height="80"></a>
+      <a class="marca" href="#inicio"><img class="logo-oficial" src="assets/aerobol-color.webp" alt="AeroBol Academy" width="180" height="80"></a>
       <a class="btn btn-claro" href="#vive">Conoce la academia <span aria-hidden="true">↗</span></a>
     </nav>
 
@@ -333,6 +336,7 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
   <section class="band pista" id="preinscripcion" aria-labelledby="form-titulo">
     <div class="wrap">
       <div class="pista-intro">
+        <img class="pista-logo" src="assets/aerobol-blanco.webp" alt="AeroBol Academy" width="200" height="84" loading="lazy">
         <h2 id="form-titulo">Da el primer paso</h2>
         <p class="lead">Déjanos tus datos y te ayudamos a iniciar tu camino en la aviación.</p>
       </div>
@@ -465,7 +469,7 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 <footer class="pie" id="contacto">
   <div class="wrap">
     <div>
-      <a class="marca" href="#" style="color:var(--luna)"><img class="logo-oficial" src="assets/logo-aerobol-transparente.webp" alt="AeroBol Academy" width="180" height="80"></a>
+      <a class="marca" href="#" style="color:var(--luna)"><img class="logo-oficial" src="assets/aerobol-color.webp" alt="AeroBol Academy" width="180" height="80"></a>
     </div>
     <div class="pie-datos">
       <h3>Visítanos</h3>
