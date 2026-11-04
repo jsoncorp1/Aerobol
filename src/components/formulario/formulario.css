@@ -68,3 +68,18 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 .pista-intro .lead { color: #f0f4f8; text-shadow: 0 1px 8px #10253666; }
 .form-card { background: rgba(255,255,255,.95); border-color: rgba(255,255,255,.6); box-shadow: 0 16px 48px #10253633; }
 @media(max-width: 600px) { .pista::before { background: linear-gradient(180deg,rgba(17,40,56,.3),rgba(17,40,56,.48)),url("assets/pista-atardecer-movil.webp") center / cover no-repeat; } }
+
+/* Composición de la preinscripción inspirada en la referencia. */
+.pista .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); }
+.pista-intro { position: static; padding-top: clamp(24px, 10vw, 155px); }
+.pista-intro h2 { max-width: 11ch; font-size: clamp(2.7rem, 5vw, 5rem); line-height: 1; }
+.pista-intro .lead { max-width: 34ch; font-size: clamp(1.1rem, 1.65vw, 1.55rem); }
+.pista .form-card { border-radius: 30px; background: #f8f9fd; }
+.form-card-titulo { margin: 0 0 20px; text-align: center; color: #0b2346; font-size: clamp(1.65rem, 3vw, 2.35rem); line-height: 1.15; }
+.pista .enviar { border-radius: 999px; background: #007842; color: white; }
+.pista .enviar:hover { background: #006336; }
+@media (max-width: 900px) {
+  .pista .wrap { grid-template-columns: 1fr; }
+  .pista-intro { padding-top: 0; }
+  .pista .form-card { border-radius: 22px; }
+}

@@ -225,6 +225,21 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 .form-card { background: rgba(255,255,255,.95); border-color: rgba(255,255,255,.6); box-shadow: 0 16px 48px #10253633; }
 @media(max-width: 600px) { .pista::before { background: linear-gradient(180deg,rgba(17,40,56,.3),rgba(17,40,56,.48)),url("assets/pista-atardecer-movil.webp") center / cover no-repeat; } }
 
+/* Composición de la preinscripción inspirada en la referencia. */
+.pista .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr); }
+.pista-intro { position: static; padding-top: clamp(24px, 10vw, 155px); }
+.pista-intro h2 { max-width: 11ch; font-size: clamp(2.7rem, 5vw, 5rem); line-height: 1; }
+.pista-intro .lead { max-width: 34ch; font-size: clamp(1.1rem, 1.65vw, 1.55rem); }
+.pista .form-card { border-radius: 30px; background: #f8f9fd; }
+.form-card-titulo { margin: 0 0 20px; text-align: center; color: #0b2346; font-size: clamp(1.65rem, 3vw, 2.35rem); line-height: 1.15; }
+.pista .enviar { border-radius: 999px; background: #007842; color: white; }
+.pista .enviar:hover { background: #006336; }
+@media (max-width: 900px) {
+  .pista .wrap { grid-template-columns: 1fr; }
+  .pista-intro { padding-top: 0; }
+  .pista .form-card { border-radius: 22px; }
+}
+
 /* Pase de abordar (confirmación) */
 .pase { background: var(--papel); color: var(--tinta); border-radius: 18px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
 .pase-top { background: var(--morado); color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 700; font-stretch: 112%; }
@@ -327,11 +342,12 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
     <div class="wrap">
       <div class="pista-intro">
         <h2 id="form-titulo">Da el primer paso</h2>
-        <p class="lead">Déjanos tus datos. Te ayudamos a elegir tu camino en la aviación.</p>
+        <p class="lead">Déjanos tus datos y te ayudamos a iniciar tu camino en la aviación.</p>
       </div>
 
       <div id="form-zona">
-        <form class="form-card" id="form" novalidate>
+        <form class="form-card" id="form" aria-labelledby="form-card-titulo" novalidate>
+          <h3 id="form-card-titulo" class="form-card-titulo">Solicita información</h3>
           <div class="form-grid">
             <div class="campo full">
               <label for="f-nombre">Nombre completo</label>
