@@ -36,7 +36,7 @@
     if (cod === "+591") return /^[67]\d{7}$/.test(d);
     return d.length >= 7 && d.length <= 15;
   }
-  const esMenor = () => { const v = parseInt(edad.value, 10); return !isNaN(v) && v < 18; };
+  const esMenor = () => { const v = Number(edad.value); return Number.isInteger(v) && v >= 14 && v < 18; };
 
   const REGLAS = {
     nombre: () => $("#f-nombre").value.trim().split(/\s+/).filter(w => /^[\p{L}'.-]{2,}$/u.test(w)).length >= 2 ? "" : "Escribe tu nombre y apellido.",

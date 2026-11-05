@@ -50,19 +50,29 @@
 .escena::after {
   content: "";
   position: absolute;
-  inset: 0 -12% 0;
+  inset: 0 -35% 0;
   pointer-events: none;
   background:
     radial-gradient(ellipse 12% 5% at 20% 12%, #fff8 10%, #fff0 100%),
     radial-gradient(ellipse 16% 6% at 48% 8%, #fff6 10%, #fff0 100%),
     radial-gradient(ellipse 10% 4% at 74% 18%, #fff7 10%, #fff0 100%);
-  opacity: .5;
-  animation: nubes-portada 32s ease-in-out infinite alternate;
+  opacity: .8;
+  animation: nubes-portada 18s linear infinite alternate;
 }
 @keyframes nubes-portada {
-  from { transform: translateX(-3%); }
-  to { transform: translateX(5%); }
+  from { transform: translateX(-12%); }
+  to { transform: translateX(12%); }
 }
 @media (prefers-reduced-motion: reduce) {
   .escena::after { animation: none; }
+}
+
+@media (max-width: 600px) {
+  .hero .nav { flex-wrap: wrap; justify-content: center; padding-block: 16px; }
+  .hero .nav .marca { flex-basis: 100%; display: flex; justify-content: center; }
+  .hero .nav .logo-oficial { width: 150px; height: auto; }
+  .hero .escena { background-position: 39% center; }
+  .hero .velo { background: linear-gradient(180deg, #07112022, transparent 35%, #071120b8); }
+  .hero-body { padding-block: 28px 20px; }
+  .hero h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
 }

@@ -86,3 +86,28 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
   .pista-intro { padding-top: 0; }
   .pista .form-card { border-radius: 22px; }
 }
+
+@media (max-width: 600px) {
+  .pista .form-card { padding: 22px 16px; }
+  .pista .form-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .pista .form-grid > * { min-width: 0; }
+  .pista .check { grid-column: 1 / -1; }
+  .pista .campo input, .pista .campo select { font-size: 16px; }
+  .pista .chips { gap: 8px; }
+  .pista .chip span { padding-inline: 12px; }
+  .pista .tel { grid-template-columns: 105px minmax(0, 1fr); }
+}
+
+/* El tamaño del paisaje depende del ancho y no de la altura del formulario. */
+.pista::before {
+  background-size: 100% 100%, 100% auto;
+  background-position: center, center top;
+  background-repeat: no-repeat, repeat-y;
+}
+@media (max-width: 600px) {
+  .pista::before {
+    background-size: 100% 100%, 100% auto;
+    background-position: center, center top;
+    background-repeat: no-repeat, repeat-y;
+  }
+}

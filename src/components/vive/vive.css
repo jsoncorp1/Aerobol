@@ -4,3 +4,14 @@
 .conocenos-referencia a:focus-visible { outline: 3px solid white; outline-offset: 3px; }
 .conocenos-solicitud { inset: 58% 66.4% 33% 21.2%; border-radius: 100px; }
 .conocenos-video { inset: 18.5% 21% 23% 47.7%; border-radius: 10px; }
+
+.conocenos-movil { display: none; }
+@media (max-width: 700px) {
+  .conocenos-referencia { background: linear-gradient(#071120a8, #071120c8), url("assets/aula-navegacion.webp") center / cover; color: white; }
+  .conocenos-referencia > img, .conocenos-referencia > a { display: none; }
+  .conocenos-movil { display: grid; gap: 22px; padding: 42px 24px; }
+  .conocenos-movil h2 { font-size: 2rem; }
+  .conocenos-movil p { line-height: 1.6; }
+  .conocenos-movil a { position: static; min-height: 48px; display: flex; align-items: center; justify-content: center; }
+  .conocenos-video-movil { padding: 16px; border: 1px solid #ffffff80; border-radius: 12px; text-align: center; }
+}

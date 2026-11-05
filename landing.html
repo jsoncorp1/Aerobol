@@ -302,21 +302,71 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 .escena::after {
   content: "";
   position: absolute;
-  inset: 0 -12% 0;
+  inset: 0 -35% 0;
   pointer-events: none;
   background:
     radial-gradient(ellipse 12% 5% at 20% 12%, #fff8 10%, #fff0 100%),
     radial-gradient(ellipse 16% 6% at 48% 8%, #fff6 10%, #fff0 100%),
     radial-gradient(ellipse 10% 4% at 74% 18%, #fff7 10%, #fff0 100%);
-  opacity: .5;
-  animation: nubes-portada 32s ease-in-out infinite alternate;
+  opacity: .8;
+  animation: nubes-portada 18s linear infinite alternate;
 }
 @keyframes nubes-portada {
-  from { transform: translateX(-3%); }
-  to { transform: translateX(5%); }
+  from { transform: translateX(-12%); }
+  to { transform: translateX(12%); }
 }
 @media (prefers-reduced-motion: reduce) {
   .escena::after { animation: none; }
+}
+
+
+@media (max-width: 600px) {
+  .hero .nav { flex-wrap: wrap; justify-content: center; padding-block: 16px; }
+  .hero .nav .marca { flex-basis: 100%; display: flex; justify-content: center; }
+  .hero .nav .logo-oficial { width: 150px; height: auto; }
+  .hero .escena { background-position: 39% center; }
+  .hero .velo { background: linear-gradient(180deg, #07112022, transparent 35%, #071120b8); }
+  .hero-body { padding-block: 28px 20px; }
+  .hero h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
+}
+
+
+.conocenos-movil { display: none; }
+@media (max-width: 700px) {
+  .conocenos-referencia { background: linear-gradient(#071120a8, #071120c8), url("assets/aula-navegacion.webp") center / cover; color: white; }
+  .conocenos-referencia > img, .conocenos-referencia > a { display: none; }
+  .conocenos-movil { display: grid; gap: 22px; padding: 42px 24px; }
+  .conocenos-movil h2 { font-size: 2rem; }
+  .conocenos-movil p { line-height: 1.6; }
+  .conocenos-movil a { position: static; min-height: 48px; display: flex; align-items: center; justify-content: center; }
+  .conocenos-video-movil { padding: 16px; border: 1px solid #ffffff80; border-radius: 12px; text-align: center; }
+}
+
+
+@media (max-width: 600px) {
+  .pista .form-card { padding: 22px 16px; }
+  .pista .form-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .pista .form-grid > * { min-width: 0; }
+  .pista .check { grid-column: 1 / -1; }
+  .pista .campo input, .pista .campo select { font-size: 16px; }
+  .pista .chips { gap: 8px; }
+  .pista .chip span { padding-inline: 12px; }
+  .pista .tel { grid-template-columns: 105px minmax(0, 1fr); }
+}
+
+
+/* El tamaño del paisaje depende del ancho y no de la altura del formulario. */
+.pista::before {
+  background-size: 100% 100%, 100% auto;
+  background-position: center, center top;
+  background-repeat: no-repeat, repeat-y;
+}
+@media (max-width: 600px) {
+  .pista::before {
+    background-size: 100% 100%, 100% auto;
+    background-position: center, center top;
+    background-repeat: no-repeat, repeat-y;
+  }
 }
 
 </style>
@@ -347,6 +397,13 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 <main>
   <!-- CONÓCENOS -->
   <section class="conocenos-referencia" id="vive" aria-label="Conócenos">
+    <div class="conocenos-movil">
+      <h2>Conócenos</h2>
+      <p>Hay muchas formas de ser parte de la aviación. Descubre la tuya con Aerobol Academy.</p>
+      <a class="btn" href="#preinscripcion">Solicitar información ↗</a>
+      <a class="conocenos-video-movil" href="https://www.youtube.com/watch?v=Nyr6UImPgbA" target="_blank" rel="noopener">▶ Ver video de instrucción · One Air</a>
+    </div>
+
     <img src="assets/conocenos-elegida.webp" width="1600" height="538" loading="lazy"
          alt="Conócenos. Hay muchas formas de ser parte de la aviación. Descubre la tuya con Aerobol Academy.">
     <a class="conocenos-solicitud" href="#preinscripcion" aria-label="Solicitar información"></a>
@@ -711,7 +768,7 @@ const CONFIG = {
     if (cod === "+591") return /^[67]\d{7}$/.test(d);
     return d.length >= 7 && d.length <= 15;
   }
-  const esMenor = () => { const v = parseInt(edad.value, 10); return !isNaN(v) && v < 18; };
+  const esMenor = () => { const v = Number(edad.value); return Number.isInteger(v) && v >= 14 && v < 18; };
 
   const REGLAS = {
     nombre: () => $("#f-nombre").value.trim().split(/\s+/).filter(w => /^[\p{L}'.-]{2,}$/u.test(w)).length >= 2 ? "" : "Escribe tu nombre y apellido.",
