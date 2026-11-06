@@ -103,7 +103,7 @@ a { color: inherit; }
 .hero-marco { position: relative; z-index: 3; display: flex; flex-direction: column; flex: 1; width: 100%; }
 
 /* Video decorativo con portada estática de respaldo. */
-.escena { position: absolute; z-index: 1; inset: 0; pointer-events: none; background: #071120 url("assets/portada-uniforme.webp") center / cover no-repeat; }
+.escena { position: absolute; z-index: 1; inset: 0; pointer-events: none; background: #071120 url("assets/portada-vino.webp") center / cover no-repeat; }
 .velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,17,31,.16), transparent 30%, rgba(7,17,31,.06) 55%, rgba(7,17,31,.5)); }
 
 /* Menú: solo logo y un botón */
@@ -357,16 +357,100 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 
 /* El tamaño del paisaje depende del ancho y no de la altura del formulario. */
 .pista::before {
-  background-size: 100% 100%, 100% auto;
+  background-size: 100% 100%, auto 100svh;
   background-position: center, center top;
-  background-repeat: no-repeat, repeat-y;
+  background-repeat: no-repeat, no-repeat;
 }
 @media (max-width: 600px) {
   .pista::before {
-    background-size: 100% 100%, 100% auto;
+    background-size: 100% 100%, auto 100svh;
     background-position: center, center top;
-    background-repeat: no-repeat, repeat-y;
+    background-repeat: no-repeat, no-repeat;
   }
+}
+
+
+/* Portada vertical a pantalla completa en celular. */
+@media (max-width: 600px) {
+  .hero { min-height: 100vh; min-height: 100svh; background: #0b223d; }
+  .hero-marco { display: flex; flex: 1; }
+  .hero .nav { position: relative; z-index: 3; padding-block: 16px; }
+  .hero .escena { position: absolute; inset: 0; width: auto; aspect-ratio: auto; background-image: url("assets/portada-vino-movil.webp"); background-position: center; background-size: cover; }
+  .hero-body { position: relative; z-index: 3; padding: 24px 0 16px; }
+  .hero .velo { background: linear-gradient(180deg, #07112016, transparent 35%, #07112000 60%, #071120a8); }
+}
+
+
+.academia-video { padding: clamp(40px,6vw,96px) 0; color: white; background: linear-gradient(90deg,#071120a8,#07112038),url("assets/aula-referencia.webp") center / cover; }
+.academia-video-layout { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); align-items: center; gap: clamp(24px,4vw,64px); }
+.academia-video-texto { display: grid; justify-items: start; gap: 22px; }
+.academia-video-texto h2 { font-size: clamp(2rem,4vw,3.5rem); }
+.academia-video-texto p { line-height: 1.7; }
+.academia-video-player { min-width: 0; overflow: hidden; border-radius: 14px; background: #081522; border: 1px solid #ffffff60; }
+.academia-video-player iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+.academia-video-player p { padding: 12px 16px; font-size: .8rem; line-height: 1.6; }
+@media(max-width:700px) {
+ .academia-video-layout { grid-template-columns: minmax(0,1fr); gap: 28px; }
+ .academia-video-texto .btn { width: 100%; min-height: 48px; }
+}
+
+
+/* Tarjeta de información con acabado de boleto de avión. */
+.pista .form-card { padding: 0 28px 28px; border: 1px solid #d6e0e9; border-radius: 22px; background: #fffdf8; overflow: hidden; box-shadow: 0 24px 65px #001c3540; }
+.boleto-cabecera { position: relative; margin: 0 -28px; padding: 26px 28px 24px; background: #0b2a46; color: white; border-bottom: 2px dashed #a9b9c9; }
+.boleto-marca { display: block; font-size: .75rem; letter-spacing: .16em; font-weight: 700; padding-right: 38px; }
+.boleto-avion { position: absolute; right: 28px; top: 22px; font-size: 2rem; color: #69d5b8; }
+.boleto-cabecera .form-card-titulo { margin: 16px 0 8px; color: white; text-align: left; font-size: clamp(1.8rem,3vw,2.4rem); }
+.boleto-cabecera p { font-size: .9rem; line-height: 1.5; color: #dbe8f1; }
+.boleto-obligatorios { margin: 18px 0 22px; color: #526575; font-size: .8rem; }
+.obligatorio, .boleto-obligatorios span { color: #b02b3a; font-weight: 700; }
+.pista .campo input, .pista .campo select { border-radius: 7px; background: #fff; }
+.pista .enviar { margin-top: 24px; border-radius: 9px; }
+.pista .form-grid > .check { grid-column: 1 / -1; }
+@media(max-width:600px) {
+ .pista .form-card { padding: 0 18px 24px; border-radius: 18px; }
+ .boleto-cabecera { margin-inline: -18px; padding-inline: 18px; }
+ .boleto-avion { right: 18px; }
+}
+
+
+/* Boleto lila y paisaje continuo en toda la sección. */
+.pista::before {
+  background-size: 100% 100%, cover;
+  background-position: center, center;
+  background-repeat: no-repeat;
+}
+.boleto-cabecera { background: #e7dcf5; color: #38234f; border-bottom-color: #b59bce; }
+.boleto-cabecera .form-card-titulo { color: #38234f; }
+.boleto-cabecera p { color: #59466d; }
+.boleto-avion { color: #78559b; }
+.pista .form-card { background: #fdfaff; border-color: #d9cce8; }
+.pista .form-grid { align-items: start; }
+.pista fieldset.campo { min-width: 0; }
+@media (min-width: 901px) {
+  .pista::before { background-attachment: scroll, fixed; }
+}
+@media (max-width: 600px) {
+  .pista::before {
+    background-size: 100% 100%, cover;
+    background-position: center, center top;
+    background-repeat: no-repeat;
+  }
+  .pista .wrap { gap: 28px; }
+  .pista-intro h2 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+}
+
+
+/* Cabecera con el mismo morado del pase de preinscripción. */
+.boleto-cabecera { background: var(--morado); color: #fff; border-bottom-color: #c3a1cd; }
+.boleto-cabecera .form-card-titulo, .boleto-cabecera p, .boleto-avion { color: #fff; }
+/* Las casillas conservan su tamaño al recibir foco. */
+.pista .check input[type="checkbox"] {
+  width: 22px; height: 22px; min-height: 22px; padding: 0;
+  border-radius: 3px; box-shadow: none; outline: none;
+}
+.pista .check input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--morado); outline-offset: 3px;
 }
 
 </style>
@@ -396,19 +480,18 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 
 <main>
   <!-- CONÓCENOS -->
-  <section class="conocenos-referencia" id="vive" aria-label="Conócenos">
-    <div class="conocenos-movil">
-      <h2>Conócenos</h2>
-      <p>Hay muchas formas de ser parte de la aviación. Descubre la tuya con Aerobol Academy.</p>
-      <a class="btn" href="#preinscripcion">Solicitar información ↗</a>
-      <a class="conocenos-video-movil" href="https://www.youtube.com/watch?v=Nyr6UImPgbA" target="_blank" rel="noopener">▶ Ver video de instrucción · One Air</a>
+  <section class="academia-video" id="vive" aria-labelledby="vive-titulo">
+    <div class="wrap academia-video-layout">
+      <div class="academia-video-texto">
+        <h2 id="vive-titulo">Conócenos</h2>
+        <p>Hay muchas formas de ser parte de la aviación. Descubre la tuya con Aerobol Academy.</p>
+        <a class="btn" href="#preinscripcion">Solicitar información ↗</a>
+      </div>
+      <div class="academia-video-player">
+        <iframe src="https://www.youtube-nocookie.com/embed/oFmTVD6lxmk?playsinline=1" title="Flota de entrenamiento de pilotos · One Air" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+        <p>Video de referencia · One Air · <a href="https://www.youtube.com/watch?v=oFmTVD6lxmk" target="_blank" rel="noopener">Ver en YouTube ↗</a></p>
+      </div>
     </div>
-
-    <img src="assets/conocenos-elegida.webp" width="1600" height="538" loading="lazy"
-         alt="Conócenos. Hay muchas formas de ser parte de la aviación. Descubre la tuya con Aerobol Academy.">
-    <a class="conocenos-solicitud" href="#preinscripcion" aria-label="Solicitar información"></a>
-    <a class="conocenos-video" href="https://www.youtube.com/watch?v=Nyr6UImPgbA"
-       target="_blank" rel="noopener" aria-label="Ver Tomas y despegues de One Air en YouTube"></a>
   </section>
 
   <!-- FORMULARIO -->
@@ -422,19 +505,25 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 
       <div id="form-zona">
         <form class="form-card" id="form" aria-labelledby="form-card-titulo" novalidate>
-          <h3 id="form-card-titulo" class="form-card-titulo">Solicita información</h3>
+          <div class="boleto-cabecera">
+            <span class="boleto-marca">AEROBOL ACADEMY</span>
+            <span class="boleto-avion" aria-hidden="true">✈</span>
+            <h3 id="form-card-titulo" class="form-card-titulo">Tu próximo destino</h3>
+            <p>Solicita información e inicia tu camino en la aviación.</p>
+          </div>
+          <p class="boleto-obligatorios"><span aria-hidden="true">*</span> Campos obligatorios</p>
           <div class="form-grid">
             <div class="campo full">
-              <label for="f-nombre">Nombre completo</label>
-              <input id="f-nombre" name="nombre" autocomplete="name" placeholder="Ej. Camila Rojas Suárez">
+              <label for="f-nombre">Nombre completo<span class="obligatorio" aria-hidden="true"> *</span></label>
+              <input id="f-nombre" required name="nombre" autocomplete="name" placeholder="Ej. Camila Rojas Suárez">
               <span class="msg" id="e-nombre"></span>
             </div>
 
             <div class="campo full">
-              <label for="f-tel">WhatsApp</label>
+              <label for="f-tel">WhatsApp<span class="obligatorio" aria-hidden="true"> *</span></label>
               <div class="tel">
                 <select id="f-pais" name="pais" aria-label="Código de país"></select>
-                <input id="f-tel" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="71234567">
+                <input id="f-tel" required name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="71234567">
               </div>
               <span class="msg" id="e-tel"></span>
             </div>
@@ -446,21 +535,21 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
             </div>
 
             <div class="campo">
-              <label for="f-ciudad">Ciudad</label>
-              <select id="f-ciudad" name="ciudad"></select>
+              <label for="f-ciudad">Ciudad<span class="obligatorio" aria-hidden="true"> *</span></label>
+              <select id="f-ciudad" required name="ciudad"></select>
               <span class="msg" id="e-ciudad"></span>
             </div>
 
             <div class="campo full">
-              <label for="f-carrera">Carrera de interés</label>
-              <select id="f-carrera" name="carrera"></select>
+              <label for="f-carrera">Carrera de interés<span class="obligatorio" aria-hidden="true"> *</span></label>
+              <select id="f-carrera" required name="carrera"></select>
               <span class="msg" id="e-carrera"></span>
             </div>
 
             <fieldset class="campo full">
-              <legend>¿Cuándo te gustaría empezar?</legend>
+              <legend>¿Cuándo te gustaría empezar?<span class="obligatorio" aria-hidden="true"> *</span></legend>
               <div class="chips" id="g-inicio">
-                <label class="chip"><input type="radio" name="inicio" value="Lo antes posible"><span>Lo antes posible</span></label>
+                <label class="chip"><input type="radio" required name="inicio" value="Lo antes posible"><span>Lo antes posible</span></label>
                 <label class="chip"><input type="radio" name="inicio" value="Gestión 2027"><span>Gestión 2027</span></label>
                 <label class="chip"><input type="radio" name="inicio" value="Solo estoy averiguando"><span>Solo estoy averiguando</span></label>
               </div>
@@ -468,15 +557,15 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
             </fieldset>
 
             <div class="campo">
-              <label for="f-edad">Edad</label>
-              <input id="f-edad" name="edad" type="number" inputmode="numeric" min="14" max="70" placeholder="18">
+              <label for="f-edad">Edad<span class="obligatorio" aria-hidden="true"> *</span></label>
+              <input id="f-edad" required name="edad" type="number" inputmode="numeric" min="14" max="70" placeholder="18">
               <span class="msg" id="e-edad"></span>
             </div>
 
             <fieldset class="campo">
-              <legend>¿Ya saliste bachiller?</legend>
+              <legend>¿Ya saliste bachiller?<span class="obligatorio" aria-hidden="true"> *</span></legend>
               <div class="chips" id="g-bachiller">
-                <label class="chip"><input type="radio" name="bachiller" value="Sí"><span>Sí</span></label>
+                <label class="chip"><input type="radio" required name="bachiller" value="Sí"><span>Sí</span></label>
                 <label class="chip"><input type="radio" name="bachiller" value="Este año"><span>Este año</span></label>
                 <label class="chip"><input type="radio" name="bachiller" value="No"><span>No</span></label>
               </div>
@@ -490,21 +579,21 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
             <div class="tutor" id="tutor" hidden>
               <p>Como eres menor de edad, necesitamos el contacto de tu padre, madre o tutor.</p>
               <div class="campo">
-                <label for="f-tutor-nombre">Nombre del padre, madre o tutor</label>
+                <label for="f-tutor-nombre">Nombre del padre, madre o tutor<span class="obligatorio" aria-hidden="true"> *</span></label>
                 <input id="f-tutor-nombre" name="tutor_nombre" autocomplete="off">
                 <span class="msg" id="e-tutor-nombre"></span>
               </div>
               <div class="campo">
-                <label for="f-tutor-tel">Celular del padre, madre o tutor</label>
+                <label for="f-tutor-tel">Celular del padre, madre o tutor<span class="obligatorio" aria-hidden="true"> *</span></label>
                 <input id="f-tutor-tel" name="tutor_celular" type="tel" inputmode="tel" placeholder="71234567">
                 <span class="msg" id="e-tutor-tel"></span>
               </div>
             </div>
 
             <fieldset class="campo full">
-              <legend>¿A qué hora prefieres que te llamemos?</legend>
+              <legend>¿A qué hora prefieres que te llamemos?<span class="obligatorio" aria-hidden="true"> *</span></legend>
               <div class="chips" id="g-horario">
-                <label class="chip"><input type="radio" name="horario" value="Mañana"><span>Mañana</span></label>
+                <label class="chip"><input type="radio" required name="horario" value="Mañana"><span>Mañana</span></label>
                 <label class="chip"><input type="radio" name="horario" value="Tarde"><span>Tarde</span></label>
                 <label class="chip"><input type="radio" name="horario" value="Noche"><span>Noche</span></label>
               </div>
@@ -522,8 +611,8 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 
             <div class="campo full">
               <label class="check" for="f-privacidad">
-                <input id="f-privacidad" name="privacidad" type="checkbox">
-                <span>Acepto que Aerobol Academy use mis datos para contactarme, según su <a href="#" data-link="privacidad">política de privacidad</a>.</span>
+                <input id="f-privacidad" required name="privacidad" type="checkbox">
+                <span>Acepto que Aerobol Academy use mis datos para contactarme, según su <a href="#" data-link="privacidad">política de privacidad</a>.<span class="obligatorio" aria-hidden="true"> *</span></span>
               </label>
               <span class="msg" id="e-privacidad"></span>
             </div>

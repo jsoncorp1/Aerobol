@@ -9,19 +9,25 @@
 
       <div id="form-zona">
         <form class="form-card" id="form" aria-labelledby="form-card-titulo" novalidate>
-          <h3 id="form-card-titulo" class="form-card-titulo">Solicita información</h3>
+          <div class="boleto-cabecera">
+            <span class="boleto-marca">AEROBOL ACADEMY</span>
+            <span class="boleto-avion" aria-hidden="true">✈</span>
+            <h3 id="form-card-titulo" class="form-card-titulo">Tu próximo destino</h3>
+            <p>Solicita información e inicia tu camino en la aviación.</p>
+          </div>
+          <p class="boleto-obligatorios"><span aria-hidden="true">*</span> Campos obligatorios</p>
           <div class="form-grid">
             <div class="campo full">
-              <label for="f-nombre">Nombre completo</label>
-              <input id="f-nombre" name="nombre" autocomplete="name" placeholder="Ej. Camila Rojas Suárez">
+              <label for="f-nombre">Nombre completo<span class="obligatorio" aria-hidden="true"> *</span></label>
+              <input id="f-nombre" required name="nombre" autocomplete="name" placeholder="Ej. Camila Rojas Suárez">
               <span class="msg" id="e-nombre"></span>
             </div>
 
             <div class="campo full">
-              <label for="f-tel">WhatsApp</label>
+              <label for="f-tel">WhatsApp<span class="obligatorio" aria-hidden="true"> *</span></label>
               <div class="tel">
                 <select id="f-pais" name="pais" aria-label="Código de país"></select>
-                <input id="f-tel" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="71234567">
+                <input id="f-tel" required name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="71234567">
               </div>
               <span class="msg" id="e-tel"></span>
             </div>
@@ -33,21 +39,21 @@
             </div>
 
             <div class="campo">
-              <label for="f-ciudad">Ciudad</label>
-              <select id="f-ciudad" name="ciudad"></select>
+              <label for="f-ciudad">Ciudad<span class="obligatorio" aria-hidden="true"> *</span></label>
+              <select id="f-ciudad" required name="ciudad"></select>
               <span class="msg" id="e-ciudad"></span>
             </div>
 
             <div class="campo full">
-              <label for="f-carrera">Carrera de interés</label>
-              <select id="f-carrera" name="carrera"></select>
+              <label for="f-carrera">Carrera de interés<span class="obligatorio" aria-hidden="true"> *</span></label>
+              <select id="f-carrera" required name="carrera"></select>
               <span class="msg" id="e-carrera"></span>
             </div>
 
             <fieldset class="campo full">
-              <legend>¿Cuándo te gustaría empezar?</legend>
+              <legend>¿Cuándo te gustaría empezar?<span class="obligatorio" aria-hidden="true"> *</span></legend>
               <div class="chips" id="g-inicio">
-                <label class="chip"><input type="radio" name="inicio" value="Lo antes posible"><span>Lo antes posible</span></label>
+                <label class="chip"><input type="radio" required name="inicio" value="Lo antes posible"><span>Lo antes posible</span></label>
                 <label class="chip"><input type="radio" name="inicio" value="Gestión 2027"><span>Gestión 2027</span></label>
                 <label class="chip"><input type="radio" name="inicio" value="Solo estoy averiguando"><span>Solo estoy averiguando</span></label>
               </div>
@@ -55,15 +61,15 @@
             </fieldset>
 
             <div class="campo">
-              <label for="f-edad">Edad</label>
-              <input id="f-edad" name="edad" type="number" inputmode="numeric" min="14" max="70" placeholder="18">
+              <label for="f-edad">Edad<span class="obligatorio" aria-hidden="true"> *</span></label>
+              <input id="f-edad" required name="edad" type="number" inputmode="numeric" min="14" max="70" placeholder="18">
               <span class="msg" id="e-edad"></span>
             </div>
 
             <fieldset class="campo">
-              <legend>¿Ya saliste bachiller?</legend>
+              <legend>¿Ya saliste bachiller?<span class="obligatorio" aria-hidden="true"> *</span></legend>
               <div class="chips" id="g-bachiller">
-                <label class="chip"><input type="radio" name="bachiller" value="Sí"><span>Sí</span></label>
+                <label class="chip"><input type="radio" required name="bachiller" value="Sí"><span>Sí</span></label>
                 <label class="chip"><input type="radio" name="bachiller" value="Este año"><span>Este año</span></label>
                 <label class="chip"><input type="radio" name="bachiller" value="No"><span>No</span></label>
               </div>
@@ -77,21 +83,21 @@
             <div class="tutor" id="tutor" hidden>
               <p>Como eres menor de edad, necesitamos el contacto de tu padre, madre o tutor.</p>
               <div class="campo">
-                <label for="f-tutor-nombre">Nombre del padre, madre o tutor</label>
+                <label for="f-tutor-nombre">Nombre del padre, madre o tutor<span class="obligatorio" aria-hidden="true"> *</span></label>
                 <input id="f-tutor-nombre" name="tutor_nombre" autocomplete="off">
                 <span class="msg" id="e-tutor-nombre"></span>
               </div>
               <div class="campo">
-                <label for="f-tutor-tel">Celular del padre, madre o tutor</label>
+                <label for="f-tutor-tel">Celular del padre, madre o tutor<span class="obligatorio" aria-hidden="true"> *</span></label>
                 <input id="f-tutor-tel" name="tutor_celular" type="tel" inputmode="tel" placeholder="71234567">
                 <span class="msg" id="e-tutor-tel"></span>
               </div>
             </div>
 
             <fieldset class="campo full">
-              <legend>¿A qué hora prefieres que te llamemos?</legend>
+              <legend>¿A qué hora prefieres que te llamemos?<span class="obligatorio" aria-hidden="true"> *</span></legend>
               <div class="chips" id="g-horario">
-                <label class="chip"><input type="radio" name="horario" value="Mañana"><span>Mañana</span></label>
+                <label class="chip"><input type="radio" required name="horario" value="Mañana"><span>Mañana</span></label>
                 <label class="chip"><input type="radio" name="horario" value="Tarde"><span>Tarde</span></label>
                 <label class="chip"><input type="radio" name="horario" value="Noche"><span>Noche</span></label>
               </div>
@@ -109,8 +115,8 @@
 
             <div class="campo full">
               <label class="check" for="f-privacidad">
-                <input id="f-privacidad" name="privacidad" type="checkbox">
-                <span>Acepto que Aerobol Academy use mis datos para contactarme, según su <a href="#" data-link="privacidad">política de privacidad</a>.</span>
+                <input id="f-privacidad" required name="privacidad" type="checkbox">
+                <span>Acepto que Aerobol Academy use mis datos para contactarme, según su <a href="#" data-link="privacidad">política de privacidad</a>.<span class="obligatorio" aria-hidden="true"> *</span></span>
               </label>
               <span class="msg" id="e-privacidad"></span>
             </div>

@@ -100,14 +100,70 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 
 /* El tamaño del paisaje depende del ancho y no de la altura del formulario. */
 .pista::before {
-  background-size: 100% 100%, 100% auto;
+  background-size: 100% 100%, auto 100svh;
   background-position: center, center top;
-  background-repeat: no-repeat, repeat-y;
+  background-repeat: no-repeat, no-repeat;
 }
 @media (max-width: 600px) {
   .pista::before {
-    background-size: 100% 100%, 100% auto;
+    background-size: 100% 100%, auto 100svh;
     background-position: center, center top;
-    background-repeat: no-repeat, repeat-y;
+    background-repeat: no-repeat, no-repeat;
   }
+}
+
+/* Tarjeta de información con acabado de boleto de avión. */
+.pista .form-card { padding: 0 28px 28px; border: 1px solid #d6e0e9; border-radius: 22px; background: #fffdf8; overflow: hidden; box-shadow: 0 24px 65px #001c3540; }
+.boleto-cabecera { position: relative; margin: 0 -28px; padding: 26px 28px 24px; background: #0b2a46; color: white; border-bottom: 2px dashed #a9b9c9; }
+.boleto-marca { display: block; font-size: .75rem; letter-spacing: .16em; font-weight: 700; padding-right: 38px; }
+.boleto-avion { position: absolute; right: 28px; top: 22px; font-size: 2rem; color: #69d5b8; }
+.boleto-cabecera .form-card-titulo { margin: 16px 0 8px; color: white; text-align: left; font-size: clamp(1.8rem,3vw,2.4rem); }
+.boleto-cabecera p { font-size: .9rem; line-height: 1.5; color: #dbe8f1; }
+.boleto-obligatorios { margin: 18px 0 22px; color: #526575; font-size: .8rem; }
+.obligatorio, .boleto-obligatorios span { color: #b02b3a; font-weight: 700; }
+.pista .campo input, .pista .campo select { border-radius: 7px; background: #fff; }
+.pista .enviar { margin-top: 24px; border-radius: 9px; }
+.pista .form-grid > .check { grid-column: 1 / -1; }
+@media(max-width:600px) {
+ .pista .form-card { padding: 0 18px 24px; border-radius: 18px; }
+ .boleto-cabecera { margin-inline: -18px; padding-inline: 18px; }
+ .boleto-avion { right: 18px; }
+}
+
+/* Boleto lila y paisaje continuo en toda la sección. */
+.pista::before {
+  background-size: 100% 100%, cover;
+  background-position: center, center;
+  background-repeat: no-repeat;
+}
+.boleto-cabecera { background: #e7dcf5; color: #38234f; border-bottom-color: #b59bce; }
+.boleto-cabecera .form-card-titulo { color: #38234f; }
+.boleto-cabecera p { color: #59466d; }
+.boleto-avion { color: #78559b; }
+.pista .form-card { background: #fdfaff; border-color: #d9cce8; }
+.pista .form-grid { align-items: start; }
+.pista fieldset.campo { min-width: 0; }
+@media (min-width: 901px) {
+  .pista::before { background-attachment: scroll, fixed; }
+}
+@media (max-width: 600px) {
+  .pista::before {
+    background-size: 100% 100%, cover;
+    background-position: center, center top;
+    background-repeat: no-repeat;
+  }
+  .pista .wrap { gap: 28px; }
+  .pista-intro h2 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+}
+
+/* Cabecera con el mismo morado del pase de preinscripción. */
+.boleto-cabecera { background: var(--morado); color: #fff; border-bottom-color: #c3a1cd; }
+.boleto-cabecera .form-card-titulo, .boleto-cabecera p, .boleto-avion { color: #fff; }
+/* Las casillas conservan su tamaño al recibir foco. */
+.pista .check input[type="checkbox"] {
+  width: 22px; height: 22px; min-height: 22px; padding: 0;
+  border-radius: 3px; box-shadow: none; outline: none;
+}
+.pista .check input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--morado); outline-offset: 3px;
 }
