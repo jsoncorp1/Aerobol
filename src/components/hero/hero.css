@@ -7,7 +7,7 @@
 .hero-marco { position: relative; z-index: 3; display: flex; flex-direction: column; flex: 1; width: 100%; }
 
 /* Video decorativo con portada estática de respaldo. */
-.escena { position: absolute; z-index: 1; inset: 0; pointer-events: none; background: #071120 url("assets/portada-vino.webp") center / cover no-repeat; }
+.escena { position: absolute; z-index: 1; inset: 0; pointer-events: none; background: #071120 url("assets/portada-falda.webp") center / cover no-repeat; }
 .velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,17,31,.16), transparent 30%, rgba(7,17,31,.06) 55%, rgba(7,17,31,.5)); }
 
 /* Menú: solo logo y un botón */
@@ -82,7 +82,7 @@
   .hero { min-height: 100vh; min-height: 100svh; background: #0b223d; }
   .hero-marco { display: flex; flex: 1; }
   .hero .nav { position: relative; z-index: 3; padding-block: 16px; }
-  .hero .escena { position: absolute; inset: 0; width: auto; aspect-ratio: auto; background-image: url("assets/portada-vino-movil.webp"); background-position: center; background-size: cover; }
+  .hero .escena { position: absolute; inset: 0; width: auto; aspect-ratio: auto; background-image: url("assets/portada-falda-movil.webp"); background-position: center; background-size: cover; }
   .hero-body { position: relative; z-index: 3; padding: 24px 0 16px; }
   .hero .velo { background: linear-gradient(180deg, #07112016, transparent 35%, #07112000 60%, #071120a8); }
 }
