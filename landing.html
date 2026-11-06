@@ -141,12 +141,61 @@ a { color: inherit; }
 
 /* Compensa la exposición del clip para una portada más luminosa. */
 
-.conocenos-referencia { position: relative; }
-.conocenos-referencia img { display: block; width: 100%; height: auto; }
-.conocenos-referencia a { position: absolute; }
-.conocenos-referencia a:focus-visible { outline: 3px solid white; outline-offset: 3px; }
-.conocenos-solicitud { inset: 58% 66.4% 33% 21.2%; border-radius: 100px; }
-.conocenos-video { inset: 18.5% 21% 23% 47.7%; border-radius: 10px; }
+
+/* Nubes decorativas en la zona superior del cielo. */
+.escena::after {
+  content: "";
+  position: absolute;
+  inset: 0 -35% 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 12% 5% at 20% 12%, #fff8 10%, #fff0 100%),
+    radial-gradient(ellipse 16% 6% at 48% 8%, #fff6 10%, #fff0 100%),
+    radial-gradient(ellipse 10% 4% at 74% 18%, #fff7 10%, #fff0 100%);
+  opacity: .8;
+  animation: nubes-portada 18s linear infinite alternate;
+}
+@keyframes nubes-portada {
+  from { transform: translateX(-12%); }
+  to { transform: translateX(12%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .escena::after { animation: none; }
+}
+
+@media (max-width: 600px) {
+  .hero .nav { flex-wrap: wrap; justify-content: center; padding-block: 16px; }
+  .hero .nav .marca { flex-basis: 100%; display: flex; justify-content: center; }
+  .hero .nav .logo-oficial { width: 150px; height: auto; }
+  .hero .escena { background-position: 39% center; }
+  .hero .velo { background: linear-gradient(180deg, #07112022, transparent 35%, #071120b8); }
+  .hero-body { padding-block: 28px 20px; }
+  .hero h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
+}
+
+/* Portada vertical a pantalla completa en celular. */
+@media (max-width: 600px) {
+  .hero { min-height: 100vh; min-height: 100svh; background: #0b223d; }
+  .hero-marco { display: flex; flex: 1; }
+  .hero .nav { position: relative; z-index: 3; padding-block: 16px; }
+  .hero .escena { position: absolute; inset: 0; width: auto; aspect-ratio: auto; background-image: url("assets/portada-vino-movil.webp"); background-position: center; background-size: cover; }
+  .hero-body { position: relative; z-index: 3; padding: 24px 0 16px; }
+  .hero .velo { background: linear-gradient(180deg, #07112016, transparent 35%, #07112000 60%, #071120a8); }
+}
+
+
+.academia-video { padding: clamp(40px,6vw,96px) 0; color: white; background: linear-gradient(90deg,#071120a8,#07112038),url("assets/aula-referencia.webp") center / cover; }
+.academia-video-layout { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); align-items: center; gap: clamp(24px,4vw,64px); }
+.academia-video-texto { display: grid; justify-items: start; gap: 22px; }
+.academia-video-texto h2 { font-size: clamp(2rem,4vw,3.5rem); }
+.academia-video-texto p { line-height: 1.7; }
+.academia-video-player { min-width: 0; overflow: hidden; border-radius: 14px; background: #081522; border: 1px solid #ffffff60; }
+.academia-video-player iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
+.academia-video-player p { padding: 12px 16px; font-size: .8rem; line-height: 1.6; }
+@media(max-width:700px) {
+ .academia-video-layout { grid-template-columns: minmax(0,1fr); gap: 28px; }
+ .academia-video-texto .btn { width: 100%; min-height: 48px; }
+}
 
 /* Formulario sobre una pista al atardecer. */
 .pista { position: relative; isolation: isolate; overflow: hidden; background: #081522; color: var(--luna); }
@@ -237,6 +286,87 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
   .pista .form-card { border-radius: 22px; }
 }
 
+@media (max-width: 600px) {
+  .pista .form-card { padding: 22px 16px; }
+  .pista .form-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .pista .form-grid > * { min-width: 0; }
+  .pista .check { grid-column: 1 / -1; }
+  .pista .campo input, .pista .campo select { font-size: 16px; }
+  .pista .chips { gap: 8px; }
+  .pista .chip span { padding-inline: 12px; }
+  .pista .tel { grid-template-columns: 105px minmax(0, 1fr); }
+}
+
+/* El tamaño del paisaje depende del ancho y no de la altura del formulario. */
+.pista::before {
+  background-size: 100% 100%, auto 100svh;
+  background-position: center, center top;
+  background-repeat: no-repeat, no-repeat;
+}
+@media (max-width: 600px) {
+  .pista::before {
+    background-size: 100% 100%, auto 100svh;
+    background-position: center, center top;
+    background-repeat: no-repeat, no-repeat;
+  }
+}
+
+/* Tarjeta de información con acabado de boleto de avión. */
+.pista .form-card { padding: 0 28px 28px; border: 1px solid #d6e0e9; border-radius: 22px; background: #fffdf8; overflow: hidden; box-shadow: 0 24px 65px #001c3540; }
+.boleto-cabecera { position: relative; margin: 0 -28px; padding: 26px 28px 24px; background: #0b2a46; color: white; border-bottom: 2px dashed #a9b9c9; }
+.boleto-marca { display: block; font-size: .75rem; letter-spacing: .16em; font-weight: 700; padding-right: 38px; }
+.boleto-avion { position: absolute; right: 28px; top: 22px; font-size: 2rem; color: #69d5b8; }
+.boleto-cabecera .form-card-titulo { margin: 16px 0 8px; color: white; text-align: left; font-size: clamp(1.8rem,3vw,2.4rem); }
+.boleto-cabecera p { font-size: .9rem; line-height: 1.5; color: #dbe8f1; }
+.boleto-obligatorios { margin: 18px 0 22px; color: #526575; font-size: .8rem; }
+.obligatorio, .boleto-obligatorios span { color: #b02b3a; font-weight: 700; }
+.pista .campo input, .pista .campo select { border-radius: 7px; background: #fff; }
+.pista .enviar { margin-top: 24px; border-radius: 9px; }
+.pista .form-grid > .check { grid-column: 1 / -1; }
+@media(max-width:600px) {
+ .pista .form-card { padding: 0 18px 24px; border-radius: 18px; }
+ .boleto-cabecera { margin-inline: -18px; padding-inline: 18px; }
+ .boleto-avion { right: 18px; }
+}
+
+/* Boleto lila y paisaje continuo en toda la sección. */
+.pista::before {
+  background-size: 100% 100%, cover;
+  background-position: center, center;
+  background-repeat: no-repeat;
+}
+.boleto-cabecera { background: #e7dcf5; color: #38234f; border-bottom-color: #b59bce; }
+.boleto-cabecera .form-card-titulo { color: #38234f; }
+.boleto-cabecera p { color: #59466d; }
+.boleto-avion { color: #78559b; }
+.pista .form-card { background: #fdfaff; border-color: #d9cce8; }
+.pista .form-grid { align-items: start; }
+.pista fieldset.campo { min-width: 0; }
+@media (min-width: 901px) {
+  .pista::before { background-attachment: scroll, fixed; }
+}
+@media (max-width: 600px) {
+  .pista::before {
+    background-size: 100% 100%, cover;
+    background-position: center, center top;
+    background-repeat: no-repeat;
+  }
+  .pista .wrap { gap: 28px; }
+  .pista-intro h2 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+}
+
+/* Cabecera con el mismo morado del pase de preinscripción. */
+.boleto-cabecera { background: var(--morado); color: #fff; border-bottom-color: #c3a1cd; }
+.boleto-cabecera .form-card-titulo, .boleto-cabecera p, .boleto-avion { color: #fff; }
+/* Las casillas conservan su tamaño al recibir foco. */
+.pista .check input[type="checkbox"] {
+  width: 22px; height: 22px; min-height: 22px; padding: 0;
+  border-radius: 3px; box-shadow: none; outline: none;
+}
+.pista .check input[type="checkbox"]:focus-visible {
+  outline: 2px solid var(--morado); outline-offset: 3px;
+}
+
 /* Pase de abordar (confirmación) */
 .pase { background: var(--papel); color: var(--tinta); border-radius: 18px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
 .pase-top { background: var(--morado); color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 700; font-stretch: 112%; }
@@ -297,162 +427,6 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 .cookies .acc { display: flex; gap: 10px; }
 .cookies .btn { min-height: 44px; padding: 0 18px; font-size: .95rem; }
 .cookies .btn-linea { color: var(--morado); }
-
-/* Nubes decorativas en la zona superior del cielo. */
-.escena::after {
-  content: "";
-  position: absolute;
-  inset: 0 -35% 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 12% 5% at 20% 12%, #fff8 10%, #fff0 100%),
-    radial-gradient(ellipse 16% 6% at 48% 8%, #fff6 10%, #fff0 100%),
-    radial-gradient(ellipse 10% 4% at 74% 18%, #fff7 10%, #fff0 100%);
-  opacity: .8;
-  animation: nubes-portada 18s linear infinite alternate;
-}
-@keyframes nubes-portada {
-  from { transform: translateX(-12%); }
-  to { transform: translateX(12%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .escena::after { animation: none; }
-}
-
-
-@media (max-width: 600px) {
-  .hero .nav { flex-wrap: wrap; justify-content: center; padding-block: 16px; }
-  .hero .nav .marca { flex-basis: 100%; display: flex; justify-content: center; }
-  .hero .nav .logo-oficial { width: 150px; height: auto; }
-  .hero .escena { background-position: 39% center; }
-  .hero .velo { background: linear-gradient(180deg, #07112022, transparent 35%, #071120b8); }
-  .hero-body { padding-block: 28px 20px; }
-  .hero h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
-}
-
-
-.conocenos-movil { display: none; }
-@media (max-width: 700px) {
-  .conocenos-referencia { background: linear-gradient(#071120a8, #071120c8), url("assets/aula-navegacion.webp") center / cover; color: white; }
-  .conocenos-referencia > img, .conocenos-referencia > a { display: none; }
-  .conocenos-movil { display: grid; gap: 22px; padding: 42px 24px; }
-  .conocenos-movil h2 { font-size: 2rem; }
-  .conocenos-movil p { line-height: 1.6; }
-  .conocenos-movil a { position: static; min-height: 48px; display: flex; align-items: center; justify-content: center; }
-  .conocenos-video-movil { padding: 16px; border: 1px solid #ffffff80; border-radius: 12px; text-align: center; }
-}
-
-
-@media (max-width: 600px) {
-  .pista .form-card { padding: 22px 16px; }
-  .pista .form-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-  .pista .form-grid > * { min-width: 0; }
-  .pista .check { grid-column: 1 / -1; }
-  .pista .campo input, .pista .campo select { font-size: 16px; }
-  .pista .chips { gap: 8px; }
-  .pista .chip span { padding-inline: 12px; }
-  .pista .tel { grid-template-columns: 105px minmax(0, 1fr); }
-}
-
-
-/* El tamaño del paisaje depende del ancho y no de la altura del formulario. */
-.pista::before {
-  background-size: 100% 100%, auto 100svh;
-  background-position: center, center top;
-  background-repeat: no-repeat, no-repeat;
-}
-@media (max-width: 600px) {
-  .pista::before {
-    background-size: 100% 100%, auto 100svh;
-    background-position: center, center top;
-    background-repeat: no-repeat, no-repeat;
-  }
-}
-
-
-/* Portada vertical a pantalla completa en celular. */
-@media (max-width: 600px) {
-  .hero { min-height: 100vh; min-height: 100svh; background: #0b223d; }
-  .hero-marco { display: flex; flex: 1; }
-  .hero .nav { position: relative; z-index: 3; padding-block: 16px; }
-  .hero .escena { position: absolute; inset: 0; width: auto; aspect-ratio: auto; background-image: url("assets/portada-vino-movil.webp"); background-position: center; background-size: cover; }
-  .hero-body { position: relative; z-index: 3; padding: 24px 0 16px; }
-  .hero .velo { background: linear-gradient(180deg, #07112016, transparent 35%, #07112000 60%, #071120a8); }
-}
-
-
-.academia-video { padding: clamp(40px,6vw,96px) 0; color: white; background: linear-gradient(90deg,#071120a8,#07112038),url("assets/aula-referencia.webp") center / cover; }
-.academia-video-layout { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); align-items: center; gap: clamp(24px,4vw,64px); }
-.academia-video-texto { display: grid; justify-items: start; gap: 22px; }
-.academia-video-texto h2 { font-size: clamp(2rem,4vw,3.5rem); }
-.academia-video-texto p { line-height: 1.7; }
-.academia-video-player { min-width: 0; overflow: hidden; border-radius: 14px; background: #081522; border: 1px solid #ffffff60; }
-.academia-video-player iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
-.academia-video-player p { padding: 12px 16px; font-size: .8rem; line-height: 1.6; }
-@media(max-width:700px) {
- .academia-video-layout { grid-template-columns: minmax(0,1fr); gap: 28px; }
- .academia-video-texto .btn { width: 100%; min-height: 48px; }
-}
-
-
-/* Tarjeta de información con acabado de boleto de avión. */
-.pista .form-card { padding: 0 28px 28px; border: 1px solid #d6e0e9; border-radius: 22px; background: #fffdf8; overflow: hidden; box-shadow: 0 24px 65px #001c3540; }
-.boleto-cabecera { position: relative; margin: 0 -28px; padding: 26px 28px 24px; background: #0b2a46; color: white; border-bottom: 2px dashed #a9b9c9; }
-.boleto-marca { display: block; font-size: .75rem; letter-spacing: .16em; font-weight: 700; padding-right: 38px; }
-.boleto-avion { position: absolute; right: 28px; top: 22px; font-size: 2rem; color: #69d5b8; }
-.boleto-cabecera .form-card-titulo { margin: 16px 0 8px; color: white; text-align: left; font-size: clamp(1.8rem,3vw,2.4rem); }
-.boleto-cabecera p { font-size: .9rem; line-height: 1.5; color: #dbe8f1; }
-.boleto-obligatorios { margin: 18px 0 22px; color: #526575; font-size: .8rem; }
-.obligatorio, .boleto-obligatorios span { color: #b02b3a; font-weight: 700; }
-.pista .campo input, .pista .campo select { border-radius: 7px; background: #fff; }
-.pista .enviar { margin-top: 24px; border-radius: 9px; }
-.pista .form-grid > .check { grid-column: 1 / -1; }
-@media(max-width:600px) {
- .pista .form-card { padding: 0 18px 24px; border-radius: 18px; }
- .boleto-cabecera { margin-inline: -18px; padding-inline: 18px; }
- .boleto-avion { right: 18px; }
-}
-
-
-/* Boleto lila y paisaje continuo en toda la sección. */
-.pista::before {
-  background-size: 100% 100%, cover;
-  background-position: center, center;
-  background-repeat: no-repeat;
-}
-.boleto-cabecera { background: #e7dcf5; color: #38234f; border-bottom-color: #b59bce; }
-.boleto-cabecera .form-card-titulo { color: #38234f; }
-.boleto-cabecera p { color: #59466d; }
-.boleto-avion { color: #78559b; }
-.pista .form-card { background: #fdfaff; border-color: #d9cce8; }
-.pista .form-grid { align-items: start; }
-.pista fieldset.campo { min-width: 0; }
-@media (min-width: 901px) {
-  .pista::before { background-attachment: scroll, fixed; }
-}
-@media (max-width: 600px) {
-  .pista::before {
-    background-size: 100% 100%, cover;
-    background-position: center, center top;
-    background-repeat: no-repeat;
-  }
-  .pista .wrap { gap: 28px; }
-  .pista-intro h2 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
-}
-
-
-/* Cabecera con el mismo morado del pase de preinscripción. */
-.boleto-cabecera { background: var(--morado); color: #fff; border-bottom-color: #c3a1cd; }
-.boleto-cabecera .form-card-titulo, .boleto-cabecera p, .boleto-avion { color: #fff; }
-/* Las casillas conservan su tamaño al recibir foco. */
-.pista .check input[type="checkbox"] {
-  width: 22px; height: 22px; min-height: 22px; padding: 0;
-  border-radius: 3px; box-shadow: none; outline: none;
-}
-.pista .check input[type="checkbox"]:focus-visible {
-  outline: 2px solid var(--morado); outline-offset: 3px;
-}
-
 </style>
 
 <!-- PORTADA -->
@@ -479,7 +453,6 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 </header>
 
 <main>
-  <!-- CONÓCENOS -->
   <section class="academia-video" id="vive" aria-labelledby="vive-titulo">
     <div class="wrap academia-video-layout">
       <div class="academia-video-texto">
@@ -816,8 +789,6 @@ const CONFIG = {
       deslice.classList.toggle("oculto", scrollY > 40);
     });
   }, { passive: true });
-
-
 
   /* ---------- Opciones de los selects ---------- */
   const selCarrera = $("#f-carrera");
