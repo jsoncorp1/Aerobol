@@ -23,6 +23,7 @@ public class LeadValidationTests
     [InlineData("botcheck", "sitio de un bot")]
     [InlineData("horario_contacto", "Cualquiera")]
     [InlineData("ciudad", "Marte")]
+    [InlineData("grado_academico", "Otro valor")]
     [InlineData("carrera", "<script>alert(1)</script>")]
     [InlineData("como_nos_conocio", "=HYPERLINK(\"http://x\",\"y\")")]
     public void InvalidInputIsRejected(string key, string value)
@@ -57,5 +58,17 @@ public class LeadValidationTests
     {
         var data = Valid(); data["nombre"] = null!;
         Assert.NotNull(LeadValidation.Validate(data));
+    }
+    [Theory]
+    [InlineData("")]
+    [InlineData("TÍTULO UNIVERSITARIO")]
+    [InlineData("LICENCIA AERONÁUTICA")]
+    [InlineData("TÍTULO TECNICO MEDIO")]
+    public void ShortFormIsAccepted(string grado)
+    {
+        var data = Valid();
+        data.Remove("carrera"); data.Remove("edad");
+        data["grado_academico"] = grado;
+        Assert.Null(LeadValidation.Validate(data));
     }
 }

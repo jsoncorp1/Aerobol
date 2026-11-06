@@ -167,3 +167,28 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 .pista .check input[type="checkbox"]:focus-visible {
   outline: 2px solid var(--morado); outline-offset: 3px;
 }
+
+/* Solicitud breve: siete preguntas y consentimiento. */
+.pista .wrap { align-items: center; }
+.pista-intro { padding-top: 0; }
+.pista .form-card { padding: 0 24px 24px; }
+.boleto-cabecera { margin-inline: -24px; padding: 20px 24px; }
+.boleto-cabecera .form-card-titulo { margin: 0; padding-right: 32px; font-size: clamp(1.5rem,2.4vw,2rem); }
+.boleto-avion { top: 14px; right: 22px; }
+.boleto-obligatorios { margin: 12px 0; }
+.pista .form-grid { gap: 12px 14px; }
+.pista .campo { gap: 4px; }
+.pista .campo input, .pista .campo select { min-height: 44px; }
+.pista .campo label, .pista .campo legend { font-size: .88rem; }
+.pista .chip span { min-height: 44px; padding-inline: 12px; font-size: .84rem; }
+#g-bachiller { margin-top: 0; }
+#g-bachiller .chip span { min-height: 44px; padding-inline: 10px; }
+.pista .msg:empty { display: none; }
+.pista .enviar { margin-top: 16px; min-height: 48px; }
+@media(max-width:600px) {
+ .pista .form-card { padding: 0 16px 20px; }
+ .boleto-cabecera { margin-inline: -16px; padding: 18px 16px; }
+ .pista .form-grid { gap: 12px; }
+ .pista .campo input, .pista .campo select { font-size: 16px; }
+ .pista .check { font-size: .85rem; line-height: 1.5; }
+}

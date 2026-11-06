@@ -193,8 +193,6 @@ a { color: inherit; }
 .academia-video-player iframe { display: block; width: 100%; aspect-ratio: 16 / 9; border: 0; }
 .academia-video-player p { padding: 12px 16px; font-size: .8rem; line-height: 1.6; }
 @media(max-width:700px) {
- /* Fondo vertical del aula con varias filas visibles en celular. */
- .academia-video { padding: 44px 0; background: linear-gradient(180deg,#07112080,#07112055 45%,#071120a0),url("assets/aula-referencia-movil.webp") center / cover no-repeat; }
  .academia-video-layout { grid-template-columns: minmax(0,1fr); gap: 28px; }
  .academia-video-texto .btn { width: 100%; min-height: 48px; }
 }
@@ -369,6 +367,31 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
   outline: 2px solid var(--morado); outline-offset: 3px;
 }
 
+/* Solicitud breve: siete preguntas y consentimiento. */
+.pista .wrap { align-items: center; }
+.pista-intro { padding-top: 0; }
+.pista .form-card { padding: 0 24px 24px; }
+.boleto-cabecera { margin-inline: -24px; padding: 20px 24px; }
+.boleto-cabecera .form-card-titulo { margin: 0; padding-right: 32px; font-size: clamp(1.5rem,2.4vw,2rem); }
+.boleto-avion { top: 14px; right: 22px; }
+.boleto-obligatorios { margin: 12px 0; }
+.pista .form-grid { gap: 12px 14px; }
+.pista .campo { gap: 4px; }
+.pista .campo input, .pista .campo select { min-height: 44px; }
+.pista .campo label, .pista .campo legend { font-size: .88rem; }
+.pista .chip span { min-height: 44px; padding-inline: 12px; font-size: .84rem; }
+#g-bachiller { margin-top: 0; }
+#g-bachiller .chip span { min-height: 44px; padding-inline: 10px; }
+.pista .msg:empty { display: none; }
+.pista .enviar { margin-top: 16px; min-height: 48px; }
+@media(max-width:600px) {
+ .pista .form-card { padding: 0 16px 20px; }
+ .boleto-cabecera { margin-inline: -16px; padding: 18px 16px; }
+ .pista .form-grid { gap: 12px; }
+ .pista .campo input, .pista .campo select { font-size: 16px; }
+ .pista .check { font-size: .85rem; line-height: 1.5; }
+}
+
 /* Pase de abordar (confirmación) */
 .pase { background: var(--papel); color: var(--tinta); border-radius: 18px; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); }
 .pase-top { background: var(--morado); color: #fff; padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-weight: 700; font-stretch: 112%; }
@@ -481,10 +504,10 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
       <div id="form-zona">
         <form class="form-card" id="form" aria-labelledby="form-card-titulo" novalidate>
           <div class="boleto-cabecera">
-            <span class="boleto-marca">AEROBOL ACADEMY</span>
+
             <span class="boleto-avion" aria-hidden="true">✈</span>
-            <h3 id="form-card-titulo" class="form-card-titulo">Tu próximo destino</h3>
-            <p>Solicita información e inicia tu camino en la aviación.</p>
+            <h3 id="form-card-titulo" class="form-card-titulo">Solicita información</h3>
+
           </div>
           <p class="boleto-obligatorios"><span aria-hidden="true">*</span> Campos obligatorios</p>
           <div class="form-grid">
@@ -503,23 +526,13 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
               <span class="msg" id="e-tel"></span>
             </div>
 
-            <div class="campo">
-              <label for="f-correo">Correo <span class="opc">(opcional)</span></label>
-              <input id="f-correo" name="correo" type="email" autocomplete="email" placeholder="tucorreo@ejemplo.com">
-              <span class="msg" id="e-correo"></span>
-            </div>
 
-            <div class="campo">
+            <div class="campo full">
               <label for="f-ciudad">Ciudad<span class="obligatorio" aria-hidden="true"> *</span></label>
               <select id="f-ciudad" required name="ciudad"></select>
               <span class="msg" id="e-ciudad"></span>
             </div>
 
-            <div class="campo full">
-              <label for="f-carrera">Carrera de interés<span class="obligatorio" aria-hidden="true"> *</span></label>
-              <select id="f-carrera" required name="carrera"></select>
-              <span class="msg" id="e-carrera"></span>
-            </div>
 
             <fieldset class="campo full">
               <legend>¿Cuándo te gustaría empezar?<span class="obligatorio" aria-hidden="true"> *</span></legend>
@@ -531,11 +544,6 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
               <span class="msg" id="e-inicio"></span>
             </fieldset>
 
-            <div class="campo">
-              <label for="f-edad">Edad<span class="obligatorio" aria-hidden="true"> *</span></label>
-              <input id="f-edad" required name="edad" type="number" inputmode="numeric" min="14" max="70" placeholder="18">
-              <span class="msg" id="e-edad"></span>
-            </div>
 
             <fieldset class="campo">
               <legend>¿Ya saliste bachiller?<span class="obligatorio" aria-hidden="true"> *</span></legend>
@@ -546,24 +554,17 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
               </div>
               <span class="msg" id="e-bachiller"></span>
             </fieldset>
-            <label class="check" for="f-titulo">
-              <input id="f-titulo" name="titulo_profesional_tecnico" type="checkbox">
-              <span>Tengo título profesional o técnico</span>
-            </label>
-
-            <div class="tutor" id="tutor" hidden>
-              <p>Como eres menor de edad, necesitamos el contacto de tu padre, madre o tutor.</p>
-              <div class="campo">
-                <label for="f-tutor-nombre">Nombre del padre, madre o tutor<span class="obligatorio" aria-hidden="true"> *</span></label>
-                <input id="f-tutor-nombre" name="tutor_nombre" autocomplete="off">
-                <span class="msg" id="e-tutor-nombre"></span>
-              </div>
-              <div class="campo">
-                <label for="f-tutor-tel">Celular del padre, madre o tutor<span class="obligatorio" aria-hidden="true"> *</span></label>
-                <input id="f-tutor-tel" name="tutor_celular" type="tel" inputmode="tel" placeholder="71234567">
-                <span class="msg" id="e-tutor-tel"></span>
-              </div>
+            <div class="campo">
+              <label for="f-grado">Grado académico <span class="opc">(opcional)</span></label>
+              <select id="f-grado" name="grado_academico">
+                <option value="">Elige una opción</option>
+                <option>TÍTULO UNIVERSITARIO</option>
+                <option>LICENCIA AERONÁUTICA</option>
+                <option>TÍTULO TECNICO MEDIO</option>
+              </select>
+              <span class="msg" id="e-grado"></span>
             </div>
+
 
             <fieldset class="campo full">
               <legend>¿A qué hora prefieres que te llamemos?<span class="obligatorio" aria-hidden="true"> *</span></legend>
@@ -575,14 +576,6 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
               <span class="msg" id="e-horario"></span>
             </fieldset>
 
-            <div class="campo full">
-              <label for="f-fuente">¿Cómo nos conociste? <span class="opc">(opcional)</span></label>
-              <select id="f-fuente" name="como_nos_conocio">
-                <option value="">Elige una opción</option>
-                <option>Facebook</option><option>Instagram</option><option>TikTok</option>
-                <option>Recomendación de alguien</option><option>Otro</option>
-              </select>
-            </div>
 
             <div class="campo full">
               <label class="check" for="f-privacidad">
@@ -598,7 +591,7 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
             </div>
           </div>
 
-          <button class="btn enviar" id="enviar" type="submit">Quiero que me llamen</button>
+          <button class="btn enviar" id="enviar" type="submit">Enviar solicitud</button>
           <div class="form-error" id="form-error" role="alert" hidden>
             <span>No pudimos enviar tu registro. Revisa tu conexión o escríbenos directo por WhatsApp con tus datos ya cargados.</span>
             <a class="btn" id="wa-respaldo" href="#" target="_blank" rel="noopener">Enviar mis datos por WhatsApp</a>
@@ -793,11 +786,6 @@ const CONFIG = {
   }, { passive: true });
 
   /* ---------- Opciones de los selects ---------- */
-  const selCarrera = $("#f-carrera");
-  selCarrera.innerHTML = '<option value="">Elige una carrera</option>' +
-    CONFIG.carreras.map(c => '<option value="' + esc(c.nombre) + '">' + esc(c.nombre) + "</option>").join("") +
-    '<option value="Aún no sé">Aún no sé, quiero orientación</option>';
-
   $("#f-ciudad").innerHTML = '<option value="">Elige tu ciudad</option>' +
     CONFIG.ciudades.map(c => '<option value="' + esc(c) + '">' + esc(c) + "</option>").join("");
 
@@ -806,8 +794,6 @@ const CONFIG = {
 
   /* ---------- Formulario ---------- */
   const form = $("#form");
-  const edad = $("#f-edad");
-  const tutor = $("#tutor");
 
   function setError(id, msg) {
     const m = $("#e-" + id); if (!m) return;
@@ -816,12 +802,6 @@ const CONFIG = {
   }
   function limpiarError(id) { setError(id, ""); }
 
-  function elegirCarrera(nombre) {
-    selCarrera.value = nombre;
-    limpiarError("carrera");
-    $("#preinscripcion").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
-    setTimeout(() => $("#f-nombre").focus({ preventScroll: true }), 500);
-  }
 
   const valRadio = n => (form.querySelector('input[name="' + n + '"]:checked') || {}).value || "";
 
@@ -830,23 +810,17 @@ const CONFIG = {
     if (cod === "+591") return /^[67]\d{7}$/.test(d);
     return d.length >= 7 && d.length <= 15;
   }
-  const esMenor = () => { const v = Number(edad.value); return Number.isInteger(v) && v >= 14 && v < 18; };
 
   const REGLAS = {
     nombre: () => $("#f-nombre").value.trim().split(/\s+/).filter(w => /^[\p{L}'.-]{2,}$/u.test(w)).length >= 2 ? "" : "Escribe tu nombre y apellido.",
     tel: () => telValido($("#f-pais").value, $("#f-tel").value) ? "" : "Revisa tu número de WhatsApp, parece incompleto.",
-    correo: () => { const v = $("#f-correo").value.trim(); return !v || /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) ? "" : "Ese correo no parece válido."; },
     ciudad: () => $("#f-ciudad").value ? "" : "Elige tu ciudad.",
-    carrera: () => selCarrera.value ? "" : "Elige la carrera que te interesa.",
     inicio: () => valRadio("inicio") ? "" : "Elige cuándo te gustaría empezar.",
-    edad: () => { const v = Number(edad.value); return Number.isInteger(v) && v >= 14 && v <= 70 ? "" : "Escribe una edad válida."; },
     bachiller: () => valRadio("bachiller") ? "" : "Cuéntanos si ya saliste bachiller.",
-    "tutor-nombre": () => !esMenor() || $("#f-tutor-nombre").value.trim().length >= 3 ? "" : "Necesitamos el nombre de tu padre, madre o tutor porque eres menor de edad.",
-    "tutor-tel": () => !esMenor() || telValido("+591", $("#f-tutor-tel").value) ? "" : "Necesitamos un celular válido de tu padre, madre o tutor.",
     horario: () => valRadio("horario") ? "" : "Elige en qué horario te llamamos.",
     privacidad: () => $("#f-privacidad").checked ? "" : "Debes aceptar la política de privacidad para continuar."
   };
-  const CAMPO_DE = { "f-nombre": "nombre", "f-tel": "tel", "f-pais": "tel", "f-correo": "correo", "f-ciudad": "ciudad", "f-carrera": "carrera", "f-edad": "edad", "f-tutor-nombre": "tutor-nombre", "f-tutor-tel": "tutor-tel", "f-privacidad": "privacidad" };
+  const CAMPO_DE = { "f-nombre": "nombre", "f-tel": "tel", "f-pais": "tel", "f-ciudad": "ciudad", "f-privacidad": "privacidad" };
 
   form.addEventListener("focusout", e => {
     if (!form.classList.contains("validado")) return; // antes del primer intento no se muestran errores
@@ -857,10 +831,6 @@ const CONFIG = {
     const k = CAMPO_DE[e.target.id] || (e.target.type === "radio" ? e.target.name : "");
     if (k && $("#e-" + k) && $("#e-" + k).textContent) setError(k, REGLAS[k]());
   });
-  edad.addEventListener("input", () => {
-    tutor.hidden = !esMenor();
-    if (!esMenor()) { limpiarError("tutor-nombre"); limpiarError("tutor-tel"); }
-  });
 
   function datosLead() {
     const pais = $("#f-pais").value;
@@ -869,23 +839,15 @@ const CONFIG = {
     const d = {
       nombre: $("#f-nombre").value.trim(),
       whatsapp: pais + " " + $("#f-tel").value.replace(/\D/g, ""),
-      correo: $("#f-correo").value.trim(),
       ciudad: $("#f-ciudad").value,
-      carrera: selCarrera.value,
       inicio: valRadio("inicio"),
-      edad: edad.value,
       bachiller: valRadio("bachiller"),
-      titulo_profesional_tecnico: String($("#f-titulo").checked),
+      grado_academico: $("#f-grado").value,
       horario_contacto: valRadio("horario"),
-      como_nos_conocio: $("#f-fuente").value,
       promo: codigoPromo,
       origen: origen,
       fecha_registro: fecha + " (hora de Bolivia)"
     };
-    if (esMenor()) {
-      d.tutor_nombre = $("#f-tutor-nombre").value.trim();
-      d.tutor_celular = "+591 " + $("#f-tutor-tel").value.replace(/\D/g, "");
-    }
     CLAVES.filter(k => k !== "promo").forEach(k => { if (campana[k]) d[k] = campana[k]; });
     return d;
   }
@@ -893,9 +855,8 @@ const CONFIG = {
   function textoWhatsapp(d) {
     return "Hola Aerobol, quiero preinscribirme.\n" +
       "Nombre: " + d.nombre + "\nWhatsApp: " + d.whatsapp + "\nCiudad: " + d.ciudad +
-      "\nCarrera: " + d.carrera + "\nInicio: " + d.inicio + "\nEdad: " + d.edad +
-      (d.tutor_nombre ? "\nTutor: " + d.tutor_nombre + " (" + d.tutor_celular + ")" : "") +
-      "\nBachiller: " + d.bachiller + "\nMejor horario: " + d.horario_contacto;
+      "\nInicio: " + d.inicio +
+      "\nBachiller: " + d.bachiller + (d.grado_academico ? "\nGrado académico: " + d.grado_academico : "") + "\nMejor horario: " + d.horario_contacto;
   }
 
   form.addEventListener("submit", async e => {
@@ -934,7 +895,7 @@ const CONFIG = {
       if (!res.ok || json.success === false) throw new Error(json.message || "No pudimos enviar tu registro. Revisa tu conexión y vuelve a intentarlo.");
       mostrarPase(d, json.codigo);
     } catch (err) {
-      btn.disabled = false; btn.textContent = "Quiero que me llamen";
+      btn.disabled = false; btn.textContent = "Enviar solicitud";
       $("#form-error span").textContent = err.message === "token" ? "No pudimos conectar. Recarga la página y vuelve a intentarlo." : err.message;
       $("#wa-respaldo").hidden = !whatsappDisponible;
       if (whatsappDisponible) $("#wa-respaldo").href = waLink(textoWhatsapp(d));
@@ -953,7 +914,7 @@ const CONFIG = {
           '<div class="pase-ruta">' +
             '<div><span class="lbl">Pasajero</span><strong>' + esc(d.nombre) + "</strong></div>" +
             '<svg width="34" height="34" viewBox="-17 -17 34 34" aria-hidden="true"><path d="M14 0 L4 -3 L-2 -12 L-6 -12 L-3 -3 L-10 -3 L-13 -7 L-16 -7 L-14 0 L-16 7 L-13 7 L-10 3 L-3 3 L-6 12 L-2 12 L4 3 Z" fill="#5B2563"/></svg>' +
-            '<div class="der"><span class="lbl">Destino</span><strong>' + esc(d.carrera) + "</strong></div>" +
+            '<div class="der"><span class="lbl">Destino</span><strong>' + esc(d.carrera || "Aerobol Academy") + "</strong></div>" +
           "</div>" +
           '<div class="pase-datos">' +
             '<div><span class="lbl">Salida</span><strong>' + esc(d.inicio) + "</strong></div>" +

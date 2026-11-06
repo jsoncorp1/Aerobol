@@ -16,11 +16,12 @@ public static class LeadValidation
             return "Datos demasiado extensos.";
         string V(string key) => datos.GetValueOrDefault(key, "").Trim();
         if (V("botcheck") != "") return "No se pudo enviar el formulario.";
-        if (new[] { "nombre", "whatsapp", "ciudad", "carrera", "inicio", "edad", "bachiller", "horario_contacto" }.Any(key => V(key) == ""))
+        if (new[] { "nombre", "whatsapp", "ciudad", "inicio", "bachiller", "horario_contacto" }.Any(key => V(key) == ""))
             return "Completa los campos obligatorios.";
         if (V("nombre").Split(' ', StringSplitOptions.RemoveEmptyEntries).Count(word => Regex.IsMatch(word, @"^[\p{L}'.-]{2,}$")) < 2)
             return "Escribe tu nombre y apellido.";
-        if (!int.TryParse(V("edad"), out var age) || age is < 14 or > 70) return "Escribe una edad entera entre 14 y 70 años.";
+        int age = 18;
+        if (V("edad") != "" && (!int.TryParse(V("edad"), out age) || age is < 14 or > 70)) return "Escribe una edad entera entre 14 y 70 años.";
         if (!ValidPhone(V("whatsapp"))) return "Revisa el número de WhatsApp.";
         if (V("privacidad") != "true") return "Debes aceptar la política de privacidad.";
         if (!new[] { "Mañana", "Tarde", "Noche" }.Contains(V("horario_contacto"))
@@ -28,7 +29,8 @@ public static class LeadValidation
             || !new[] { "Lo antes posible", "Gestión 2027", "Solo estoy averiguando" }.Contains(V("inicio"))
             || V("titulo_profesional_tecnico") is not ("" or "true" or "false")
             || !Ciudades.Contains(V("ciudad"))
-            || !Carreras.Contains(V("carrera"))
+            || (V("carrera") != "" && !Carreras.Contains(V("carrera")))
+            || !new[] { "", "TÍTULO UNIVERSITARIO", "LICENCIA AERONÁUTICA", "TÍTULO TECNICO MEDIO" }.Contains(V("grado_academico"))
             || !Fuentes.Contains(V("como_nos_conocio")))
             return "Revisa las opciones seleccionadas.";
         if (V("correo") != "" && (!MailAddress.TryCreate(V("correo"), out var email) || email.Address != V("correo") || !V("correo").Contains('.')))

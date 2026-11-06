@@ -9,7 +9,7 @@
           '<div class="pase-ruta">' +
             '<div><span class="lbl">Pasajero</span><strong>' + esc(d.nombre) + "</strong></div>" +
             '<svg width="34" height="34" viewBox="-17 -17 34 34" aria-hidden="true"><path d="M14 0 L4 -3 L-2 -12 L-6 -12 L-3 -3 L-10 -3 L-13 -7 L-16 -7 L-14 0 L-16 7 L-13 7 L-10 3 L-3 3 L-6 12 L-2 12 L4 3 Z" fill="#5B2563"/></svg>' +
-            '<div class="der"><span class="lbl">Destino</span><strong>' + esc(d.carrera) + "</strong></div>" +
+            '<div class="der"><span class="lbl">Destino</span><strong>' + esc(d.carrera || "Aerobol Academy") + "</strong></div>" +
           "</div>" +
           '<div class="pase-datos">' +
             '<div><span class="lbl">Salida</span><strong>' + esc(d.inicio) + "</strong></div>" +
