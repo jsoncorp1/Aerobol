@@ -256,20 +256,6 @@ html.cargando { overflow: hidden; }
       line-height: 1.45;
     }
 
-    .deslice {
-      margin-top: 30px;
-      font-size: 11px;
-      letter-spacing: .27em;
-      font-weight: 700;
-    }
-
-    .deslice::after {
-      content: '⌄';
-      display: block;
-      font-size: 25px;
-      line-height: 1.1;
-      letter-spacing: 0;
-    }
 
     /* Cambios de composición para teléfonos. */
     @media (max-width: 700px) {
@@ -317,7 +303,6 @@ html.cargando { overflow: hidden; }
 
       .hero h1 { font-size: clamp(31px, 8vw, 44px); line-height: 1.1; }
       .hero .sub { font-size: 14px; }
-      .deslice { text-align: center; margin-top: 24px; }
     }
 
     /* Ajustes adicionales para teléfonos más estrechos. */
@@ -338,12 +323,27 @@ html.cargando { overflow: hidden; }
 .hero .btn-claro { display:inline-flex; align-items:center; min-height:44px; }
 .hero .btn-claro:hover { background:#fff; color:#0d1c30; }
 .hero .btn-claro:focus-visible, .hero .marca:focus-visible, .hero .deslice:focus-visible { outline:3px solid #fff; outline-offset:4px; }
-.hero .deslice { display:block; color:inherit; text-decoration:none; transition:opacity .25s ease; }
+/* Indicador centrado y discreto, independiente del eslogan. */
+.hero-copy { padding-bottom: 70px; }
+.hero .deslice { position:absolute; z-index:5; bottom:calc(20px + env(safe-area-inset-bottom,0px)); left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; min-width:64px; min-height:44px; color:rgba(255,255,255,.75); text-decoration:none; transition:opacity .25s ease; }
+.hero .deslice span { font-size:9px; line-height:1.4; font-weight:400; letter-spacing:.22em; text-transform:uppercase; }
+.hero .deslice svg { flex:none; }
+.hero .deslice:hover { color:#fff; }
 .hero .deslice.oculto { opacity:0; pointer-events:none; }
 .hero h1 { max-width:none; }
 @media(max-width:700px) { .hero .nav { flex-direction:column; } }
 @media(max-height:600px) and (min-width:701px) { .hero { min-height:600px; } }
 .hero, .hero h1, .hero .sub { color: #fff; }
+
+/* Pulso suave para invitar a seguir recorriendo la página. */
+.hero .deslice span, .hero .deslice svg { animation: deslice-pulso 2s ease-in-out infinite; }
+@keyframes deslice-pulso {
+  0%, 100% { opacity: .35; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero .deslice span, .hero .deslice svg { animation: none; }
+}
 
 
 .academia-video { padding: clamp(40px,6vw,96px) 0; color: white; background: linear-gradient(90deg,#071120a8,#07112038),url("assets/aula-referencia.webp") center / cover; }
@@ -713,8 +713,11 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
   <div class="hero-copy">
     <h1 id="hero-titulo">Donde nace tu pasión,<br>despega tu profesión.</h1>
     <p class="sub">Descubre tu camino en la aviación con AeroBol Academy.</p>
-    <a class="deslice" id="deslice" href="#vive">Deslice</a>
   </div>
+  <a class="deslice" id="deslice" href="#vive" aria-label="Desliza hacia abajo para conocer la academia">
+    <span>Deslice</span>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </a>
 </header>
 
 <main>
