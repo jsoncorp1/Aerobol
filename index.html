@@ -151,7 +151,7 @@ html.cargando { overflow: hidden; }
       height: 120%;
       pointer-events: none;
       transform-origin: center;
-      animation: cloud-drift 14s ease-in-out infinite alternate;
+      animation: none;
       will-change: transform;
     }
 
@@ -163,10 +163,6 @@ html.cargando { overflow: hidden; }
     }
 
     /* Desplazamiento lento y sutil: da vida al cielo sin distraer. */
-    @keyframes cloud-drift {
-      from { transform: translate3d(-2%, 0, 0) scale(1.07); }
-      to   { transform: translate3d(5%, -0.8%, 0) scale(1.07); }
-    }
 
     /* Una sombra suave ayuda a leer el texto blanco. */
     .hero-shade {
@@ -386,7 +382,7 @@ html.cargando { overflow: hidden; }
 @media(max-width:700px) and (prefers-reduced-motion:reduce) { .hero-plane { animation:none; } }
 
 /* Cielo animado sobre el aeropuerto fijo: la máscara excluye la terminal. */
-.hero-clouds { opacity:.8; mask-image:linear-gradient(180deg,#000 0%,#000 43%,transparent 61%); animation:cloud-drift 12s ease-in-out infinite alternate; }
+.hero-clouds { opacity:.8; mask-image:linear-gradient(180deg,#000 0%,#000 43%,transparent 61%); animation:none; }
 @media(min-width:701px) {
  .hero-background { background-image:url("assets/hero-web-nitido-fondo-0c2f3a42.webp"); }
  .hero-students { left:0; }
@@ -417,6 +413,15 @@ html.cargando { overflow: hidden; }
 }
 @media(max-width:700px) { .hero-clouds { mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 46%); } }
 @media(prefers-reduced-motion:reduce) { .hero-plane { animation:none; } }
+
+/* Dos copias idénticas permiten un ciclo continuo hacia la derecha. */
+.hero-clouds { inset:0; width:100%; height:100%; animation:none; will-change:auto; }
+.hero-clouds-track { display:flex; width:200%; height:100%; animation:nubes-continuas 90s linear infinite; will-change:transform; }
+.hero-clouds-track > picture { display:block; flex:0 0 50%; width:50%; height:100%; mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); }
+.hero-clouds-track img { display:block; width:100%; height:100%; object-fit:cover; }
+@keyframes nubes-continuas { from { transform:translate3d(-50%,0,0); } to { transform:translate3d(0,0,0); } }
+.cargando .hero-clouds-track { animation-play-state:paused; }
+@media(prefers-reduced-motion:reduce) { .hero-clouds-track { animation:none; transform:translate3d(0,0,0); } }
 
 
 .academia-video { padding: clamp(40px,6vw,96px) 0; color: white; background: linear-gradient(90deg,#071120a8,#07112038),url("assets/aula-referencia.webp") center / cover; }
@@ -784,10 +789,18 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 <!-- PORTADA -->
 <header class="hero" id="inicio">
   <div class="hero-background" aria-hidden="true"></div>
-  <picture class="hero-clouds" aria-hidden="true">
+  <div class="hero-clouds" aria-hidden="true">
+    <div class="hero-clouds-track">
+      <picture>
     <source media="(max-width:700px)" srcset="assets/hero-referencia-movil-fondo-b79e5317.webp">
     <img src="assets/hero-web-nitido-fondo-0c2f3a42.webp" alt="" width="1672" height="941">
-  </picture>
+      </picture>
+      <picture>
+    <source media="(max-width:700px)" srcset="assets/hero-referencia-movil-fondo-b79e5317.webp">
+    <img src="assets/hero-web-nitido-fondo-0c2f3a42.webp" alt="" width="1672" height="941">
+      </picture>
+    </div>
+  </div>
   <div class="hero-shade" aria-hidden="true"></div>
   <picture aria-hidden="true"><source media="(max-width:700px)" srcset="assets/hero-referencia-movil-avion-23d1f90a.webp" width="900" height="1600">
   <img class="hero-plane" src="assets/hero-web-nitido-avion-2726c428.webp" alt="" width="1400" height="467" aria-hidden="true"></picture>

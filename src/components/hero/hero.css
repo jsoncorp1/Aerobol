@@ -26,7 +26,7 @@
       height: 120%;
       pointer-events: none;
       transform-origin: center;
-      animation: cloud-drift 14s ease-in-out infinite alternate;
+      animation: none;
       will-change: transform;
     }
 
@@ -38,10 +38,6 @@
     }
 
     /* Desplazamiento lento y sutil: da vida al cielo sin distraer. */
-    @keyframes cloud-drift {
-      from { transform: translate3d(-2%, 0, 0) scale(1.07); }
-      to   { transform: translate3d(5%, -0.8%, 0) scale(1.07); }
-    }
 
     /* Una sombra suave ayuda a leer el texto blanco. */
     .hero-shade {
@@ -261,7 +257,7 @@
 @media(max-width:700px) and (prefers-reduced-motion:reduce) { .hero-plane { animation:none; } }
 
 /* Cielo animado sobre el aeropuerto fijo: la máscara excluye la terminal. */
-.hero-clouds { opacity:.8; mask-image:linear-gradient(180deg,#000 0%,#000 43%,transparent 61%); animation:cloud-drift 12s ease-in-out infinite alternate; }
+.hero-clouds { opacity:.8; mask-image:linear-gradient(180deg,#000 0%,#000 43%,transparent 61%); animation:none; }
 @media(min-width:701px) {
  .hero-background { background-image:url("assets/hero-web-nitido-fondo-0c2f3a42.webp"); }
  .hero-students { left:0; }
@@ -292,3 +288,12 @@
 }
 @media(max-width:700px) { .hero-clouds { mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 46%); } }
 @media(prefers-reduced-motion:reduce) { .hero-plane { animation:none; } }
+
+/* Dos copias idénticas permiten un ciclo continuo hacia la derecha. */
+.hero-clouds { inset:0; width:100%; height:100%; animation:none; will-change:auto; }
+.hero-clouds-track { display:flex; width:200%; height:100%; animation:nubes-continuas 90s linear infinite; will-change:transform; }
+.hero-clouds-track > picture { display:block; flex:0 0 50%; width:50%; height:100%; mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent); }
+.hero-clouds-track img { display:block; width:100%; height:100%; object-fit:cover; }
+@keyframes nubes-continuas { from { transform:translate3d(-50%,0,0); } to { transform:translate3d(0,0,0); } }
+.cargando .hero-clouds-track { animation-play-state:paused; }
+@media(prefers-reduced-motion:reduce) { .hero-clouds-track { animation:none; transform:translate3d(0,0,0); } }
