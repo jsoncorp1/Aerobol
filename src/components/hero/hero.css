@@ -1,88 +1,233 @@
-/* ───────── PORTADA ───────── */
-.hero {
-  position: relative; overflow: hidden; color: var(--luna);
-  min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column;
-  background: linear-gradient(180deg, #071120 0%, var(--noche) 45%, #1F3A5F 100%);
-}
-.hero-marco { position: relative; z-index: 3; display: flex; flex-direction: column; flex: 1; width: 100%; }
+/* La portada contiene todas las imágenes superpuestas. */
+    .hero {
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      min-height: 100svh;
+      overflow: hidden;
+      background: #245075;
+    }
 
-/* Video decorativo con portada estática de respaldo. */
-.escena { position: absolute; z-index: 1; inset: 0; pointer-events: none; background: #071120 url("assets/portada-falda.webp") center / cover no-repeat; }
-.velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,17,31,.16), transparent 30%, rgba(7,17,31,.06) 55%, rgba(7,17,31,.5)); }
+    /* Capa 1: fotografía limpia del aeropuerto, sin nubes. */
+    .hero-background {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: url('assets/hero-aeropuerto-horizontal-sin-nubes.webp') center 51% / cover no-repeat;
+    }
 
-/* Menú: solo logo y un botón */
-.nav { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
-.btn-claro { min-height: 44px; padding: 0 20px; font-size: .9rem; background: rgba(7,17,31,.5); color: #fff; border: 1px solid rgba(255,255,255,.55); }
-.btn-claro span { font-size: 1.2rem; }
-.btn.btn-claro:hover { background: #fff; color: var(--noche); }
-@media (max-width: 420px) { .nav { gap: 10px; } .btn-claro { padding-inline: 13px; font-size: .78rem; gap: 6px; } }
+    /* Capa 2: nubes independientes, suavizadas para integrarse con el cielo. */
+    .hero-clouds {
+      position: absolute;
+      z-index: 1;
+      inset: -1%;
+      width: 102%;
+      height: 102%;
+      pointer-events: none;
+      transform-origin: center;
+      animation: cloud-drift 14s ease-in-out infinite alternate;
+      will-change: transform;
+    }
 
-/* Contenido: título y subtítulo en la zona baja, como en la referencia */
-.hero-body { flex: 1; display: grid; justify-items: center; align-content: end; gap: 14px; text-align: center; padding-block: 40px 28px; }
-.hero h1 {
-  max-width: 20ch; font-size: clamp(1.75rem, 3.8vw, 2.9rem); font-weight: 700; font-stretch: 100%;
-  letter-spacing: -.02em; line-height: 1.08; text-shadow: 0 4px 34px rgba(0,0,0,.6);
-}
-.hero .sub { max-width: 52ch; text-wrap: balance; font-size: clamp(.95rem, 1.5vw, 1.1rem); color: var(--luna); opacity: .92; text-shadow: 0 2px 16px rgba(0,0,0,.65); }
+    .hero-clouds img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
-.deslice {
-  position: relative; z-index: 3; align-self: center; display: grid; justify-items: center; gap: 2px;
-  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
-  color: var(--luna); font-size: .66rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; text-decoration: none;
-  transition: opacity .4s ease, transform .4s ease;
-}
-.deslice.oculto { opacity: 0; transform: translateY(10px); pointer-events: none; }
-.deslice svg { animation: rebote 1.8s ease-in-out infinite; }
-@keyframes rebote { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+    /* Desplazamiento lento y sutil: da vida al cielo sin distraer. */
+    @keyframes cloud-drift {
+      from { transform: translate3d(-2%, 0, 0) scale(1.07); }
+      to   { transform: translate3d(5%, -0.8%, 0) scale(1.07); }
+    }
 
-.hero-body > *, .deslice { animation: sube .9s cubic-bezier(.2,.7,.2,1) backwards; animation-delay: calc(var(--i, 0) * 140ms + 300ms); }
-@keyframes sube { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+    /* Una sombra suave ayuda a leer el texto blanco. */
+    .hero-shade {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background:
+        linear-gradient(0deg, rgba(7, 18, 32, .52), transparent 51%),
+        linear-gradient(90deg, rgba(8, 22, 40, .12), transparent 55%);
+    }
 
-@media (prefers-reduced-motion: reduce) {
-  .deslice svg, .hero-body > *, .deslice { animation: none !important; }
-}
+    /* Capa 2: avión independiente del fondo. */
+    .hero-plane {
+      position: absolute;
+      z-index: 3;
+      width: min(36vw, 560px);
+      height: auto;
+      top: 8%;
+      right: 8%;
+      animation: flight 12s ease-in-out infinite alternate;
+      filter: drop-shadow(0 7px 9px rgba(0, 0, 0, .15));
+    }
+
+    /* El avión avanza y sube un poco, sin mover las otras capas. */
+    @keyframes flight {
+      to { transform: translate(4%, -8%) scale(1.02); }
+    }
+
+    /* Capa 3: estudiantes y baranda para pantallas horizontales. */
+    .hero-students {
+      position: absolute;
+      z-index: 4;
+      height: 86%;
+      width: auto;
+      max-width: none;
+      left: -10%;
+      bottom: 0%;
+      filter: drop-shadow(0 8px 12px rgba(0, 0, 0, .1));
+    }
+
+    /* Esta versión aparece solamente en pantallas pequeñas. */
 
 
-/* Compensa la exposición del clip para una portada más luminosa. */
+    /* Logo y botón de la parte superior. */
+    .hero .nav {
+      position: absolute;
+      z-index: 5;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      padding: clamp(24px, 4vw, 54px) clamp(24px, 8vw, 150px);
+    }
+
+    .hero .logo-oficial {
+      display: block;
+      width: clamp(155px, 15vw, 235px);
+      height: auto;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .18));
+    }
+
+    .hero .btn-claro {
+      color: white;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, .65);
+      background: rgba(13, 28, 48, .65);
+      border-radius: 99px;
+      padding: 13px 19px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .12);
+    }
+
+    .hero .btn-claro span { margin-left: 8px; }
+
+    /* Título y descripción sobre las imágenes. */
+    .hero-copy {
+      position: absolute;
+      z-index: 5;
+      left: 34%;
+      right: 15%;
+      bottom: 6%;
+      text-align: center;
+      text-shadow: 0 3px 12px rgba(0, 0, 0, .48);
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(34px, 3.9vw, 64px);
+      line-height: 1.04;
+      letter-spacing: -.05em;
+      font-weight: 800;
+    }
+
+    .hero .sub {
+      margin: 0;
+      font-size: clamp(14px, 1.25vw, 18px);
+      line-height: 1.45;
+    }
+
+    .deslice {
+      margin-top: 30px;
+      font-size: 11px;
+      letter-spacing: .27em;
+      font-weight: 700;
+    }
+
+    .deslice::after {
+      content: '⌄';
+      display: block;
+      font-size: 25px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    /* Cambios de composición para teléfonos. */
+    @media (max-width: 700px) {
+      .hero-background {
+        background-image: url('assets/hero-aeropuerto-vertical-sin-nubes.webp');
+        background-position: center center;
+      }
+
+      .hero-shade {
+        background: linear-gradient(0deg,
+          rgba(5, 15, 29, .72) 0%,
+          rgba(5, 15, 29, .18) 32%,
+          transparent 65%);
+      }
+
+      .hero .nav {
+        padding: 24px 16px;
+        align-items: center;
+        flex-direction: column;
+        gap: 17px;
+      }
+
+      .hero .logo-oficial { width: 155px; }
+      .hero .btn-claro { font-size: 13px; padding: 12px 19px; }
+      .hero-plane { width: 53%; top: 25%; right: 5%; }
 
 
-/* Nubes decorativas en la zona superior del cielo. */
-.escena::after {
-  content: "";
-  position: absolute;
-  inset: 0 -35% 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 12% 5% at 20% 12%, #fff8 10%, #fff0 100%),
-    radial-gradient(ellipse 16% 6% at 48% 8%, #fff6 10%, #fff0 100%),
-    radial-gradient(ellipse 10% 4% at 74% 18%, #fff7 10%, #fff0 100%);
-  opacity: .8;
-  animation: nubes-portada 18s linear infinite alternate;
-}
-@keyframes nubes-portada {
-  from { transform: translateX(-12%); }
-  to { transform: translateX(12%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  .escena::after { animation: none; }
-}
+      .hero-students {
+        display: block;
+        position: absolute;
+        z-index: 4;
+        height: 68%;
+        width: auto;
+        max-width: none;
+        left: -12%;
+        bottom: -3%;
+      }
 
-@media (max-width: 600px) {
-  .hero .nav { flex-wrap: wrap; justify-content: center; padding-block: 16px; }
-  .hero .nav .marca { flex-basis: 100%; display: flex; justify-content: center; }
-  .hero .nav .logo-oficial { width: 150px; height: auto; }
-  .hero .escena { background-position: 39% center; }
-  .hero .velo { background: linear-gradient(180deg, #07112022, transparent 35%, #071120b8); }
-  .hero-body { padding-block: 28px 20px; }
-  .hero h1 { font-size: clamp(1.8rem, 7.5vw, 2.6rem); }
-}
+      .hero-copy {
+        left: 8%;
+        right: 8%;
+        bottom: 4%;
+        text-align: left;
+      }
 
-/* Portada vertical a pantalla completa en celular. */
-@media (max-width: 600px) {
-  .hero { min-height: 100vh; min-height: 100svh; background: #0b223d; }
-  .hero-marco { display: flex; flex: 1; }
-  .hero .nav { position: relative; z-index: 3; padding-block: 16px; }
-  .hero .escena { position: absolute; inset: 0; width: auto; aspect-ratio: auto; background-image: url("assets/portada-falda-movil.webp"); background-position: center; background-size: cover; }
-  .hero-body { position: relative; z-index: 3; padding: 24px 0 16px; }
-  .hero .velo { background: linear-gradient(180deg, #07112016, transparent 35%, #07112000 60%, #071120a8); }
-}
+      .hero h1 { font-size: clamp(31px, 8vw, 44px); line-height: 1.1; }
+      .hero .sub { font-size: 14px; }
+      .deslice { text-align: center; margin-top: 24px; }
+    }
+
+    /* Ajustes adicionales para teléfonos más estrechos. */
+    @media (max-width: 420px) {
+      .hero-students { height: 66%; left: -16%; }
+      .hero-plane { width: 58%; top: 26%; right: 3%; }
+      .hero-copy { bottom: 3%; }
+    }
+
+    /* Respeta la preferencia de quienes desactivan animaciones. */
+    @media (prefers-reduced-motion: reduce) {
+      .hero-plane, .hero-clouds { animation: none; }
+    }
+
+/* Controles accesibles e integración con la landing. */
+.hero .nav { flex-wrap: nowrap; width:100%; }
+.hero .logo-oficial { object-fit:contain; }
+.hero .btn-claro { display:inline-flex; align-items:center; min-height:44px; }
+.hero .btn-claro:hover { background:#fff; color:#0d1c30; }
+.hero .btn-claro:focus-visible, .hero .marca:focus-visible, .hero .deslice:focus-visible { outline:3px solid #fff; outline-offset:4px; }
+.hero .deslice { display:block; color:inherit; text-decoration:none; transition:opacity .25s ease; }
+.hero .deslice.oculto { opacity:0; pointer-events:none; }
+.hero h1 { max-width:none; }
+@media(max-width:700px) { .hero .nav { flex-direction:column; } }
+@media(max-height:600px) and (min-width:701px) { .hero { min-height:600px; } }
+.hero, .hero h1, .hero .sub { color: #fff; }

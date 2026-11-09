@@ -1,22 +1,23 @@
 <!-- PORTADA -->
 <header class="hero" id="inicio">
-  <div class="escena" aria-hidden="true">
-    <div class="velo"></div>
-  </div>
-
-  <div class="wrap hero-marco">
-    <nav class="nav" aria-label="Principal">
-      <a class="marca" href="#inicio"><img class="logo-oficial" src="assets/aerobol-blanco.webp" alt="AeroBol Academy" width="180" height="80"></a>
-      <a class="btn btn-claro" href="#vive">Conoce la academia <span aria-hidden="true">↗</span></a>
-    </nav>
-
-    <div class="hero-body">
-      <h1 id="hero-titulo" style="--i:0">Donde nace tu pasión, despega tu profesión.</h1>
-      <p class="sub" style="--i:1">Descubre tu camino en la aviación con Aerobol Academy.</p>
-    </div>
-
-    <a class="deslice" id="deslice" href="#vive" style="--i:2">Deslice
-      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
-    </a>
+  <div class="hero-background" aria-hidden="true"></div>
+  <picture class="hero-clouds" aria-hidden="true">
+    <source media="(max-width:700px)" srcset="assets/hero-nubes-vertical-suaves.webp">
+    <img src="assets/hero-nubes-horizontal-suaves.webp" alt="" width="825" height="465">
+  </picture>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <img class="hero-plane" src="assets/hero-avion-boa-transparente.webp" alt="" width="2172" height="724" aria-hidden="true">
+  <picture aria-hidden="true">
+    <source media="(max-width:700px)" srcset="assets/hero-estudiantes-mobile.webp" width="1243" height="941">
+    <img class="hero-students" src="assets/hero-estudiantes-baranda-suelo.webp" alt="" width="1672" height="941">
+  </picture>
+  <nav class="nav" aria-label="Principal">
+    <a class="marca" href="#inicio"><img class="logo-oficial" src="assets/hero-aerobol-logo-blanco.webp" alt="AeroBol Academy" width="2172" height="724"></a>
+    <a class="btn-claro" href="#vive">Conoce la academia <span aria-hidden="true">↗</span></a>
+  </nav>
+  <div class="hero-copy">
+    <h1 id="hero-titulo">Donde nace tu pasión,<br>despega tu profesión.</h1>
+    <p class="sub">Descubre tu camino en la aviación con AeroBol Academy.</p>
+    <a class="deslice" id="deslice" href="#vive">Deslice</a>
   </div>
 </header>
