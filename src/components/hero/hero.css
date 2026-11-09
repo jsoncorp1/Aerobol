@@ -13,16 +13,17 @@
       position: absolute;
       inset: 0;
       z-index: 0;
-      background: url('assets/hero-aeropuerto-horizontal-sin-nubes.webp') center 51% / cover no-repeat;
+      background: url('assets/hero-aeropuerto-horizontal-sin-nubes-opt-eed890d6.webp') center 51% / cover no-repeat;
     }
 
     /* Capa 2: nubes independientes, suavizadas para integrarse con el cielo. */
     .hero-clouds {
       position: absolute;
       z-index: 1;
-      inset: -1%;
-      width: 102%;
-      height: 102%;
+      /* Margen suficiente para cubrir los bordes durante todo el recorrido. */
+      inset: -10%;
+      width: 120%;
+      height: 120%;
       pointer-events: none;
       transform-origin: center;
       animation: cloud-drift 14s ease-in-out infinite alternate;
@@ -147,7 +148,7 @@
     /* Cambios de composición para teléfonos. */
     @media (max-width: 700px) {
       .hero-background {
-        background-image: url('assets/hero-aeropuerto-vertical-sin-nubes.webp');
+        background-image: url('assets/hero-aeropuerto-vertical-sin-nubes-opt-70428204.webp');
         background-position: center center;
       }
 

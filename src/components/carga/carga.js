@@ -13,14 +13,15 @@
       el !== pantalla && !["SCRIPT", "STYLE"].includes(el.tagName) && !el.inert);
     bloqueados.forEach(el => { el.inert = true; });
     try {
-      // currentSrc elige la imagen de móvil o escritorio de cada <picture>.
-      // Los fondos CSS también forman parte de la carga; no se esperan iframes.
+      const secciones = [...document.querySelectorAll(".academia-video, .pista")];
+      secciones.forEach(el => el.classList.add("carga-diferida"));
+      // Solo la portada bloquea la entrada; currentSrc selecciona móvil/escritorio.
       const urls = new Set();
-      document.querySelectorAll("img").forEach(img => {
+      document.querySelectorAll(".hero img").forEach(img => {
         const url = img.currentSrc || img.src;
         if (url) urls.add(url);
       });
-      document.querySelectorAll("body *").forEach(el => {
+      document.querySelectorAll(".hero, .hero *").forEach(el => {
         for (const pseudo of [null, "::before", "::after"]) {
           const style = getComputedStyle(el, pseudo);
           if (style.display === "none" || (pseudo && ["none", "normal"].includes(style.content))) continue;
@@ -48,6 +49,18 @@
         bloqueados.forEach(el => { el.inert = false; });
         document.documentElement.classList.remove("cargando");
         pantalla.hidden = true;
+        if ("IntersectionObserver" in window) {
+          const observador = new IntersectionObserver(entradas => {
+            entradas.forEach(entrada => {
+              if (!entrada.isIntersecting) return;
+              entrada.target.classList.remove("carga-diferida");
+              observador.unobserve(entrada.target);
+            });
+          }, { rootMargin: "200px" });
+          secciones.forEach(el => observador.observe(el));
+        } else {
+          secciones.forEach(el => el.classList.remove("carga-diferida"));
+        }
       }));
     } catch {
       estado.textContent = "No pudimos cargar todas las imágenes. Revisa tu conexión y vuelve a intentar.";

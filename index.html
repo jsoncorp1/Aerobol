@@ -9,7 +9,10 @@
 <meta name="description" content="Preinscríbete gratis en Aerobol Academy y asegura tu cupo para la gestión 2027. Pilotos, tripulantes de cabina, despachadores y técnicos aeronáuticos.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap"></noscript>
+<link rel="preload" as="image" href="assets/hero-aeropuerto-horizontal-sin-nubes-opt-eed890d6.webp" media="(min-width:701px)" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-aeropuerto-vertical-sin-nubes-opt-70428204.webp" media="(max-width:700px)" fetchpriority="high">
 <style>
 /* Concepto "Despegue": la página es un vuelo. Cielo al amanecer (portada) → tablero de salidas (carreras) → pista nocturna (formulario) → pase de abordar (confirmación). Una sola familia, Archivo, jugando con su ancho: expandida para titulares, como la rotulación de un fuselaje. */
 :root {
@@ -116,6 +119,9 @@ a { color: inherit; }
 html.cargando { overflow: hidden; }
 .cargando body > :not(.carga-inicial) { visibility: hidden; }
 .cargando .hero-plane, .cargando .hero-clouds { animation-play-state: paused; }
+/* Los fondos de las siguientes secciones no compiten con la portada. */
+.cargando .academia-video, .academia-video.carga-diferida,
+.cargando .pista::before, .pista.carga-diferida::before { background-image: none !important; }
 
 /* La portada contiene todas las imágenes superpuestas. */
     .hero {
@@ -132,16 +138,17 @@ html.cargando { overflow: hidden; }
       position: absolute;
       inset: 0;
       z-index: 0;
-      background: url('assets/hero-aeropuerto-horizontal-sin-nubes.webp') center 51% / cover no-repeat;
+      background: url('assets/hero-aeropuerto-horizontal-sin-nubes-opt-eed890d6.webp') center 51% / cover no-repeat;
     }
 
     /* Capa 2: nubes independientes, suavizadas para integrarse con el cielo. */
     .hero-clouds {
       position: absolute;
       z-index: 1;
-      inset: -1%;
-      width: 102%;
-      height: 102%;
+      /* Margen suficiente para cubrir los bordes durante todo el recorrido. */
+      inset: -10%;
+      width: 120%;
+      height: 120%;
       pointer-events: none;
       transform-origin: center;
       animation: cloud-drift 14s ease-in-out infinite alternate;
@@ -266,7 +273,7 @@ html.cargando { overflow: hidden; }
     /* Cambios de composición para teléfonos. */
     @media (max-width: 700px) {
       .hero-background {
-        background-image: url('assets/hero-aeropuerto-vertical-sin-nubes.webp');
+        background-image: url('assets/hero-aeropuerto-vertical-sin-nubes-opt-70428204.webp');
         background-position: center center;
       }
 
@@ -651,14 +658,15 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
       el !== pantalla && !["SCRIPT", "STYLE"].includes(el.tagName) && !el.inert);
     bloqueados.forEach(el => { el.inert = true; });
     try {
-      // currentSrc elige la imagen de móvil o escritorio de cada <picture>.
-      // Los fondos CSS también forman parte de la carga; no se esperan iframes.
+      const secciones = [...document.querySelectorAll(".academia-video, .pista")];
+      secciones.forEach(el => el.classList.add("carga-diferida"));
+      // Solo la portada bloquea la entrada; currentSrc selecciona móvil/escritorio.
       const urls = new Set();
-      document.querySelectorAll("img").forEach(img => {
+      document.querySelectorAll(".hero img").forEach(img => {
         const url = img.currentSrc || img.src;
         if (url) urls.add(url);
       });
-      document.querySelectorAll("body *").forEach(el => {
+      document.querySelectorAll(".hero, .hero *").forEach(el => {
         for (const pseudo of [null, "::before", "::after"]) {
           const style = getComputedStyle(el, pseudo);
           if (style.display === "none" || (pseudo && ["none", "normal"].includes(style.content))) continue;
@@ -686,6 +694,18 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
         bloqueados.forEach(el => { el.inert = false; });
         document.documentElement.classList.remove("cargando");
         pantalla.hidden = true;
+        if ("IntersectionObserver" in window) {
+          const observador = new IntersectionObserver(entradas => {
+            entradas.forEach(entrada => {
+              if (!entrada.isIntersecting) return;
+              entrada.target.classList.remove("carga-diferida");
+              observador.unobserve(entrada.target);
+            });
+          }, { rootMargin: "200px" });
+          secciones.forEach(el => observador.observe(el));
+        } else {
+          secciones.forEach(el => el.classList.remove("carga-diferida"));
+        }
       }));
     } catch {
       estado.textContent = "No pudimos cargar todas las imágenes. Revisa tu conexión y vuelve a intentar.";
@@ -705,17 +725,17 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 <header class="hero" id="inicio">
   <div class="hero-background" aria-hidden="true"></div>
   <picture class="hero-clouds" aria-hidden="true">
-    <source media="(max-width:700px)" srcset="assets/hero-nubes-vertical-suaves.webp">
-    <img src="assets/hero-nubes-horizontal-suaves.webp" alt="" width="825" height="465">
+    <source media="(max-width:700px)" srcset="assets/hero-nubes-vertical-suaves-opt-8cd54823.webp">
+    <img src="assets/hero-nubes-horizontal-suaves-opt-dce9a6e1.webp" alt="" width="825" height="465">
   </picture>
   <div class="hero-shade" aria-hidden="true"></div>
-  <img class="hero-plane" src="assets/hero-avion-boa-transparente.webp" alt="" width="2172" height="724" aria-hidden="true">
+  <img class="hero-plane" src="assets/hero-avion-boa-transparente-opt-aa987b7d.webp" alt="" width="2172" height="724" aria-hidden="true">
   <picture aria-hidden="true">
-    <source media="(max-width:700px)" srcset="assets/hero-estudiantes-vino-mobile.webp" width="1442" height="1091">
-    <img class="hero-students" src="assets/hero-estudiantes-vino.webp" alt="" width="1672" height="941">
+    <source media="(max-width:700px)" srcset="assets/hero-estudiantes-vino-mobile-opt-2415b10a.webp" width="1442" height="1091">
+    <img fetchpriority="high" decoding="async" class="hero-students" src="assets/hero-estudiantes-vino-opt-6ce2d7fb.webp" alt="" width="1672" height="941">
   </picture>
   <nav class="nav" aria-label="Principal">
-    <a class="marca" href="#inicio"><img class="logo-oficial" src="assets/hero-aerobol-logo-blanco.webp" alt="AeroBol Academy" width="2172" height="724"></a>
+    <a class="marca" href="#inicio"><img class="logo-oficial" src="assets/hero-aerobol-logo-blanco-opt-6f4e3d85.webp" alt="AeroBol Academy" width="2172" height="724"></a>
     <a class="btn-claro" href="#vive">Conoce la academia <span aria-hidden="true">↗</span></a>
   </nav>
   <div class="hero-copy">

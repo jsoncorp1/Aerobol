@@ -208,7 +208,14 @@ app.Use(async (context, next) =>
 });
 // El webroot publicado contiene únicamente los recursos públicos seleccionados.
 app.UseDefaultFiles();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    OnPrepareResponse = ctx =>
+    {
+        if (ctx.Context.Request.Path.StartsWithSegments("/assets"))
+            ctx.Context.Response.Headers.CacheControl = "public, max-age=3600";
+    }
+});
 app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 app.MapGet("/health/ready", async (AerobolDbContext db) =>
 {

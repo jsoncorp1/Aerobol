@@ -14,3 +14,6 @@
 html.cargando { overflow: hidden; }
 .cargando body > :not(.carga-inicial) { visibility: hidden; }
 .cargando .hero-plane, .cargando .hero-clouds { animation-play-state: paused; }
+/* Los fondos de las siguientes secciones no compiten con la portada. */
+.cargando .academia-video, .academia-video.carga-diferida,
+.cargando .pista::before, .pista.carga-diferida::before { background-image: none !important; }
