@@ -211,9 +211,9 @@
 .hero .btn-claro { display:inline-flex; align-items:center; min-height:44px; }
 .hero .btn-claro:hover { background:#fff; color:#0d1c30; }
 .hero .btn-claro:focus-visible, .hero .marca:focus-visible, .hero .deslice:focus-visible { outline:3px solid #fff; outline-offset:4px; }
-/* Indicador centrado y discreto, independiente del eslogan. */
+/* El indicador comparte el centro del bloque de texto. */
 .hero-copy { padding-bottom: 70px; }
-.hero .deslice { position:absolute; z-index:5; bottom:calc(20px + env(safe-area-inset-bottom,0px)); left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; min-width:64px; min-height:44px; color:rgba(255,255,255,.75); text-decoration:none; transition:opacity .25s ease; }
+.hero .deslice { position:absolute; z-index:5; bottom:calc(20px + env(safe-area-inset-bottom,0px)); left:59.5%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; min-width:64px; min-height:44px; color:rgba(255,255,255,.75); text-decoration:none; transition:opacity .25s ease; }
 .hero .deslice span { font-size:9px; line-height:1.4; font-weight:400; letter-spacing:.22em; text-transform:uppercase; }
 .hero .deslice svg { flex:none; }
 .hero .deslice:hover { color:#fff; }
@@ -232,3 +232,63 @@
 @media (prefers-reduced-motion: reduce) {
   .hero .deslice span, .hero .deslice svg { animation: none; }
 }
+
+@media(max-width:700px) { .hero .deslice { left:50%; } }
+
+/* La baranda también alcanza el borde en monitores ultrapanorámicos. */
+@media(min-width:701px) and (min-aspect-ratio:5/2) { .hero-students { width:110%; height:auto; } }
+
+/* Composición más limpia: texto e indicador separados de la baranda. */
+@media(min-width:701px) {
+ .hero::after { content:""; position:absolute; z-index:4; inset:0; pointer-events:none; background:linear-gradient(180deg,transparent 48%,rgba(7,18,32,.12) 65%,rgba(7,18,32,.6)); }
+ .hero-copy { left:38%; right:8%; bottom:15%; padding-bottom:0; }
+ .hero h1 { font-size:clamp(32px,3.4vw,60px); line-height:1.1; letter-spacing:-.035em; text-wrap:balance; }
+ .hero .sub { max-width:44ch; margin-inline:auto; line-height:1.6; color:#eef3f8; text-wrap:balance; }
+ .hero .deslice { left:65%; bottom:7%; color:rgba(255,255,255,.85); }
+}
+
+/* Referencia aprobada: tres capas alineadas sobre el mismo lienzo vertical. */
+@media(max-width:700px) {
+ .hero { background:#7397d4; }
+ .hero-background { background: #7397d4 url("assets/hero-referencia-movil-fondo-b79e5317.webp") center bottom / cover no-repeat; }
+ .hero-clouds { display:none; }
+ .hero-plane, .hero-students { width:100%; height:100%; max-width:none; left:0; right:auto; top:0; bottom:auto; }
+ .hero-students { object-fit:cover; object-position:left bottom; }
+ .hero-plane { object-fit:contain; object-position:center 20%; }
+ .hero-plane { animation:vuelo-referencia-movil 12s ease-in-out infinite alternate; }
+}
+@keyframes vuelo-referencia-movil { from { transform:translate(0,0); } to { transform:translate(1%,-.5%); } }
+@media(max-width:700px) and (prefers-reduced-motion:reduce) { .hero-plane { animation:none; } }
+
+/* Cielo animado sobre el aeropuerto fijo: la máscara excluye la terminal. */
+.hero-clouds { opacity:.8; mask-image:linear-gradient(180deg,#000 0%,#000 43%,transparent 61%); animation:cloud-drift 12s ease-in-out infinite alternate; }
+@media(min-width:701px) {
+ .hero-background { background-image:url("assets/hero-web-nitido-fondo-0c2f3a42.webp"); }
+ .hero-students { left:0; }
+}
+@media(max-width:700px) {
+ .hero-clouds { display:block; mask-image:linear-gradient(180deg,#000 0%,#000 35%,transparent 53%); }
+}
+@media(prefers-reduced-motion:reduce) { .hero-clouds { animation:none; } }
+
+/* En escritorio la baranda queda al pie, fuera del bloque de lectura. */
+@media(min-width:701px) {
+ .hero-students { bottom:-12%; }
+}
+
+/* Mismo aeropuerto y avión que en móvil; estudiantes ampliados solo hacia la baranda. */
+@media(min-width:701px) {
+ .hero-background { background-image:url("assets/hero-referencia-movil-fondo-b79e5317.webp"); background-position:center 50%; }
+ .hero-plane { width:75%; height:80%; left:20%; right:auto; top:0; bottom:auto; object-fit:cover; object-position:center 34%; animation:vuelo-misma-escena 12s ease-in-out infinite alternate; }
+ .hero-students { width:auto; height:100%; left:0; bottom:-10%; }
+}
+@keyframes vuelo-misma-escena { from { transform:translate(0,0); } to { transform:translate(1%,-.5%); } }
+@media(prefers-reduced-motion:reduce) { .hero-plane { animation:none; } }
+
+/* Evita ampliar el lienzo vertical y sus detalles pequeños en escritorio. */
+@media(min-width:701px) {
+ .hero-background { background-image:url("assets/hero-web-nitido-fondo-0c2f3a42.webp"); background-position:center; }
+ .hero-plane { width:min(36vw,560px); height:auto; left:auto; right:8%; top:12%; object-fit:contain; animation:flight 12s ease-in-out infinite alternate; }
+}
+@media(max-width:700px) { .hero-clouds { mask-image:linear-gradient(180deg,#000 0%,#000 30%,transparent 46%); } }
+@media(prefers-reduced-motion:reduce) { .hero-plane { animation:none; } }
