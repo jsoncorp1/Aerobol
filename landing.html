@@ -94,6 +94,23 @@ a { color: inherit; }
 .hero .logo-oficial { filter: none; }
 @media(max-width:600px) { .logo-oficial { width: 150px; height: 60px; } }
 
+.carga-inicial { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 24px; background: radial-gradient(ellipse at top, #183e60, #0b192b 70%); color: #fff; }
+.carga-inicial[hidden] { display: none; }
+.carga-inicial-contenido { width: min(100%, 340px); display: grid; gap: 18px; text-align: center; }
+.carga-inicial-marca { color: #fff; font: 700 clamp(2rem, 9vw, 3rem)/1.1 Arial, sans-serif; letter-spacing: -.04em; }
+.carga-inicial-marca span { display: block; margin-top: 8px; font-size: .38em; letter-spacing: .28em; text-transform: uppercase; }
+#carga-estado { color: #e1ebf4; font: 400 .95rem/1.5 Arial, sans-serif; }
+#carga-progreso { width: 100%; height: 7px; appearance: none; border: 0; border-radius: 99px; overflow: hidden; background: #ffffff24; accent-color: #35c9a0; }
+#carga-progreso::-webkit-progress-bar { background: #ffffff24; border-radius: 99px; }
+#carga-progreso::-webkit-progress-value { background: #35c9a0; border-radius: 99px; }
+#carga-progreso::-moz-progress-bar { background: #35c9a0; border-radius: 99px; }
+#carga-porcentaje { font: 400 .8rem Arial, sans-serif; color: #c2d3e2; font-variant-numeric: tabular-nums; }
+#carga-reintentar { min-height: 44px; padding: 10px 20px; border: 1px solid #ffffff80; border-radius: 99px; background: transparent; color: #fff; cursor: pointer; font: 600 1rem Arial, sans-serif; }
+#carga-reintentar:focus-visible { outline: 3px solid #35c9a0; outline-offset: 4px; }
+html.cargando { overflow: hidden; }
+.cargando body > :not(.carga-inicial) { visibility: hidden; }
+.cargando .hero-plane, .cargando .hero-clouds { animation-play-state: paused; }
+
 /* La portada contiene todas las imágenes superpuestas. */
     .hero {
       position: relative;
@@ -599,6 +616,82 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 .cookies .btn { min-height: 44px; padding: 0 18px; font-size: .95rem; }
 .cookies .btn-linea { color: var(--morado); }
 </style>
+
+<div class="carga-inicial" id="carga-inicial" hidden>
+  <div class="carga-inicial-contenido">
+    <p class="carga-inicial-marca">AeroBol <span>Academy</span></p>
+    <p id="carga-estado" role="status">Preparando tu próximo destino…</p>
+    <progress id="carga-progreso" max="100" value="0" aria-label="Carga de imágenes"></progress>
+    <span id="carga-porcentaje" aria-hidden="true">0%</span>
+    <button id="carga-reintentar" type="button" hidden>Volver a intentar</button>
+  </div>
+</div>
+
+<script>
+/* Se ejecuta antes de la portada para evitar que aparezcan capas incompletas. */
+(function () {
+  const pantalla = document.getElementById("carga-inicial");
+  const progreso = document.getElementById("carga-progreso");
+  const porcentaje = document.getElementById("carga-porcentaje");
+  const estado = document.getElementById("carga-estado");
+  const reintentar = document.getElementById("carga-reintentar");
+  pantalla.hidden = false;
+  document.documentElement.classList.add("cargando");
+
+  async function preparar() {
+    const bloqueados = [...document.body.children].filter(el =>
+      el !== pantalla && !["SCRIPT", "STYLE"].includes(el.tagName) && !el.inert);
+    bloqueados.forEach(el => { el.inert = true; });
+    try {
+      // currentSrc elige la imagen de móvil o escritorio de cada <picture>.
+      // Los fondos CSS también forman parte de la carga; no se esperan iframes.
+      const urls = new Set();
+      document.querySelectorAll("img").forEach(img => {
+        const url = img.currentSrc || img.src;
+        if (url) urls.add(url);
+      });
+      document.querySelectorAll("body *").forEach(el => {
+        for (const pseudo of [null, "::before", "::after"]) {
+          const style = getComputedStyle(el, pseudo);
+          if (style.display === "none" || (pseudo && ["none", "normal"].includes(style.content))) continue;
+          for (const match of style.backgroundImage.matchAll(/url\(["']?(.*?)["']?\)/g)) {
+            urls.add(new URL(match[1], document.baseURI).href);
+          }
+        }
+      });
+      let listas = 0;
+      const total = urls.size;
+      await Promise.all([...urls].map(async url => {
+        const imagen = new Image();
+        imagen.src = url;
+        // decode espera tanto la descarga como la preparación para dibujarla.
+        await imagen.decode();
+        listas++;
+        const valor = Math.round(listas / total * 100);
+        progreso.value = valor;
+        porcentaje.textContent = valor + "%";
+      }));
+      progreso.value = 100;
+      porcentaje.textContent = "100%";
+      // Da al navegador un cuadro para pintar todas las imágenes juntas.
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        bloqueados.forEach(el => { el.inert = false; });
+        document.documentElement.classList.remove("cargando");
+        pantalla.hidden = true;
+      }));
+    } catch {
+      estado.textContent = "No pudimos cargar todas las imágenes. Revisa tu conexión y vuelve a intentar.";
+      reintentar.hidden = false;
+      reintentar.addEventListener("click", () => location.reload(), { once: true });
+    }
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", preparar, { once: true });
+  } else {
+    preparar();
+  }
+})();
+</script>
 
 <!-- PORTADA -->
 <header class="hero" id="inicio">

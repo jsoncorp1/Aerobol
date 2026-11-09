@@ -18,7 +18,7 @@ DESPUES_DEL_MAIN = ["pie", "flotantes", "cookies"]
 ESTILOS = ["tokens", "base", "botones", "pendiente", "marca"]
 CORE = ["utils", "whatsapp", "contenido", "campana"]
 CONFIG = ["config"]
-ORDEN_CSS = ["hero", "vive", "formulario", "pase", "pie", "flotantes", "cookies"]
+ORDEN_CSS = ["carga", "hero", "vive", "formulario", "pase", "pie", "flotantes", "cookies"]
 ORDEN_JS = ["hero", "vive", "formulario", "pase", "pie", "flotantes", "cookies"]
 
 
@@ -41,7 +41,8 @@ css = unir(
 
 principal = unir([componente(n, "html") for n in EN_EL_MAIN])
 cuerpo = unir(
-    [componente(n, "html") for n in ANTES_DEL_MAIN]
+    [componente("carga", "html"), "<script>\n" + componente("carga", "js") + "</script>\n"]
+    + [componente(n, "html") for n in ANTES_DEL_MAIN]
     + ["<main>\n" + principal + "</main>\n"]
     + [componente(n, "html") for n in DESPUES_DEL_MAIN]
 )
