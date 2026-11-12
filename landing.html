@@ -2,11 +2,7 @@
 <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Preinscríbete gratis en Aerobol Academy y asegura tu cupo para la gestión 2027. Pilotos, tripulantes de cabina, despachadores y técnicos aeronáuticos.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap"></noscript>
+<meta name="description" content="Solicita información sobre los programas y requisitos de Aerobol Academy para la gestión 2027. Pilotos, tripulantes de cabina, despachadores y técnicos aeronáuticos.">
 <link rel="preload" as="image" href="assets/hero-web-nitido-fondo-0c2f3a42.webp" media="(min-width:701px)" fetchpriority="high">
 <link rel="preload" as="image" href="assets/hero-referencia-movil-fondo-b79e5317.webp" media="(max-width:700px)" fetchpriority="high">
 <style>
@@ -680,15 +676,37 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
   .wa-float { display: none; }
 }
 
-.cookies {
-  position: fixed; z-index: 40; left: 0; right: 0; bottom: 0;
-  padding: 16px max(16px, env(safe-area-inset-right, 0px)) calc(16px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+/* Referencia de composición: Cookiebot Swift, barra inferior. Estilos propios de Aerobol. */
+.cookies { position:fixed; z-index:40; inset:auto 0 0; width:100%; background:var(--papel); border-top:1px solid var(--linea-claro); box-shadow:0 -4px 28px rgba(13,27,46,.1); }
+.cookies .caja { max-width:1440px; margin:auto; padding:24px 40px calc(24px + env(safe-area-inset-bottom,0px)); display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:40px; color:var(--tinta); }
+.cookies h2 { font-size:1.08rem; font-weight:750; line-height:1.3; margin:0 0 8px; color:var(--morado); }
+.cookies p { max-width:780px; font-size:.85rem; line-height:1.6; color:var(--tinta-suave); margin:0; }
+.cookies p a { color:var(--morado); text-underline-offset:3px; white-space:nowrap; }
+.cookies .acc { display:flex; flex-wrap:wrap; gap:10px; }
+.cookies .btn { min-height:46px; padding:12px 18px; border-radius:5px; font-size:.82rem; line-height:1.2; white-space:nowrap; }
+.cookies .ck-eleccion { color:white; background:var(--morado); border:1px solid var(--morado); min-width:145px; }
+.cookies .ck-eleccion:hover { filter:brightness(.9); }
+.ck-configurar { background:white; color:var(--morado); border:1px solid var(--morado); }
+.cookies .ck-configurar { order:-1; }
+.cookies-dialog .acc { display:flex; flex-wrap:wrap; gap:10px; }
+.cookies-dialog { width:min(560px,calc(100% - 32px)); max-height:85dvh; overflow:auto; border:0; border-top:4px solid var(--morado); border-radius:16px; padding:24px; color:var(--tinta); background:white; }
+.cookies-dialog::backdrop { background:rgba(13,27,46,.65); }
+.cookies-dialog h2 { color:var(--morado); margin-top:0; }
+.cookies-dialog label { display:block; font-weight:700; margin-top:18px; }
+.cookies-dialog input { accent-color:var(--verde); width:20px; height:20px; vertical-align:middle; }
+.cookies-dialog p { color:var(--tinta-suave); font-size:.9rem; margin:8px 0; }
+.video-permiso { min-height:220px; padding:30px; display:grid; place-content:center; gap:16px; background:var(--noche); color:white; text-align:center; }
+.video-permiso[hidden],.academia-video-player iframe[hidden] { display:none; }
+.pie-config-cookies { font:inherit; color:inherit; text-decoration:underline; background:none; border:0; cursor:pointer; padding:6px 0; }
+@media(max-width:1100px) { .cookies .caja { grid-template-columns:1fr; gap:18px; padding:20px 28px; } .cookies .acc { justify-content:flex-end; } }
+@media(max-width:600px) {
+ .cookies .caja { padding:20px 18px calc(18px + env(safe-area-inset-bottom,0px)); max-height:65dvh; overflow:auto; gap:16px; }
+ .cookies .acc { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+ .cookies .btn { white-space:normal; min-width:0; font-size:.8rem; }
+ .cookies .ck-configurar { order:1; grid-column:1/-1; }
+ .cookies h2 { font-size:1rem; }
+ .cookies p { font-size:.82rem; }
 }
-.cookies .caja { max-width: 760px; margin: 0 auto; background: var(--papel); color: var(--tinta); border-radius: 14px; padding: 18px 20px; box-shadow: 0 20px 50px -20px rgba(0,0,0,.5); display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; justify-content: space-between; }
-.cookies p { font-size: .9rem; color: var(--tinta-suave); flex: 1 1 320px; }
-.cookies .acc { display: flex; gap: 10px; }
-.cookies .btn { min-height: 44px; padding: 0 18px; font-size: .95rem; }
-.cookies .btn-linea { color: var(--morado); }
 </style>
 
 <div class="carga-inicial" id="carga-inicial" hidden>
@@ -825,7 +843,8 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
         <a class="btn" href="#preinscripcion">Solicitar información ↗</a>
       </div>
       <div class="academia-video-player">
-        <iframe src="https://www.youtube-nocookie.com/embed/oFmTVD6lxmk?playsinline=1" title="Flota de entrenamiento de pilotos · One Air" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+        <div class="video-permiso" id="video-permiso"><p>Para ver este video, permite el contenido externo de YouTube.</p><button class="btn" type="button" data-cookies-configurar>Configurar privacidad</button></div>
+        <iframe hidden data-src="https://www.youtube-nocookie.com/embed/oFmTVD6lxmk?playsinline=1" title="Flota de entrenamiento de pilotos · One Air" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
         <p>Video de referencia · One Air · <a href="https://www.youtube.com/watch?v=oFmTVD6lxmk" target="_blank" rel="noopener">Ver en YouTube ↗</a></p>
       </div>
     </div>
@@ -919,7 +938,7 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
             <div class="campo full">
               <label class="check" for="f-privacidad">
                 <input id="f-privacidad" required name="privacidad" type="checkbox">
-                <span>Acepto que Aerobol Academy use mis datos para contactarme, según su <a href="#" data-link="privacidad">política de privacidad</a>.<span class="obligatorio" aria-hidden="true"> *</span></span>
+                <span>Autorizo a Aerobol a recoger y guardar mis datos para atender esta solicitud y contactarme por teléfono o WhatsApp, y a Jsoncorp a tratarlos como proveedor técnico de la base de datos para esa finalidad. Esta autorización no incluye publicidad ajena a mi solicitud. Puedo solicitar acceso, corrección o cancelación y retirar mi autorización por los canales indicados en la política de privacidad. He leído la <a href="/privacidad/" data-link="privacidad" target="_blank" rel="noopener" aria-label="Leer la política de privacidad (se abre en otra pestaña)">política de privacidad</a>.<span class="obligatorio" aria-hidden="true"> *</span></span>
               </label>
               <span class="msg" id="e-privacidad"></span>
             </div>
@@ -962,7 +981,7 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
     </div>
     <div class="legal">
       <span>© <span id="anio"></span> Aerobol Academy. Todos los derechos reservados.</span>
-      <span><a href="#" data-link="privacidad">Política de privacidad</a> · <a href="#" data-link="terminos">Términos y condiciones</a> · Desarrollado por JsonCorp</span>
+      <span><a href="/privacidad/" data-link="privacidad" target="_blank" rel="noopener">Política de privacidad</a> · <a href="/terminos/" data-link="terminos" target="_blank" rel="noopener">Términos y condiciones</a> · <a href="/cookies/" data-link="cookies" target="_blank" rel="noopener">Cookies</a> · <button class="pie-config-cookies" id="pie-cookies-configurar" type="button" data-cookies-configurar>Configurar cookies</button> · Desarrollado por JsonCorp</span>
     </div>
   </div>
 </footer>
@@ -979,13 +998,27 @@ fieldset.campo { border: 0; margin: 0; padding: 0; }
 </div>
 
 <div class="cookies" id="cookies" hidden>
-  <div class="caja" role="dialog" aria-label="Aviso de cookies">
-    <p>Usamos almacenamiento esencial para que el formulario funcione. No usamos cookies de medición ni de publicidad. El video de Conócenos lo sirve YouTube. No vendemos tus datos.</p>
+  <section class="caja" aria-label="Preferencias de cookies">
+    <div class="ck-texto"><h2>Configuración de cookies</h2><p>Utilizamos almacenamiento necesario para que la web funcione. Puedes permitir contenido de Google/YouTube y la atribución de campañas, o continuar solo con lo necesario. <a href="/cookies/" target="_blank" rel="noopener">Más información</a></p></div>
     <div class="acc">
-      <button class="btn" type="button" id="ck-aceptar">Entendido</button>
+      <button class="btn ck-eleccion" type="button" id="ck-rechazar">Rechazar opcionales</button>
+      <button class="btn ck-eleccion" type="button" id="ck-aceptar">Aceptar todas</button>
+      <button class="btn ck-configurar" type="button" data-cookies-configurar>Configurar</button>
     </div>
-  </div>
+  </section>
 </div>
+<dialog class="cookies-dialog" id="cookies-config" aria-labelledby="cookies-titulo">
+  <h2 id="cookies-titulo">Configura tu privacidad</h2>
+  <p>Las opciones adicionales están desactivadas hasta que las autorices.</p>
+  <label><input type="checkbox" checked disabled> Necesarias (siempre activas)</label>
+  <p>Seguridad del formulario, sesión del personal y recuerdo de tus preferencias.</p>
+  <label><input type="checkbox" id="ck-externos"> Contenido externo</label>
+  <p>Permite las tipografías de Google y el reproductor de YouTube. Estos servicios reciben datos técnicos.</p>
+  <label><input type="checkbox" id="ck-campanas"> Atribución de campañas</label>
+  <p>Conserva los parámetros del anuncio en esta sesión y los asocia a tu solicitud. No activa Analytics ni Meta Pixel.</p>
+  <p><a href="/cookies/" target="_blank" rel="noopener">Leer la política de cookies</a></p>
+  <div class="acc"><button class="btn" type="button" id="ck-guardar">Guardar preferencias</button><button class="btn ck-configurar" type="button" id="ck-cerrar">Cerrar</button></div>
+</dialog>
 
 <script>
 /* =====================================================================
@@ -1006,7 +1039,8 @@ const CONFIG = {
 
   // El formulario usa la API del monolito: /api/preinscripciones.
 
-  enlaces: { privacidad: "#", terminos: "#" },
+  privacidadVersion: "2026-11-12-bo-r2-borrador",
+  enlaces: { privacidad: "/privacidad/", terminos: "/terminos/", cookies: "/cookies/" },
   redes: [
     { nombre: "Facebook", url: "[CONFIRMAR]" },
     { nombre: "Instagram", url: "[CONFIRMAR]" },
@@ -1063,7 +1097,7 @@ const CONFIG = {
     { p: "¿Hay planes de pago o becas?", r: "[CONFIRMAR]." },
     { p: "¿El título tiene validez oficial?", r: "[CONFIRMAR: entidad que certifica]." },
     { p: "¿Qué horarios tienen las clases?", r: "[CONFIRMAR]." },
-    { p: "¿Puedo preinscribirme si todavía estoy en el colegio?", r: "Sí. Puedes preinscribirte ahora y asegurar tu cupo para cuando salgas bachiller." }
+    { p: "¿Puedo preinscribirme si todavía estoy en el colegio?", r: "Puedes solicitar información mientras estás en el colegio, con el acompañamiento de tu representante si eres menor. La consulta no reserva un cupo." }
   ]
 };
 
@@ -1098,18 +1132,30 @@ const CONFIG = {
   $$("[data-cfg]").forEach(el => el.innerHTML = t(CONFIG[el.dataset.cfg]));
   $$("[data-link]").forEach(a => a.href = CONFIG.enlaces[a.dataset.link] || "#");
 
-  /* ---------- Campaña (UTM) ---------- */
+  /* Preferencias: sin autorización no se conserva atribución de campaña. */
   const CLAVES = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "promo"];
   const qs = new URLSearchParams(location.search);
+  let consentimiento = null;
+  try {
+    const guardado = JSON.parse(ls.get("ab_consentimiento"));
+    if (guardado && guardado.version === 1 && Date.now() - guardado.fecha < 180 * 86400000 && typeof guardado.externos === "boolean" && typeof guardado.campanas === "boolean") consentimiento = guardado;
+  } catch (e) {}
   const campana = {};
-  CLAVES.forEach(k => {
-    const v = qs.get(k);
-    if (v) ss.set("ab_" + k, v);
-    campana[k] = v || ss.get("ab_" + k) || "";
-  });
-  const origen = campana.utm_source || (campana.fbclid ? "facebook" : "directo");
-
-  // No hay una promoción activa en esta página.
+  let origen = "directo";
+  function actualizarCampana() {
+    CLAVES.forEach(k => {
+      if (consentimiento?.campanas) {
+        const v = qs.get(k);
+        if (v) ss.set("ab_" + k, v);
+        campana[k] = v || ss.get("ab_" + k) || "";
+      } else {
+        try { sessionStorage.removeItem("ab_" + k); } catch (e) {}
+        campana[k] = "";
+      }
+    });
+    origen = campana.utm_source || (campana.fbclid ? "facebook" : "directo");
+  }
+  actualizarCampana();
   const codigoPromo = "";
 
   /* El indicador se oculta al empezar a recorrer la página. */
@@ -1183,6 +1229,7 @@ const CONFIG = {
       bachiller: valRadio("bachiller"),
       grado_academico: $("#f-grado").value,
       horario_contacto: valRadio("horario"),
+      privacidad_version: CONFIG.privacidadVersion,
       promo: codigoPromo,
       origen: origen,
       fecha_registro: fecha + " (hora de Bolivia)"
@@ -1298,9 +1345,52 @@ const CONFIG = {
     new IntersectionObserver(([en]) => { formVisible = en.isIntersecting; actualizar(); }, { threshold: 0.15 }).observe($("#preinscripcion"));
   }
 
-  /* ---------- Cookies ---------- */
-  // Aviso informativo: no hay medición. Si se agrega Meta Pixel o Analytics, pedir aquí el consentimiento y ajustar la CSP.
-  if (!ls.get("ab_cookies")) $("#cookies").hidden = false;
-  $("#ck-aceptar").addEventListener("click", () => { ls.set("ab_cookies", "esenciales"); $("#cookies").hidden = true; });
+  /* El aviso antiguo no equivale a consentimiento para las opciones nuevas. */
+  const avisoCookies = $("#cookies");
+  const dialogCookies = $("#cookies-config");
+  function aplicarConsentimiento() {
+    actualizarCampana();
+    const externos = !!consentimiento?.externos;
+    const video = $(".academia-video-player iframe");
+    if (externos) {
+      if (!video.hasAttribute("src")) video.src = video.dataset.src;
+      if (!$("#fuente-externa")) {
+        const fuente = document.createElement("link");
+        fuente.id = "fuente-externa"; fuente.rel = "stylesheet";
+        fuente.href = "https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap";
+        document.head.append(fuente);
+      }
+    } else {
+      video.removeAttribute("src");
+      $("#fuente-externa")?.remove();
+    }
+    video.hidden = !externos;
+    $("#video-permiso").hidden = externos;
+    avisoCookies.hidden = !!consentimiento;
+  }
+  let retornoCookies;
+  function configurarCookies() {
+    retornoCookies = document.activeElement;
+    $("#ck-externos").checked = !!consentimiento?.externos;
+    $("#ck-campanas").checked = !!consentimiento?.campanas;
+    dialogCookies.showModal();
+  }
+  function cerrarCookies() {
+    dialogCookies.close();
+    if (retornoCookies?.isConnected && !retornoCookies.closest("[hidden]")) retornoCookies.focus();
+    else $("#pie-cookies-configurar").focus();
+  }
+  function guardarCookies(externos, campanas) {
+    consentimiento = { version:1, fecha:Date.now(), externos, campanas };
+    ls.set("ab_consentimiento", JSON.stringify(consentimiento));
+    aplicarConsentimiento();
+    if (dialogCookies.open) cerrarCookies();
+  }
+  $$("[data-cookies-configurar]").forEach(b => b.addEventListener("click", configurarCookies));
+  $("#ck-aceptar").addEventListener("click", () => guardarCookies(true, true));
+  $("#ck-rechazar").addEventListener("click", () => guardarCookies(false, false));
+  $("#ck-guardar").addEventListener("click", () => guardarCookies($("#ck-externos").checked, $("#ck-campanas").checked));
+  $("#ck-cerrar").addEventListener("click", cerrarCookies);
+  aplicarConsentimiento();
 })();
 </script>

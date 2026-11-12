@@ -41,7 +41,7 @@ La migración inicial está en `Monolito/Data/Migrations/` con su SQL revisable.
 
 ## Contenido pendiente de la academia
 
-Los contactos y datos oficiales se completarán cuando los entregue el cliente. Mientras falte el número no se muestran enlaces de WhatsApp sin destinatario. La política de privacidad sigue pendiente; el enlace provisional no es una política válida para publicación.
+Los contactos y datos oficiales se completarán cuando los entregue el cliente. Mientras falte el número no se muestran enlaces de WhatsApp sin destinatario. Hay un borrador de política de privacidad en `/privacidad/`, conectado al formulario y al pie. Aerobol y Jsoncorp están identificados según lo confirmado por el cliente. Faltan los plazos de conservación y detalles de alojamiento; ver `PRIVACIDAD-REVISION.md`. También existen borradores de términos de uso en `/terminos/` y cookies en `/cookies/`, enlazados desde el pie y entre sí. Las condiciones de matrícula, pagos y devoluciones requieren confirmación de la academia.
 
 El clip EFA de la portada continúa como referencia local con permiso sin verificar. Conócenos usa el video de YouTube de One Air elegido para la demo. No se sustituyeron estos contenidos sin acuerdo del cliente. El script antiguo de preparación de video no se ejecuta en el build actual.
 

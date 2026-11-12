@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Información sobre el uso de datos en las solicitudes de información y admisión de Aerobol Academy.">
+  <meta name="theme-color" content="#5B2563">
+  <title>Política de privacidad · {{academia}}</title>
+  <link rel="icon" href="/assets/favicon.png">
+  <style>
+    :root { color-scheme:light; --morado:#5B2563; --verde:#0F8A66; --texto:#14202F; --suave:#5B6878; --linea:#D8E0EA; }
+    * { box-sizing:border-box; }
+    html { scroll-padding-top:24px; }
+    body { margin:0; background:#F2F5F9; color:var(--texto); font:400 1rem/1.75 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    a { color:var(--verde); text-underline-offset:3px; overflow-wrap:anywhere; }
+    a:hover { text-decoration-thickness:2px; }
+    a:focus-visible,summary:focus-visible { outline:3px solid var(--morado); outline-offset:4px; border-radius:3px; }
+    .saltar { position:absolute; left:16px; top:-100px; padding:10px; background:#fff; z-index:5; }
+    .saltar:focus { top:12px; }
+    .cabecera { background:var(--morado); color:#fff; border-bottom:4px solid var(--verde); }
+    .contenedor { width:min(1120px,calc(100% - 40px)); margin:auto; }
+    .cabecera .contenedor { display:flex; justify-content:space-between; align-items:center; gap:20px; padding-block:18px; }
+    .marca { display:block; flex:none; }
+    .marca img { display:block; width:155px; height:auto; }
+    .volver { color:#fff; font-size:.9rem; padding:10px 0; }
+    main { padding-block:48px 64px; }
+    .etiqueta { color:var(--verde); font-size:.76rem; font-weight:750; letter-spacing:.12em; text-transform:uppercase; margin:0 0 10px; }
+    h1,h2,h3 { color:var(--morado); line-height:1.25; }
+    h1 { font-size:clamp(2rem,5vw,3.3rem); margin:0 0 16px; letter-spacing:-.035em; }
+    .intro { max-width:780px; font-size:1.08rem; color:var(--suave); margin:0 0 12px; }
+    .fecha { font-size:.85rem; color:var(--suave); }
+    .revision { margin:26px 0 32px; padding:18px 22px; background:#f5eef6; border:1px solid #d9bfdd; border-left:4px solid var(--morado); border-radius:14px; }
+    .revision p { margin:4px 0; }
+    .revision strong { color:var(--morado); }
+    .distribucion { display:grid; grid-template-columns:230px minmax(0,1fr); gap:36px; align-items:start; }
+    .indice { position:sticky; top:24px; padding:18px; background:#fff; border:1px solid var(--linea); border-radius:14px; }
+    .indice summary { font-weight:700; color:var(--morado); }
+    .indice ol { padding-left:20px; margin:14px 0 0; font-size:.88rem; }
+    .indice li { margin:7px 0; }
+    article { padding:30px 34px; background:#fff; border:1px solid var(--linea); border-radius:18px; min-width:0; }
+    article section+section { margin-top:32px; padding-top:26px; border-top:1px solid var(--linea); }
+    h2 { font-size:1.3rem; margin:0 0 14px; }
+    h3 { font-size:1rem; margin:22px 0 8px; }
+    p { margin:0 0 12px; }
+    ul { padding-left:23px; }
+    li { margin:7px 0; }
+    .contacto { padding:18px 20px; border-radius:12px; background:#edf7f3; border-left:4px solid var(--verde); }
+    .contacto p:last-child { margin-bottom:0; }
+    .nota { color:var(--suave); font-size:.9rem; }
+    .tabla { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; font-size:.9rem; }
+    th,td { padding:12px 10px; text-align:left; vertical-align:top; border-bottom:1px solid var(--linea); }
+    th { color:var(--morado); background:#f5eef6; }
+    code { font-size:.85em; overflow-wrap:anywhere; }
+    footer { padding:24px 0; border-top:1px solid var(--linea); font-size:.88rem; color:var(--suave); }
+    footer .contenedor { display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
+    @media(max-width:800px) {
+      .distribucion { grid-template-columns:1fr; gap:20px; }
+      .indice { position:static; }
+      article { padding:24px; }
+    }
+    @media(max-width:480px) {
+      .contenedor { width:calc(100% - 32px); }
+      main { padding-block:32px 40px; }
+      .marca img { width:130px; }
+      .volver { max-width:140px; text-align:right; font-size:.8rem; }
+      article { padding:22px 18px; }
+      .revision { padding:16px; }
+      h2 { font-size:1.2rem; }
+    }
+    @media print { .indice,.saltar,.volver { display:none; } .distribucion { display:block; } article { border:0; padding:0; } .cabecera { background:none; color:#000; } .marca { display:none; } body { background:#fff; font-size:10pt; } }
+  </style>
+</head>
+<body>
+  <a class="saltar" href="#politica">Saltar al contenido</a>
+  <header class="cabecera">
+    <div class="contenedor">
+      <a class="marca" href="/" aria-label="Ir al inicio de Aerobol Academy"><img src="/assets/aerobol-blanco.webp" width="200" height="84" alt="AeroBol Academy"></a>
+      <a class="volver" href="/#preinscripcion">Volver al formulario ↗</a>
+    </div>
+  </header>
+  <main class="contenedor" id="politica">
+    <p class="etiqueta">Tu información, con claridad</p>
+    <h1>Política de privacidad</h1>
+    <p class="intro">Aquí explicamos qué información recibe {{academia}} cuando consultas por su formación aeronáutica y cómo puedes pedir que se revise, corrija o elimine.</p>
+    <p class="fecha">Versión {{privacidadVersion}} · Preparada el <time datetime="2026-11-12">12 de noviembre de 2026</time></p>
+    <aside class="revision" aria-label="Estado de revisión">
+      <strong>Borrador para revisión de Aerobol Academy</strong>
+      <p>Antes de aprobar esta política deben completarse los plazos de conservación y los detalles de alojamiento y acceso de los proveedores. No es todavía una versión definitiva.</p>
+    </aside>
+    <div class="distribucion">
+      <nav class="indice" aria-label="Secciones de la política">
+        <details open>
+          <summary>En esta página</summary>
+          <ol>
+            <li><a href="#responsable">Responsable y contacto</a></li>
+            <li><a href="#datos">Información que recibimos</a></li>
+            <li><a href="#finalidades">Uso y autorización</a></li>
+            <li><a href="#destinatarios">Acceso y proveedores</a></li>
+            <li><a href="#conservacion">Conservación</a></li>
+            <li><a href="#derechos">Solicitudes sobre tus datos</a></li>
+            <li><a href="#navegador">Cookies y navegador</a></li>
+            <li><a href="#terceros">Servicios externos</a></li>
+            <li><a href="#menores">Consultas de menores</a></li>
+            <li><a href="#seguridad">Protección y cambios</a></li>
+          </ol>
+        </details>
+      </nav>
+      <article>
+        <section id="responsable">
+          <h2>1. Responsable y canales de contacto</h2>
+          <p>Esta política corresponde al sitio y al formulario de información y admisión de <strong>{{academia}}</strong>, en Santa Cruz de la Sierra, Bolivia. No sustituye la información específica que pueda entregarse al formalizar una matrícula.</p>
+          <div class="contacto">
+            <p><strong>Correo:</strong> <a href="mailto:{{correo}}">{{correo}}</a><br>
+              <strong>Teléfono:</strong> <a href="tel:{{telefonoHref}}">{{telefono}}</a><br>
+              <strong>Dirección de atención:</strong> {{direccion}}.</p>
+          </div>
+          <p>El responsable de las solicitudes es <strong>Aerobol</strong>, nombre de la empresa confirmado para esta política.</p>
+          <p class="nota">La identificación legal completa y los datos tributarios de Aerobol están pendientes de confirmación. Antes de aprobar esta política deben confirmarse la identidad completa de la persona natural o jurídica responsable, su domicilio y el canal encargado de atender solicitudes. El nombre comercial por sí solo no resuelve esa identificación.</p>
+        </section>
+        <section id="datos">
+          <h2>2. Información que recibimos</h2>
+          <h3>Cuando completas el formulario</h3>
+          <ul>
+            <li>Nombre completo, número de WhatsApp con código de país y ciudad.</li>
+            <li>Cuándo te gustaría empezar, si ya saliste bachiller y horario preferido de contacto.</li>
+            <li>Grado académico, únicamente si eliges completarlo. Es un campo opcional.</li>
+            <li>Tu autorización para el tratamiento y contacto, el texto de esa autorización y su versión fijados por el servidor, la fecha de recepción y un código de solicitud.</li>
+          </ul>
+          <p>No se solicitan documentos de identidad, información médica ni datos de pago en este formulario. Si utilizaste una versión anterior, tu solicitud puede incluir los datos adicionales que entonces proporcionaste, como correo, edad, carrera de interés o contacto de un tutor.</p>
+          <h3>Origen de la consulta y datos técnicos</h3>
+          <p>Si llegas desde una campaña y autorizas la atribución de campañas, podemos asociar a tu solicitud los parámetros del enlace, como <code>utm_source</code>, <code>utm_medium</code>, <code>utm_campaign</code>, <code>utm_content</code>, <code>utm_term</code> o <code>fbclid</code>. Sirven para identificar qué enlace o anuncio originó la consulta; no equivalen a acceder a tu cuenta de una red social.</p>
+          <p>El servidor y sus proveedores pueden procesar información de conexión, como dirección IP, navegador, fecha, hora y ruta solicitada, para atender la visita, detectar abuso y diagnosticar problemas. Estos datos técnicos no son campos del formulario.</p>
+          <p>El equipo de atención también puede registrar si tu solicitud fue atendida, cuándo y por quién.</p>
+        </section>
+        <section id="finalidades">
+          <h2>3. Para qué se usan y qué autorizas</h2>
+          <p>La información previa y la autorización expresa se toman como referencia del artículo 56 del Reglamento aprobado por el DS 1793. La autorización identifica a Jsoncorp para el tratamiento técnico de la base de datos con la misma finalidad de atención; no es una autorización general para compartir datos con proveedores desconocidos.</p>
+          <p>La información permite responder tu consulta, orientarte sobre programas, requisitos e inicios, organizar el seguimiento de tu solicitud y contactarte por teléfono o WhatsApp en el horario que indicaste. El origen de campaña permite evaluar qué canales generan consultas.</p>
+          <p>El formulario exige que marques voluntariamente la casilla de autorización antes de enviarlo. Puedes retirar esa autorización y solicitar que dejen de contactarte por los medios indicados en esta página. No marcarla impide tramitar el formulario, pero no impide leer el sitio.</p>
+          <p>La autorización se refiere a atender tu solicitud: no constituye una suscripción general a publicidad ajena a ella. La solicitud tampoco supone admisión automática, matrícula ni garantía de cupo. La validación automática del formulario comprueba sus datos; no decide tu admisión académica.</p>
+        </section>
+        <section id="destinatarios">
+          <h2>4. Quién puede acceder y qué proveedores intervienen</h2>
+          <p>Los registros del formulario se guardan en una base de datos. El panel requiere autenticación y permisos de administración para consultarlos, marcar su atención y exportarlos a una hoja de cálculo para uso interno. Esas exportaciones también contienen datos personales y deben tratarse con acceso restringido.</p>
+          <p>El acceso necesario para operar el servicio puede incluir personal autorizado de la academia y proveedores de alojamiento, base de datos, soporte técnico y comunicaciones. La finalidad de esta recogida no es vender ni alquilar bases de datos. No se autoriza a esos proveedores a usar las solicitudes para sus propios fines comerciales. La comunicación a terceros requiere la autorización que corresponda o una orden escrita de autoridad judicial competente, en los términos de la normativa aplicable.</p>
+          <p><strong>Jsoncorp</strong> tendrá a su cargo la base de datos de las solicitudes, según la información proporcionada por Aerobol.</p>
+          <p class="nota">Pendiente de aprobación: confirmar los detalles del servicio de Jsoncorp, el proveedor de alojamiento web, los países donde se guarda la información y los accesos de soporte. No se afirma que los datos permanezcan exclusivamente en Bolivia ni que exista una transferencia internacional concreta sin confirmar esos datos.</p>
+        </section>
+        <section id="conservacion">
+          <h2>5. Cuánto tiempo permanece la información</h2>
+          <p>La conservación debe corresponder al tiempo necesario para atender y dar seguimiento a la consulta y, cuando proceda, a las obligaciones legales aplicables. Si se formaliza una matrícula, la información de ese proceso deberá explicarse por separado.</p>
+          <p><strong>El plazo concreto está pendiente de definición por Aerobol.</strong> El sistema actual no aplica una eliminación automática por antigüedad. Por eso esta versión no promete un borrado a los 6, 12 o 24 meses.</p>
+          <p>Antes de aprobar la política deben establecerse los plazos para solicitudes sin seguimiento, contactos atendidos, exportaciones, registros técnicos y copias de respaldo, junto con el procedimiento para cumplirlos.</p>
+        </section>
+        <section id="derechos">
+          <h2>6. Cómo consultar, corregir o pedir la eliminación</h2>
+          <p>Puedes escribir a <a href="mailto:{{correo}}?subject=Solicitud%20de%20privacidad">{{correo}}</a> para conocer la información asociada a tu solicitud, actualizarla, corregirla, objetar su uso o solicitar su eliminación. También puedes pedir que cese el contacto comercial o retirar la autorización que diste. La revocación no deshace el tratamiento ya realizado. No se condiciona recibir consultas o reclamos a que autorices publicidad.</p>
+          <p>Indica tu nombre, el teléfono utilizado o el código de tu solicitud y qué necesitas que se haga. No adjuntes documentos sensibles salvo que se te explique por qué son necesarios para una verificación proporcionada. Si existe una razón legal que limite la eliminación de algún dato, deberá explicarse al responder.</p>
+          <p>Estos canales no limitan los mecanismos de protección previstos en Bolivia. La Constitución reconoce la privacidad y, en su artículo 130, contempla la acción de protección de privacidad respecto del conocimiento, objeción, rectificación o eliminación de datos. Puedes consultar el <a href="https://www.senapi.gob.bo/normativas/constitucion-politica-del-estado/constitucion-politica-del-estado-plurinacional-de-bolivia" target="_blank" rel="noopener noreferrer">texto constitucional publicado por SENAPI</a>.</p>
+        </section>
+        <section id="navegador">
+          <h2>7. Cookies y almacenamiento del navegador</h2>
+          <div class="tabla">
+            <table>
+              <caption>Almacenamiento utilizado por el sitio</caption>
+              <thead><tr><th scope="col">Elemento</th><th scope="col">Para qué se utiliza</th><th scope="col">Duración</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><code>ab_consentimiento</code></th><td>Guarda tus elecciones, la versión del gestor y la fecha. Es almacenamiento local necesario para recordar tus preferencias.</td><td>Durante 180 días, salvo que lo borres antes. Después se vuelve a pedir tu elección.</td></tr>
+                <tr><th scope="row"><code>ab_utm_*</code>, <code>ab_fbclid</code> y <code>ab_promo</code></th><td>Solo con atribución de campañas autorizada: conservan los parámetros presentes en el enlace durante la sesión.</td><td>En el almacenamiento de sesión de la pestaña; normalmente se borra al cerrarla. Lo ya enviado queda asociado al registro.</td></tr>
+                <tr><th scope="row">Protección del formulario</th><td>Cookie y token antifalsificación para comprobar el envío. El token no es una autorización publicitaria.</td><td>Según la sesión y la configuración de seguridad.</td></tr>
+                <tr><th scope="row"><code>Aerobol.Session</code></th><td>Mantiene el acceso del personal al panel; no es necesaria para leer la información pública.</td><td>La sesión autenticada tiene una vigencia configurable de 4 horas, renovable con actividad.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>La versión revisada no integra Google Analytics ni Meta Pixel. Identificar una campaña mediante su URL no significa que se haya instalado uno de esos servicios. Puedes borrar el almacenamiento o bloquear cookies en tu navegador; algunas funciones, como el envío protegido o el acceso al panel, podrían dejar de funcionar.</p>
+        </section>
+        <section id="terceros">
+          <h2>8. Google, YouTube, WhatsApp y otros enlaces</h2>
+          <ul>
+            <li><strong>Tipografías:</strong> si autorizas contenido externo, la portada solicita su fuente a Google Fonts. Al hacerlo, tu navegador se conecta con servidores de Google y transmite información técnica de la solicitud.</li>
+            <li><strong>Videos:</strong> cuando autorizas contenido externo y se carga un reproductor de YouTube, se utiliza el dominio <code>youtube-nocookie.com</code>. El modo de privacidad mejorada no significa ausencia de conexiones o tratamiento por Google. El proveedor puede recibir datos técnicos al cargar o usar el reproductor y aplicar sus propias condiciones.</li>
+            <li><strong>WhatsApp:</strong> los botones abren un servicio externo. Si eliges el enlace alternativo para enviar los datos del formulario, esos campos se incorporan al enlace de un mensaje preparado para WhatsApp; al abrirlo pasan a esa plataforma, aunque aún no hayas confirmado el envío del mensaje.</li>
+            <li><strong>Correo y mapas:</strong> los enlaces abren tu aplicación de correo o el servicio de mapas. Las comunicaciones y consultas que realices allí se rigen también por las condiciones de esos proveedores.</li>
+          </ul>
+          <p>Consulta la <a href="https://policies.google.com/privacy?hl=es" target="_blank" rel="noopener noreferrer">política de Google</a>, la <a href="https://support.google.com/youtube/answer/171780?hl=es" target="_blank" rel="noopener noreferrer">información sobre el reproductor de YouTube</a> y la <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">política de WhatsApp</a>. Sus servicios pueden implicar tratamiento fuera de Bolivia.</p>
+          <p class="nota">Esta página de privacidad no carga fuentes externas, videos ni herramientas de medición para que puedas leerla sin esas integraciones.</p>
+        </section>
+        <section id="menores">
+          <h2>9. Consultas de personas menores de edad</h2>
+          <p>Si eres menor de edad, realiza la consulta con el acompañamiento de tu madre, padre o representante. El formulario actual no pregunta tu edad ni comprueba por sí solo una autorización de representación. La academia deberá establecer esa verificación antes de realizar trámites que la requieran.</p>
+          <p>Si eres representante y detectas información enviada sin la intervención correspondiente, utiliza el contacto de privacidad para pedir su revisión o eliminación.</p>
+        </section>
+        <section id="seguridad">
+          <h2>10. Protección de la información y cambios</h2>
+          <p>La implementación contempla acceso autenticado al panel, permisos de administración, protección de los envíos y conexiones HTTPS en el sitio publicado. Estas medidas reducen riesgos, pero no equivalen a una garantía absoluta de seguridad ni a una certificación.</p>
+          <p>Como referencia normativa se consideran la Constitución (artículos 21.2 y 130), el artículo 56 y las comunicaciones digitales del artículo 57 del <a href="https://www.ctic.gob.bo/wp-content/uploads/2016/03/DS-N%C2%B0-1793-Reglamento-a-la-Ley-N%C2%B0164-para-el-Desarrollo-de-Tecnolog%C3%ADas-de-la-Informaci%C3%B3n-y-Comunicaci%C3%B3n.pdf">Reglamento aprobado por el DS 1793</a>. Su mención no acredita por sí sola que los procesos operativos estén implementados.</p><p>Esta política debe revisarse cuando cambien el formulario, los proveedores, el contenido externo o las finalidades de uso. La fecha y versión de la parte superior permiten identificar el texto mostrado. Los cambios no deben convertir una autorización de contacto en permiso para fines distintos sin la información y autorización que correspondan.</p>
+          <p>Para cualquier consulta sobre este texto, escribe a <a href="mailto:{{correo}}">{{correo}}</a>.</p>
+        </section>
+      </article>
+    </div>
+  </main>
+  <footer><div class="contenedor"><span>{{academia}} · Privacidad</span><a href="/#preinscripcion">Volver a mi solicitud</a></div>  <div class="contenedor"><a href="/terminos/">Términos y condiciones</a> · <a href="/cookies/">Cookies</a></div>
+</footer>
+</body>
+</html>

@@ -235,6 +235,10 @@ app.MapPost("/api/preinscripciones", async (Dictionary<string, string> datos, Ht
     catch (AntiforgeryValidationException) { return Results.BadRequest(new { message = "Recarga la página y vuelve a intentarlo." }); }
     var validationError = LeadValidation.Validate(datos);
     if (validationError is not null) return Results.BadRequest(new { message = validationError });
+    // El texto y la versión se fijan en el servidor, no se confían al cliente.
+    datos["privacidad_version"] = LegalPolicy.Version;
+    datos["privacidad_autorizacion"] = LegalPolicy.Authorization;
+    datos["privacidad_recibida_utc"] = DateTime.UtcNow.ToString("O");
     var lead = new Preinscripcion { Datos = System.Text.Json.JsonSerializer.Serialize(datos) };
     db.Preinscripciones.Add(lead);
     await db.SaveChangesAsync();

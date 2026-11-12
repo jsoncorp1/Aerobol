@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: '22'
       - run: python build.py
-      - run: git diff --exit-code -- index.html landing.html
+      - run: git diff --exit-code -- index.html landing.html privacidad/index.html terminos/index.html cookies/index.html
       - run: node --test Tests/carga.test.cjs
       - run: dotnet test Tests/Aerobol.Tests.csproj --configuration Release
       - run: dotnet publish Monolito/Aerobol.csproj --configuration Release --output /tmp/aerobol-publish

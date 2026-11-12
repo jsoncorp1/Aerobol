@@ -16,7 +16,8 @@ const CONFIG = {
 
   // El formulario usa la API del monolito: /api/preinscripciones.
 
-  enlaces: { privacidad: "#", terminos: "#" },
+  privacidadVersion: "2026-11-12-bo-r2-borrador",
+  enlaces: { privacidad: "/privacidad/", terminos: "/terminos/", cookies: "/cookies/" },
   redes: [
     { nombre: "Facebook", url: "[CONFIRMAR]" },
     { nombre: "Instagram", url: "[CONFIRMAR]" },
@@ -73,6 +74,6 @@ const CONFIG = {
     { p: "¿Hay planes de pago o becas?", r: "[CONFIRMAR]." },
     { p: "¿El título tiene validez oficial?", r: "[CONFIRMAR: entidad que certifica]." },
     { p: "¿Qué horarios tienen las clases?", r: "[CONFIRMAR]." },
-    { p: "¿Puedo preinscribirme si todavía estoy en el colegio?", r: "Sí. Puedes preinscribirte ahora y asegurar tu cupo para cuando salgas bachiller." }
+    { p: "¿Puedo preinscribirme si todavía estoy en el colegio?", r: "Puedes solicitar información mientras estás en el colegio, con el acompañamiento de tu representante si eres menor. La consulta no reserva un cupo." }
   ]
 };

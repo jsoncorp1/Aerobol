@@ -7,6 +7,9 @@ landing.html lleva el <title>, <style>, el contenido y el <script>, sin
 Uso: python3 build.py
 """
 from pathlib import Path
+from html import escape
+import json
+import re
 
 base = Path(__file__).parent
 src = base / "src"
@@ -73,3 +76,23 @@ html = (
 )
 (base / "index.html").write_text(html, encoding="utf-8")
 print(f"index.html generado ({len(html):,} caracteres)")
+
+# La página legal utiliza los mismos contactos que la landing.
+configuracion = leer(src / "config" / "config.js")
+datos_legales = {}
+for clave in ["academia", "correo", "telefono", "direccion", "privacidadVersion"]:
+    coincidencia = re.search(r'^\s*' + re.escape(clave) + r':\s*("(?:\\.|[^"\\])*")', configuracion, re.M)
+    if not coincidencia:
+        raise ValueError(f"Falta la configuración legal: {clave}")
+    datos_legales[clave] = json.loads(coincidencia.group(1))
+datos_legales["telefonoHref"] = re.sub(r"[^+0-9]", "", datos_legales["telefono"])
+for pagina in ["privacidad", "terminos", "cookies"]:
+    documento = leer(src / "legal" / f"{pagina}.html")
+    for clave, valor in datos_legales.items():
+        documento = documento.replace("{{" + clave + "}}", escape(valor, quote=True))
+    if re.search(r"\{\{\w+\}\}", documento):
+        raise ValueError(f"La página {pagina} contiene datos sin completar")
+    destino = base / pagina
+    destino.mkdir(exist_ok=True)
+    (destino / "index.html").write_text(documento, encoding="utf-8")
+    print(f"{pagina}/index.html generado")

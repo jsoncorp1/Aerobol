@@ -57,6 +57,7 @@
       bachiller: valRadio("bachiller"),
       grado_academico: $("#f-grado").value,
       horario_contacto: valRadio("horario"),
+      privacidad_version: CONFIG.privacidadVersion,
       promo: codigoPromo,
       origen: origen,
       fecha_registro: fecha + " (hora de Bolivia)"

@@ -23,7 +23,8 @@ public static class LeadValidation
         int age = 18;
         if (V("edad") != "" && (!int.TryParse(V("edad"), out age) || age is < 14 or > 70)) return "Escribe una edad entera entre 14 y 70 años.";
         if (!ValidPhone(V("whatsapp"))) return "Revisa el número de WhatsApp.";
-        if (V("privacidad") != "true") return "Debes aceptar la política de privacidad.";
+        if (V("privacidad") != "true") return "Debes autorizar el tratamiento de tus datos para tramitar la solicitud.";
+        if (V("privacidad_version") != LegalPolicy.Version) return "La información de privacidad cambió. Recarga la página y revisa la autorización antes de enviar.";
         if (!new[] { "Mañana", "Tarde", "Noche" }.Contains(V("horario_contacto"))
             || !new[] { "Sí", "Este año", "No" }.Contains(V("bachiller"))
             || !new[] { "Lo antes posible", "Gestión 2027", "Solo estoy averiguando" }.Contains(V("inicio"))

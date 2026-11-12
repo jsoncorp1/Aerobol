@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Cómo utiliza Aerobol Academy las cookies y el almacenamiento de tu navegador.">
+  <meta name="theme-color" content="#5B2563">
+  <title>Política de cookies · {{academia}}</title>
+  <link rel="icon" href="/assets/favicon.png">
+  <style>
+    :root { color-scheme:light; --morado:#5B2563; --verde:#0F8A66; --texto:#14202F; --suave:#5B6878; --linea:#D8E0EA; }
+    * { box-sizing:border-box; }
+    html { scroll-padding-top:24px; }
+    body { margin:0; background:#F2F5F9; color:var(--texto); font:400 1rem/1.75 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    a { color:var(--verde); text-underline-offset:3px; overflow-wrap:anywhere; }
+    a:hover { text-decoration-thickness:2px; }
+    a:focus-visible,summary:focus-visible { outline:3px solid var(--morado); outline-offset:4px; border-radius:3px; }
+    .saltar { position:absolute; left:16px; top:-100px; padding:10px; background:#fff; z-index:5; }
+    .saltar:focus { top:12px; }
+    .cabecera { background:var(--morado); color:#fff; border-bottom:4px solid var(--verde); }
+    .contenedor { width:min(1120px,calc(100% - 40px)); margin:auto; }
+    .cabecera .contenedor { display:flex; justify-content:space-between; align-items:center; gap:20px; padding-block:18px; }
+    .marca { display:block; flex:none; }
+    .marca img { display:block; width:155px; height:auto; }
+    .volver { color:#fff; font-size:.9rem; padding:10px 0; }
+    main { padding-block:48px 64px; }
+    .etiqueta { color:var(--verde); font-size:.76rem; font-weight:750; letter-spacing:.12em; text-transform:uppercase; margin:0 0 10px; }
+    h1,h2,h3 { color:var(--morado); line-height:1.25; }
+    h1 { font-size:clamp(2rem,5vw,3.3rem); margin:0 0 16px; letter-spacing:-.035em; }
+    .intro { max-width:780px; font-size:1.08rem; color:var(--suave); margin:0 0 12px; }
+    .fecha { font-size:.85rem; color:var(--suave); }
+    .revision { margin:26px 0 32px; padding:18px 22px; background:#f5eef6; border:1px solid #d9bfdd; border-left:4px solid var(--morado); border-radius:14px; }
+    .revision p { margin:4px 0; }
+    .revision strong { color:var(--morado); }
+    .distribucion { display:grid; grid-template-columns:230px minmax(0,1fr); gap:36px; align-items:start; }
+    .indice { position:sticky; top:24px; padding:18px; background:#fff; border:1px solid var(--linea); border-radius:14px; }
+    .indice summary { font-weight:700; color:var(--morado); }
+    .indice ol { padding-left:20px; margin:14px 0 0; font-size:.88rem; }
+    .indice li { margin:7px 0; }
+    article { padding:30px 34px; background:#fff; border:1px solid var(--linea); border-radius:18px; min-width:0; }
+    article section+section { margin-top:32px; padding-top:26px; border-top:1px solid var(--linea); }
+    h2 { font-size:1.3rem; margin:0 0 14px; }
+    h3 { font-size:1rem; margin:22px 0 8px; }
+    p { margin:0 0 12px; }
+    ul { padding-left:23px; }
+    li { margin:7px 0; }
+    .contacto { padding:18px 20px; border-radius:12px; background:#edf7f3; border-left:4px solid var(--verde); }
+    .contacto p:last-child { margin-bottom:0; }
+    .nota { color:var(--suave); font-size:.9rem; }
+    .tabla { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; font-size:.9rem; }
+    th,td { padding:12px 10px; text-align:left; vertical-align:top; border-bottom:1px solid var(--linea); }
+    th { color:var(--morado); background:#f5eef6; }
+    code { font-size:.85em; overflow-wrap:anywhere; }
+    footer { padding:24px 0; border-top:1px solid var(--linea); font-size:.88rem; color:var(--suave); }
+    footer .contenedor { display:flex; flex-wrap:wrap; gap:12px; justify-content:space-between; }
+    @media(max-width:800px) {
+      .distribucion { grid-template-columns:1fr; gap:20px; }
+      .indice { position:static; }
+      article { padding:24px; }
+    }
+    @media(max-width:480px) {
+      .contenedor { width:calc(100% - 32px); }
+      main { padding-block:32px 40px; }
+      .marca img { width:130px; }
+      .volver { max-width:140px; text-align:right; font-size:.8rem; }
+      article { padding:22px 18px; }
+      .revision { padding:16px; }
+      h2 { font-size:1.2rem; }
+    }
+    @media print { .indice,.saltar,.volver { display:none; } .distribucion { display:block; } article { border:0; padding:0; } .cabecera { background:none; color:#000; } .marca { display:none; } body { background:#fff; font-size:10pt; } }
+  </style>
+</head>
+<body>
+  <a class="saltar" href="#politica">Saltar al contenido</a>
+  <header class="cabecera">
+    <div class="contenedor">
+      <a class="marca" href="/" aria-label="Ir al inicio de Aerobol Academy"><img src="/assets/aerobol-blanco.webp" width="200" height="84" alt="AeroBol Academy"></a>
+      <a class="volver" href="/#preinscripcion">Volver al formulario ↗</a>
+    </div>
+  </header>
+  <main class="contenedor" id="politica">
+    <p class="etiqueta">Tu información, con claridad</p>
+    <h1>Política de cookies</h1>
+    <p class="intro">Cómo utiliza Aerobol Academy las cookies y el almacenamiento de tu navegador.</p>
+    <p class="fecha">Versión {{privacidadVersion}} · Preparada el <time datetime="2026-11-12">12 de noviembre de 2026</time></p>
+    <aside class="revision" aria-label="Estado de revisión">
+      <strong>Borrador para revisión de Aerobol Academy</strong>
+      <p>Inventario basado en la implementación actual. Aerobol debe revisar las integraciones y el comportamiento de terceros en producción antes de aprobar la versión definitiva.</p>
+    </aside>
+    <div class="distribucion">
+      <nav class="indice" aria-label="Secciones"><details open><summary>En esta página</summary><ol><li><a href="#alcance">Qué son y para qué se usan</a></li><li><a href="#inventario">Almacenamiento del sitio</a></li><li><a href="#campanas">Parámetros de campaña</a></li><li><a href="#externos">Google y otros servicios externos</a></li><li><a href="#aviso">Qué significa «Entendido»</a></li><li><a href="#control">Cómo borrar o bloquear el almacenamiento</a></li><li><a href="#revision">Contacto y revisión</a></li></ol></details></nav>
+<article><section id="alcance"><h2>1. Qué son y para qué se usan</h2><p>Las cookies son pequeños datos que el navegador conserva para un sitio. También existen mecanismos distintos, como <code>localStorage</code> y <code>sessionStorage</code>. Aquí distinguimos estos elementos y describimos el funcionamiento de la versión actual de la web.</p><p>La información que envías al formulario se guarda en una base de datos; no es una cookie. Consulta quién la trata y cómo solicitar su revisión en la <a href="/privacidad/">política de privacidad</a>.</p></section><section id="inventario"><h2>2. Almacenamiento del sitio</h2><div class="tabla">
+            <table>
+              <caption>Almacenamiento utilizado por el sitio</caption>
+              <thead><tr><th scope="col">Elemento</th><th scope="col">Para qué se utiliza</th><th scope="col">Duración</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><code>ab_consentimiento</code></th><td>Guarda tus elecciones, la versión del gestor y la fecha. Es almacenamiento local necesario para recordar tus preferencias.</td><td>Durante 180 días, salvo que lo borres antes. Después se vuelve a pedir tu elección.</td></tr>
+                <tr><th scope="row"><code>ab_utm_*</code>, <code>ab_fbclid</code> y <code>ab_promo</code></th><td>Solo con atribución de campañas autorizada: conservan los parámetros presentes en el enlace durante la sesión.</td><td>En el almacenamiento de sesión de la pestaña; normalmente se borra al cerrarla. Lo ya enviado queda asociado al registro.</td></tr>
+                <tr><th scope="row">Protección del formulario</th><td>Cookie y token antifalsificación para comprobar el envío. El token no es una autorización publicitaria.</td><td>Según la sesión y la configuración de seguridad.</td></tr>
+                <tr><th scope="row"><code>Aerobol.Session</code></th><td>Mantiene el acceso del personal al panel; no es necesaria para leer la información pública.</td><td>La sesión autenticada tiene una vigencia configurable de 4 horas, renovable con actividad.</td></tr>
+              </tbody>
+            </table>
+          </div><p>Las preferencias se guardan mediante almacenamiento local. Los parámetros de campaña solo se conservan con tu autorización. La protección antifalsificación se utiliza al enviar el formulario; la cookie de autenticación corresponde al panel del personal.</p></section><section id="campanas"><h2>3. Parámetros de campaña</h2><p>Si el enlace de entrada contiene <code>utm_source</code>, <code>utm_medium</code>, <code>utm_campaign</code>, <code>utm_content</code>, <code>utm_term</code>, <code>fbclid</code> o <code>promo</code>, solo se conservan en la sesión y se asocian a una solicitud enviada si autorizas la atribución de campañas. Permiten identificar el origen de la consulta. No se integra Google Analytics ni Meta Pixel en la versión revisada.</p></section><section id="externos"><h2>4. Google y otros servicios externos</h2><p>Solo si autorizas contenido externo, la portada carga tipografías de Google Fonts y un reproductor de YouTube con el dominio <code>youtube-nocookie.com</code>. Esto produce conexiones con Google y puede transmitir datos técnicos. El modo de privacidad mejorada limita la personalización, pero no significa ausencia de tratamiento ni garantiza que el proveedor nunca utilice almacenamiento.</p><p>La conducta de los servicios externos puede depender de la reproducción del video, del navegador y de tus sesiones y ajustes en esas plataformas. No se presenta como inventario confirmado una lista de cookies de terceros que no se haya verificado en esas condiciones.</p><p>Consulta la <a href="https://policies.google.com/technologies/cookies?hl=es">información de Google sobre cookies</a> y la <a href="https://support.google.com/youtube/answer/171780?hl=es">explicación de YouTube sobre el reproductor</a>. Los enlaces a WhatsApp y mapas abren servicios con sus propias políticas.</p></section><section id="aviso"><h2>5. Aceptar, rechazar y configurar</h2><p>«Aceptar todas» permite contenido externo y atribución de campañas. «Rechazar opcionales» mantiene ambas opciones desactivadas. «Configurar» permite elegir cada finalidad por separado; las necesarias permanecen activas.</p><p>Sin elección, las opciones adicionales están desactivadas. Tus preferencias se recuerdan durante 180 días en este navegador. Puedes modificarlas mediante «Configurar cookies» en el pie de la página principal. Al retirar el permiso, se descarga el reproductor, se retira la fuente externa y se elimina la atribución de campaña de esta sesión según la elección. Esto no borra datos ya recibidos por terceros ni solicitudes enviadas anteriormente.</p></section><section id="control"><h2>6. Cómo borrar o bloquear el almacenamiento</h2><p>Utiliza las opciones de privacidad del navegador para borrar los datos del sitio, limitar cookies o bloquear almacenamiento. Puedes localizar estas opciones buscando «cookies» o «datos del sitio» en la configuración. Borrar los datos del sitio elimina también las preferencias del gestor, que volverá a mostrarse al recargar.</p><p>Al bloquear o borrar cookies de seguridad puede ser necesario recargar el formulario o volver a iniciar sesión en el panel. Borrar el almacenamiento local no elimina solicitudes que ya hayas enviado a la base de datos: para ello escribe a <a href="mailto:{{correo}}">{{correo}}</a>.</p></section><section id="revision"><h2>7. Contacto y revisión</h2><p>Responsable del sitio: Aerobol. Contacto: <a href="mailto:{{correo}}">{{correo}}</a>. Esta página no incorpora fuentes externas, reproductores ni scripts. Debe actualizarse si cambia el inventario de almacenamiento o los servicios integrados.</p></section></article>
+    </div>
+  </main>
+  <footer><div class="contenedor"><span>{{academia}} · Cookies</span><a href="/#preinscripcion">Volver a mi solicitud</a></div>  <div class="contenedor"><a href="/privacidad/">Privacidad</a> · <a href="/terminos/">Términos y condiciones</a> · <a href="/cookies/">Cookies</a></div>
+</footer>
+</body>
+</html>

@@ -7,6 +7,7 @@ public class LeadValidationTests
     {
         ["nombre"] = "Persona Prueba", ["whatsapp"] = "+591 70000001", ["ciudad"] = "La Paz",
         ["carrera"] = "Piloto Privado", ["inicio"] = "Gestión 2027", ["edad"] = "22",
+        ["privacidad_version"] = LegalPolicy.Version,
         ["bachiller"] = "Sí", ["horario_contacto"] = "Tarde", ["privacidad"] = "true"
     };
 
@@ -17,6 +18,8 @@ public class LeadValidationTests
     [InlineData("edad", "71")]
     [InlineData("nombre", "Solo")]
     [InlineData("privacidad", "false")]
+    [InlineData("privacidad_version", "")]
+    [InlineData("privacidad_version", "version-antigua")]
     [InlineData("whatsapp", "+591 12345678")]
     [InlineData("whatsapp", "+591 700000011")]
     [InlineData("correo", "texto invalido")]

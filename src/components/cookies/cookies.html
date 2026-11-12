@@ -1,8 +1,22 @@
 <div class="cookies" id="cookies" hidden>
-  <div class="caja" role="dialog" aria-label="Aviso de cookies">
-    <p>Usamos almacenamiento esencial para que el formulario funcione. No usamos cookies de medición ni de publicidad. El video de Conócenos lo sirve YouTube. No vendemos tus datos.</p>
+  <section class="caja" aria-label="Preferencias de cookies">
+    <div class="ck-texto"><h2>Configuración de cookies</h2><p>Utilizamos almacenamiento necesario para que la web funcione. Puedes permitir contenido de Google/YouTube y la atribución de campañas, o continuar solo con lo necesario. <a href="/cookies/" target="_blank" rel="noopener">Más información</a></p></div>
     <div class="acc">
-      <button class="btn" type="button" id="ck-aceptar">Entendido</button>
+      <button class="btn ck-eleccion" type="button" id="ck-rechazar">Rechazar opcionales</button>
+      <button class="btn ck-eleccion" type="button" id="ck-aceptar">Aceptar todas</button>
+      <button class="btn ck-configurar" type="button" data-cookies-configurar>Configurar</button>
     </div>
-  </div>
+  </section>
 </div>
+<dialog class="cookies-dialog" id="cookies-config" aria-labelledby="cookies-titulo">
+  <h2 id="cookies-titulo">Configura tu privacidad</h2>
+  <p>Las opciones adicionales están desactivadas hasta que las autorices.</p>
+  <label><input type="checkbox" checked disabled> Necesarias (siempre activas)</label>
+  <p>Seguridad del formulario, sesión del personal y recuerdo de tus preferencias.</p>
+  <label><input type="checkbox" id="ck-externos"> Contenido externo</label>
+  <p>Permite las tipografías de Google y el reproductor de YouTube. Estos servicios reciben datos técnicos.</p>
+  <label><input type="checkbox" id="ck-campanas"> Atribución de campañas</label>
+  <p>Conserva los parámetros del anuncio en esta sesión y los asocia a tu solicitud. No activa Analytics ni Meta Pixel.</p>
+  <p><a href="/cookies/" target="_blank" rel="noopener">Leer la política de cookies</a></p>
+  <div class="acc"><button class="btn" type="button" id="ck-guardar">Guardar preferencias</button><button class="btn ck-configurar" type="button" id="ck-cerrar">Cerrar</button></div>
+</dialog>
