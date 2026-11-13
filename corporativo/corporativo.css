@@ -121,3 +121,20 @@
 
 .demo-fill{margin-top:10px;padding:8px 14px;border:1px solid #0f8a66;border-radius:8px;background:#fff;color:#0f8a66;font:inherit;font-weight:600;cursor:pointer}
 .demo-fill[hidden]{display:none}
+
+/* Estados de trabajo y controles de admisiones. */
+.heading-actions{display:flex;flex-wrap:wrap;gap:10px}.panel-error{margin:20px;padding:18px;border:1px solid #e5c0c0;border-radius:10px;background:#fff4f3;color:#8b2821;display:flex;gap:16px;align-items:center;justify-content:space-between}.loading-state{padding:18px 24px;color:var(--muted)}
+.records[aria-busy=true] .table-scroll,.records[aria-busy=true] .mobile-records{opacity:.45;pointer-events:none}.records[aria-busy=true] #results{opacity:.45}
+button:disabled{cursor:wait;opacity:.55}.pagination button:disabled{cursor:default}
+@media(max-width:700px){.heading-actions{gap:8px}.heading-actions button{min-height:44px}.filters input,.filters select{min-height:44px;font-size:14px}.tabs button{min-height:44px;font-size:13px}.lead-fields dt,.lead-date,.source-tag{font-size:12px}.lead-fields dd,.lead-name{font-size:14px}.lead-status-action,.lead-contact{min-height:44px}.stat>span,.stat>small{font-size:11px}.panel-error{margin:12px 0;flex-direction:column;align-items:stretch}.pagination button,.dialog-top button{min-width:44px;min-height:44px}}
+
+@media(max-width:700px){.heading-actions #export{position:static!important;inset:auto!important;transform:none!important}.heading-actions{width:100%;align-items:center}.dashboard-page .workspace{min-width:0}.stat:nth-child(1)>small::before,.stat:nth-child(2)>small::before,.stat:nth-child(3)>small::before{font-size:10px}}
+
+/* Pieza corporativa completa: preservar el texto del material entregado. */
+.login-page .login-shell{grid-template-columns:minmax(0,1.45fr) minmax(380px,1fr)}
+.login-page .login-poster{padding:0;min-height:100svh;background:#04233b;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.login-poster-image{display:block;width:100%;height:auto;max-height:100svh;object-fit:contain}
+.login-page .login-content{padding:36px clamp(28px,5vw,90px);gap:40px;min-width:0}
+@media(max-width:900px){.login-page .login-shell{grid-template-columns:1fr}.login-page .login-poster{min-height:0;display:block}.login-poster-image{max-height:none;width:100%;height:auto}.login-page .login-content{padding:28px 24px 32px;gap:28px}.login-page .login-form-wrap{max-width:420px}.login-page .login-form-wrap .login-symbol{display:none}.login-page .login-content form{margin-top:24px}}
+
+@media(max-width:900px){.login-page .login-shell{grid-template-rows:auto 1fr}.login-page .login-poster{align-self:start}.login-page .login-content{justify-content:flex-start}.login-page .login-foot{margin-top:auto}}

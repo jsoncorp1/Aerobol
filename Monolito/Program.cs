@@ -72,6 +72,7 @@ builder.Services.ConfigureApplicationCookie(options =>
         return Task.CompletedTask;
     };
 });
+builder.Services.Configure<SecurityStampValidatorOptions>(options => options.ValidationInterval = TimeSpan.Zero);
 builder.Services.AddAuthorization();
 builder.Services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
@@ -197,9 +198,15 @@ app.Use(async (context, next) =>
     context.Response.Headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self'; frame-src https://www.youtube-nocookie.com; connect-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'";
     if (context.Request.Path.StartsWithSegments("/sistema") && !app.Environment.IsDevelopment()) { context.Response.StatusCode = 404; return; }
     if ((path.Equals("/corporativo/panel.html", StringComparison.OrdinalIgnoreCase) || path.Equals("/corporativo/panel.js", StringComparison.OrdinalIgnoreCase))
-        && !context.User.IsInRole("Administrador"))
+        && !context.User.IsInRole("Administrador") && !context.User.IsInRole("Admisiones"))
     {
         context.Response.Redirect("/corporativo/");
+        return;
+    }
+    if ((path.Equals("/corporativo/usuarios.html", StringComparison.OrdinalIgnoreCase) || path.Equals("/corporativo/usuarios.js", StringComparison.OrdinalIgnoreCase)) && !context.User.IsInRole("Administrador"))
+    {
+        if (context.User.Identity?.IsAuthenticated == true) context.Response.StatusCode = 403;
+        else context.Response.Redirect("/corporativo/");
         return;
     }
     if (path.StartsWith("/corporativo/", StringComparison.OrdinalIgnoreCase) || path.StartsWith("/api/", StringComparison.OrdinalIgnoreCase))
@@ -266,7 +273,7 @@ app.MapGet("/api/preinscripciones", async (HttpRequest request, AerobolDbContext
     var leads = await query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
     return Results.Ok(new { total, pending, done = total - pending, filteredTotal, page, pageSize,
         items = leads.Select(x => new { x.Id, x.CreatedAt, x.Status, x.AttendedAt, x.AttendedBy, codigo = "AB-" + x.Id.ToString("N").ToUpperInvariant(), datos = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, string>>(x.Datos) }) });
-}).RequireAuthorization(policy => policy.RequireRole("Administrador"));
+}).RequireAuthorization(policy => policy.RequireRole("Administrador", "Admisiones"));
 app.MapPatch("/api/preinscripciones/{id:guid}/estado", async (Guid id, LeadState request, HttpContext context, IAntiforgery antiforgery, AerobolDbContext db) =>
 {
     try { await antiforgery.ValidateRequestAsync(context); }
@@ -279,7 +286,7 @@ app.MapPatch("/api/preinscripciones/{id:guid}/estado", async (Guid id, LeadState
     lead.AttendedBy = request.Status == "done" ? context.User.Identity?.Name : null;
     await db.SaveChangesAsync();
     return Results.Ok(new { lead.Id, lead.Status, lead.AttendedAt });
-}).RequireAuthorization(policy => policy.RequireRole("Administrador"));
+}).RequireAuthorization(policy => policy.RequireRole("Administrador", "Admisiones"));
 app.MapGet("/api/auth/token", (HttpContext context, IAntiforgery antiforgery) =>
     Results.Ok(new { token = antiforgery.GetAndStoreTokens(context).RequestToken }));
 app.MapPost("/api/auth/login", async (LoginRequest request, HttpContext context, IAntiforgery antiforgery, SignInManager<IdentityUser> signIn) =>
@@ -299,6 +306,8 @@ app.MapPost("/api/auth/logout", async (HttpContext context, IAntiforgery antifor
     await signIn.SignOutAsync();
     return Results.Ok();
 }).RequireAuthorization();
+app.MapGet("/api/auth/me", (HttpContext context) => Results.Ok(new { email = context.User.Identity?.Name, administrator = context.User.IsInRole("Administrador") })).RequireAuthorization();
+app.MapUserAdministration();
 app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 app.Run();
 

@@ -3,10 +3,8 @@
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Acceso corporativo · Aerobol Academy</title><link rel="stylesheet" href="corporativo.css"></head>
 <body class="login-page">
   <main class="login-shell">
-    <section class="login-story">
-      <a class="brand brand-light" href="../"><img class="logo-oficial" src="../assets/aerobol-color.webp" alt="AeroBol Academy" width="180" height="80"></a>
-      <div class="story-copy"><span class="eyebrow">PORTAL CORPORATIVO</span><h1>Cada gran vuelo <br>empieza con <br>una conversación.</h1><p>Acompaña a los futuros profesionales de la aviación desde su primer contacto.</p></div>
-      <span class="story-foot">Aerobol Academy · Equipo de admisiones</span>
+    <section class="login-story login-poster" aria-label="Portal corporativo de Aerobol Academy">
+      <img class="login-poster-image" src="../assets/portal-corporativo-experiencia.webp" width="1600" height="949" fetchpriority="high" alt="AeroBol Academy. Portal corporativo. Donde todos venden lo mismo, tu diferencia no es el producto, es la experiencia al cliente. Formación, capacitación, comunicación y trabajo en equipo.">
     </section>
     <section class="login-content" aria-labelledby="login-title">
       <a class="back-link" href="../">← Volver al sitio web</a>
@@ -17,7 +15,7 @@
           <p id="login-error" class="login-error" role="alert" hidden></p>
           <button class="primary login-submit" type="submit">Iniciar sesión <span>→</span></button>
         </form>
-        <div class="demo-note"><strong>Acceso de demostración</strong><p>Ingresa con la cuenta temporal del equipo. El panel recibe las preinscripciones de la landing.</p><button type="button" id="demo-fill" class="demo-fill" hidden>Llenar datos de demo</button></div>
+        <div class="demo-note" id="demo-note" hidden><strong>Acceso de demostración</strong><p>Ingresa con la cuenta temporal del equipo. El panel recibe las preinscripciones de la landing.</p><button type="button" id="demo-fill" class="demo-fill" hidden>Llenar datos de demo</button></div>
       </div><p class="login-foot">Acceso exclusivo para el equipo de Aerobol Academy.</p>
     </section>
   </main><script src="login.js"></script>
