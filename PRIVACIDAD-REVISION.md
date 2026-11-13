@@ -72,3 +72,7 @@ El 13 de noviembre se retiró de las tres páginas el recuadro «Borrador para r
 ## Canal de privacidad confirmado
 
 El 13 de noviembre el usuario aportó la respuesta del cliente «Ese correo por favor», que confirma aerobolacademy.ceo@gmail.com para solicitudes de privacidad. Se publica como canal confirmado. La respuesta «Correcto» aparece junto a una cita abreviada que menciona la identidad y dirección; no se trata como confirmación inequívoca de que la dirección de atención sea el domicilio legal. Ese punto sigue pendiente.
+
+## Autorización dirigida a Aerobol
+
+El usuario indicó que existe un contrato interno entre ambas partes y solicitó retirar Jsoncorp de la casilla del formulario. Versión bo-r5: autorización dirigida únicamente a Aerobol. Se sincroniza el texto registrado por el servidor; no se modifican autorizaciones históricas. La descripción del proveedor técnico en la política se mantiene; no se interpreta el contrato interno como eliminación automática de las obligaciones de información.

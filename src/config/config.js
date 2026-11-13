@@ -18,7 +18,7 @@ const CONFIG = {
 
   // El formulario usa la API del monolito: /api/preinscripciones.
 
-  privacidadVersion: "2026-11-13-bo-r4-borrador",
+  privacidadVersion: "2026-11-13-bo-r5",
   enlaces: { privacidad: "/privacidad/", terminos: "/terminos/", cookies: "/cookies/" },
   redes: [
     { nombre: "Facebook", url: "[CONFIRMAR]" },
