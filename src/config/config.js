@@ -6,6 +6,8 @@
    ===================================================================== */
 const CONFIG = {
   academia: "Aerobol Academy",
+  razonSocial: "AIRFLYBOL ACADEMY SRL",
+  nombreComercial: "AEROBOL ACADEMY",
   whatsappNumero: "59171058088", // solo dígitos, ej. "59171234567"
   whatsappVisible: "71058088",
   telefono: "+591 710 58088",
@@ -16,7 +18,7 @@ const CONFIG = {
 
   // El formulario usa la API del monolito: /api/preinscripciones.
 
-  privacidadVersion: "2026-11-13-bo-r3-borrador",
+  privacidadVersion: "2026-11-13-bo-r4-borrador",
   enlaces: { privacidad: "/privacidad/", terminos: "/terminos/", cookies: "/cookies/" },
   redes: [
     { nombre: "Facebook", url: "[CONFIRMAR]" },

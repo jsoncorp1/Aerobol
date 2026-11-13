@@ -7,7 +7,7 @@ namespace Aerobol.Data;
 
 public static class UserAdministration
 {
-    public static readonly string[] Roles = ["Administrador", "Admisiones"];
+    public static readonly string[] Roles = ["Administrador", "Vendedor"];
     public static bool AllowedRole(string? role) => Roles.Contains(role);
     public static bool MustKeepAdministrator(string currentRole, string? nextRole, int administratorCount)
         => currentRole == "Administrador" && nextRole != "Administrador" && administratorCount <= 1;
@@ -31,14 +31,22 @@ public static class UserAdministration
                 return Results.BadRequest(new { message = "Página no válida." });
             var search = context.Request.Query["q"].ToString().Trim();
             if (search.Length > 120) return Results.BadRequest(new { message = "Búsqueda demasiado extensa." });
+            var roleFilter = context.Request.Query["role"].ToString();
+            if (roleFilter != "" && !AllowedRole(roleFilter)) return Results.BadRequest(new { message = "Rol no válido." });
+            var summary = new {
+                total = await users.Users.CountAsync(),
+                administrators = await (from ur in db.UserRoles join role in db.Roles on ur.RoleId equals role.Id where role.Name == "Administrador" select ur.UserId).Distinct().CountAsync(),
+                sellers = await (from ur in db.UserRoles join role in db.Roles on ur.RoleId equals role.Id where role.Name == "Vendedor" select ur.UserId).Distinct().CountAsync()
+            };
             var query = users.Users.AsNoTracking();
+            if (roleFilter != "") query = query.Where(u => db.UserRoles.Any(ur => ur.UserId == u.Id && db.Roles.Any(r => r.Id == ur.RoleId && r.Name == roleFilter)));
             if (search != "") { var normalized = users.NormalizeEmail(search); query = query.Where(u => u.NormalizedEmail != null && u.NormalizedEmail.Contains(normalized!)); }
             var total = await query.CountAsync();
             var rows = await query.OrderBy(u => u.Email).ThenBy(u => u.Id).Skip((page-1)*20).Take(20)
                 .Select(u => new { u.Id, u.Email }).ToListAsync();
             var ids = rows.Select(u => u.Id).ToList();
             var roles = await (from ur in db.UserRoles join role in db.Roles on ur.RoleId equals role.Id where ids.Contains(ur.UserId) select new { ur.UserId, role.Name }).ToListAsync();
-            return Results.Ok(new { total, page, pageSize = 20, currentUserId = users.GetUserId(context.User), items = rows.Select(u => new { u.Id, u.Email, roles = roles.Where(r => r.UserId == u.Id).Select(r => r.Name).ToArray() }) });
+            return Results.Ok(new { total, summary, page, pageSize = 20, currentUserId = users.GetUserId(context.User), items = rows.Select(u => new { u.Id, u.Email, roles = roles.Where(r => r.UserId == u.Id).Select(r => r.Name).ToArray() }) });
         });
         group.MapPost("", async (UserCreate request, UserManager<IdentityUser> users, RoleManager<IdentityRole> roles, AerobolDbContext db) =>
         {
@@ -70,7 +78,7 @@ public static class UserAdministration
             var previous = await users.GetRolesAsync(user);
             if (id == users.GetUserId(context.User) && request.Role != "Administrador")
                 return Results.BadRequest(new { message = "No puedes quitarte tu propio acceso de administrador." });
-            if (previous.Contains("Administrador") && request.Role != "Administrador" && (await users.GetUsersInRoleAsync("Administrador")).Count <= 1)
+            if (MustKeepAdministrator(previous.Contains("Administrador") ? "Administrador" : "Vendedor", request.Role, (await users.GetUsersInRoleAsync("Administrador")).Count))
                 return Results.BadRequest(new { message = "Debe permanecer al menos un administrador." });
             if (previous.Any(role => !AllowedRole(role))) return Results.BadRequest(new { message = "Esta cuenta tiene permisos especiales y no se puede modificar desde esta pantalla." });
             if (!await roles.RoleExistsAsync(request.Role))
@@ -95,7 +103,7 @@ public static class UserAdministration
             var userRoles = await users.GetRolesAsync(user);
             if (userRoles.Any(role => !AllowedRole(role))) return Results.BadRequest(new { message = "Cuenta con permisos especiales; requiere revisión administrativa." });
             var count = (await users.GetUsersInRoleAsync("Administrador")).Count;
-            if (MustKeepAdministrator(userRoles.Contains("Administrador") ? "Administrador" : "Admisiones", null, count))
+            if (MustKeepAdministrator(userRoles.Contains("Administrador") ? "Administrador" : "Vendedor", null, count))
                 return Results.BadRequest(new { message = "No puedes eliminar al último administrador." });
             var result = await users.DeleteAsync(user); if (!result.Succeeded) return Failure(result);
             await tx.CommitAsync(); return Results.NoContent();

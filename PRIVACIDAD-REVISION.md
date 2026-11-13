@@ -60,3 +60,11 @@ Ver `CUMPLIMIENTO-BOLIVIA.md` para requisitos y evidencia. El usuario aclaró qu
 ## Contacto de Jsoncorp indicado por el usuario
 
 Harold Aparaza Monasterio fue indicado como contacto de Jsoncorp. No se ha confirmado su cargo, representación legal ni responsabilidad en la atención de derechos. Se conserva esta referencia solo en este documento interno; no se publica el nombre en las páginas legales. La identidad de Jsoncorp como proveedor técnico no sustituye la identificación del responsable de Aerobol.
+
+## Razón social confirmada el 13 de noviembre
+
+El cliente proporcionó AIRFLYBOL ACADEMY SRL, con nombre comercial AEROBOL ACADEMY. Se actualizan privacidad, términos y cookies mediante configuración compartida. Esta confirmación sustituye el pendiente de razón social descrito en revisiones anteriores. NIT, domicilio legal, contacto responsable, conservación y detalles de infraestructura siguen pendientes. Versión publicada bo-r4; no se modifican registros ni consentimientos anteriores.
+
+## Aviso visual retirado a petición del usuario
+
+El 13 de noviembre se retiró de las tres páginas el recuadro «Borrador para revisión». El usuario indica que considera aprobado ese contenido por el cliente. No se eliminan los pendientes operativos registrados en este documento ni se presenta el cambio visual como verificación jurídica o estatal.

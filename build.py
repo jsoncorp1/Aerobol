@@ -80,7 +80,7 @@ print(f"index.html generado ({len(html):,} caracteres)")
 # La página legal utiliza los mismos contactos que la landing.
 configuracion = leer(src / "config" / "config.js")
 datos_legales = {}
-for clave in ["academia", "correo", "telefono", "direccion", "privacidadVersion"]:
+for clave in ["academia", "razonSocial", "nombreComercial", "correo", "telefono", "direccion", "privacidadVersion"]:
     coincidencia = re.search(r'^\s*' + re.escape(clave) + r':\s*("(?:\\.|[^"\\])*")', configuracion, re.M)
     if not coincidencia:
         raise ValueError(f"Falta la configuración legal: {clave}")

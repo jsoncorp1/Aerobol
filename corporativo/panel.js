@@ -1,5 +1,5 @@
 const $ = selector => document.querySelector(selector);
-document.querySelectorAll('a[href="./"]').forEach(link => link.addEventListener('click', async event => {
+document.querySelectorAll('.session-link').forEach(link => link.addEventListener('click', async event => {
   event.preventDefault();
   try {
     const tokenResponse = await fetch('/api/auth/token', { cache: 'no-store' });
@@ -188,3 +188,5 @@ $('#export').addEventListener('click', async () => {
 });
 refresh();
 fetch('/api/demo', { cache:'no-store' }).then(r => r.ok ? r.json() : null).then(demo => { if (demo) $('#environment-badge').hidden = false; }).catch(() => {});
+
+fetch('/api/auth/me', {cache:'no-store'}).then(r => r.ok ? r.json() : null).then(me => { if (me?.administrator) { $('#manage-users').hidden = false; $('#mobile-manage-users').hidden = false; } }).catch(() => {});
