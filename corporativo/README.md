@@ -32,3 +32,7 @@ El servidor ficticio anterior fue retirado. En local ahora se ejecuta el monolit
 ## Directorio de equipo y roles
 
 La gestión de usuarios ofrece resumen global, filtros Todos/Administradores/Vendedores, búsqueda por correo, identidades visuales, roles y edición en diálogo. Roles permitidos actualmente: Administrador y Vendedor. Vendedor conserva el alcance operativo de atención de interesados y no accede a gestión de usuarios. El antiguo nombre Admisiones no se admite en nuevas altas. Si hubiera cuentas con ese rol en otro entorno, debe renombrarse/migrarse antes del despliegue para no dejar esos accesos sin rol vigente.
+
+## Integración visual Stitch de solicitudes
+
+Se adapta la composición de las dos referencias de Downloads: resumen de tres indicadores, pestañas Todos/Pendientes/Atendidos, filtros, tabla de escritorio y tarjetas móviles con contacto WhatsApp y ficha. `solicitudes.css` se limita a esta pantalla para conservar login y gestión de usuarios. Se mantiene el logo oficial, rol real sin selector y una sola salida. No se añaden estados de negocio, horarios concretos ni métricas ficticias. El listado sigue paginado en servidor; búsqueda parametrizada también por WhatsApp; exportación incluye el filtro Todos. Los datos adicionales de la ficha se agrupan en un desplegable.

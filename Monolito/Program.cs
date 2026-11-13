@@ -267,7 +267,7 @@ app.MapGet("/api/preinscripciones", async (HttpRequest request, AerobolDbContext
     var total = await db.Preinscripciones.CountAsync();
     var pending = await db.Preinscripciones.CountAsync(x => x.Status == "pending");
     var pattern = "%" + search.Replace(@"\", @"\\").Replace("%", @"\%").Replace("_", @"\_") + "%";
-    var query = db.Preinscripciones.FromSqlInterpolated($"SELECT * FROM aerobol.\"Preinscripciones\" WHERE (\"Datos\"->>'nombre' ILIKE {pattern} OR \"Datos\"->>'ciudad' ILIKE {pattern} OR \"Datos\"->>'carrera' ILIKE {pattern})").AsNoTracking();
+    var query = db.Preinscripciones.FromSqlInterpolated($"SELECT * FROM aerobol.\"Preinscripciones\" WHERE (\"Datos\"->>'nombre' ILIKE {pattern} OR \"Datos\"->>'ciudad' ILIKE {pattern} OR \"Datos\"->>'carrera' ILIKE {pattern} OR \"Datos\"->>'whatsapp' ILIKE {pattern})").AsNoTracking();
     if (state != "") query = query.Where(x => x.Status == state);
     if (date == "today") { var start = DateTime.UtcNow.AddHours(-4).Date.AddHours(4); query = query.Where(x => x.CreatedAt >= start); }
     if (date == "week") { var start = DateTime.UtcNow.AddDays(-7); query = query.Where(x => x.CreatedAt >= start); }

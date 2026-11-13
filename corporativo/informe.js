@@ -23,7 +23,7 @@ async function exportarInformeExcel(registros, filtros) {
   const image = book.addImage({ base64, extension: 'png' });
   sheet.addImage(image, { tl: { col: .15, row: .15 }, ext: { width: 220, height: 78 } });
   const fecha = new Intl.DateTimeFormat('es-BO', { timeZone: 'America/La_Paz', dateStyle: 'long', timeStyle: 'short' }).format(new Date());
-  [['A5', 'Generado: ' + fecha + ' · Hora de Bolivia'], ['A6', 'Estado: ' + (filtros.estado === 'done' ? 'Atendidos' : 'Pendientes') + '   |   Fecha: ' + filtros.fechas + '   |   Búsqueda: ' + (filtros.busqueda || 'Sin filtro')], ['A7', 'Total del informe: ' + registros.length + ' registros · Incluye todas las páginas del filtro seleccionado.']].forEach(([cell, value]) => {
+  [['A5', 'Generado: ' + fecha + ' · Hora de Bolivia'], ['A6', 'Estado: ' + (filtros.estado === 'done' ? 'Atendidos' : filtros.estado === 'pending' ? 'Pendientes' : 'Todos') + '   |   Fecha: ' + filtros.fechas + '   |   Búsqueda: ' + (filtros.busqueda || 'Sin filtro')], ['A7', 'Total del informe: ' + registros.length + ' registros · Incluye todas las páginas del filtro seleccionado.']].forEach(([cell, value]) => {
     const row = Number(cell.slice(1)); sheet.mergeCells(row, 1, row, widths.length); sheet.getCell(cell).value = value; sheet.getCell(cell).font = { name: 'Calibri', size: 11, color: { argb: muted } };
   });
   const headers = ['Fecha de registro (Bolivia)', 'Nombre completo', 'WhatsApp', 'Correo electrónico', 'Ciudad', 'Carrera de interés', 'Inicio de interés', 'Edad', 'Horario de contacto', 'Estado', 'Atendido por', 'Origen de campaña', 'Cómo nos conoció', 'Bachiller', 'Nombre del tutor', 'Celular del tutor', 'Campaña UTM', 'Medio UTM', 'Contenido UTM', 'Término UTM', 'FBCLID', 'Código', 'Fecha de atención', 'Título profesional o técnico', 'Grado académico'];
@@ -43,5 +43,5 @@ async function exportarInformeExcel(registros, filtros) {
   sheet.headerFooter.oddFooter = '&LAerobol Academy&RPágina &P de &N';
   const buffer = await book.xlsx.writeBuffer();
   const url = URL.createObjectURL(new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
-  const a = document.createElement('a'); a.href = url; a.download = 'Aerobol_Preinscritos_' + filtros.estado + '_' + new Date().toISOString().slice(0, 10) + '.xlsx'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+  const a = document.createElement('a'); a.href = url; a.download = 'Aerobol_Preinscritos_' + (filtros.estado || 'todos') + '_' + new Date().toISOString().slice(0, 10) + '.xlsx'; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
 }

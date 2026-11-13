@@ -15,7 +15,7 @@ const pendingChanges = new Set();
 let loading = false;
 let hasLoaded = false;
 let records = [];
-let status = 'pending', descending = true, detailId = null;
+let status = '', descending = true, detailId = null;
 let toastTimer;
 let currentPage = 1;
 let pageSize = 10;
@@ -53,6 +53,7 @@ function render() {
   $('#stat-total').textContent = $('#nav-count').textContent = $('#mobile-count').textContent = summary.total;
   $('#stat-pending').textContent = $('#count-pending').textContent = pending;
   $('#stat-done').textContent = $('#count-done').textContent = summary.done;
+  $('#count-all').textContent = summary.total;
   const rows = filtered();
   const totalPages = Math.max(1, Math.ceil(summary.filteredTotal / pageSize));
   currentPage = Math.max(1, Math.min(currentPage, totalPages));
@@ -61,37 +62,25 @@ function render() {
   $('#page-info').textContent = `${currentPage} / ${totalPages}`;
   $('#page-prev').disabled = currentPage === 1;
   $('#page-next').disabled = currentPage === totalPages;
-  $('#records-body').replaceChildren(...visibleRows.map(r => {
-    const tr = document.createElement('tr');
-    tr.append(cell(formatDate.format(r.date)));
-    const name = cell(''); const a = document.createElement('a'); a.className = 'name-link'; a.href = '#ficha'; a.textContent = r.name; a.addEventListener('click', event => { event.preventDefault(); openDetail(r.id); });
-    const sub = document.createElement('span'); sub.className = 'subtext'; sub.textContent = r.source; name.append(a, sub); tr.append(name);
-    const phoneCell = cell('', 'phone-text'); phoneCell.append(contactLink(r.phone)); tr.append(phoneCell);
-    const city = cell(''); const tag = document.createElement('span'); tag.className = 'city-tag'; tag.textContent = r.city; city.append(tag); tr.append(city, cell(r.gradoAcademico), cell(r.time));
-    const state = cell(''); const badge = document.createElement('span'); badge.className = 'status-tag' + (r.status === 'done' ? ' attended' : ''); badge.textContent = r.status === 'done' ? '• Atendido' : '• Pendiente'; state.append(badge); tr.append(state);
-    const action = cell(''); const button = document.createElement('button'); button.className = 'row-action'; button.textContent = r.status === 'pending' ? '✓ Marcar atendido' : '↶ Marcar pendiente'; button.setAttribute('aria-label', `${button.textContent}: ${r.name}`); button.addEventListener('click', () => toggleStatus(r.id)); action.append(button); tr.append(action); return tr;
-  }));
+  $('#records-body').replaceChildren(...visibleRows.map(desktopRow));
   $('#mobile-records').replaceChildren(...visibleRows.map(mobileCard));
   $('#empty-state').hidden = rows.length > 0;
-  $('#results').textContent = rows.length ? `${offset + 1}–${offset + visibleRows.length} de ${summary.filteredTotal} ${summary.filteredTotal === 1 ? 'registro' : 'registros'}` : '0 registros';
+  $('#results').textContent = rows.length ? `${offset + 1}–${offset + visibleRows.length} de ${summary.filteredTotal} solicitudes` : '0 solicitudes';
+  $('#reset-filters').disabled = !$('#search').value && $('#date-filter').value === 'all' && status === '';
+}
+function element(tag, className, text) { const node=document.createElement(tag); if(className)node.className=className;if(text!==undefined)node.textContent=text;return node; }
+function initials(name) { return String(name||'?').trim().split(/\s+/).slice(0,2).map(n=>n[0]).join('').toUpperCase(); }
+function badge(r) { return element('span','status-tag'+(r.status==='done'?' attended':''),r.status==='done'?'✓ Atendido':'• Pendiente'); }
+function identity(r) {
+  const wrap=element('div','request-identity');const avatar=element('span','request-avatar'+(r.status==='done'?' green':''),initials(r.name));avatar.setAttribute('aria-hidden','true');const text=element('div','request-person');const name=element('button','name-link',r.name);name.type='button';name.addEventListener('click',()=>openDetail(r.id));text.append(name,element('small','request-subtitle',r.gradoAcademico==='No indicado'?'Solicitud de información':r.gradoAcademico));wrap.append(avatar,text);return wrap;
+}
+function stateButton(r) { const button=element('button','row-action',r.status==='done'?'↶ Marcar pendiente':'✓ Marcar atendido');button.type='button';button.dataset.recordId=r.id;button.disabled=pendingChanges.has(r.id);button.setAttribute('aria-label',button.textContent+': '+r.name);button.addEventListener('click',()=>toggleStatus(r.id));return button; }
+function detailButton(r) { const b=element('button','detail-action','Ver ficha →');b.type='button';b.setAttribute('aria-label','Ver ficha de '+r.name);b.addEventListener('click',()=>openDetail(r.id));return b; }
+function desktopRow(r) {
+ const tr=document.createElement('tr');const person=cell('');person.append(identity(r));const phone=cell('','request-phone');phone.append(contactLink(r.phone));const city=cell(r.city);const time=cell(r.time);const date=cell(formatDate.format(r.date),'request-date');const state=cell('');state.append(badge(r));const actions=cell('','request-actions');const actionGroup=element('div','request-action-group');actionGroup.append(detailButton(r),stateButton(r));actions.append(actionGroup);tr.append(person,phone,city,time,date,state,actions);return tr;
 }
 function mobileCard(r) {
-  const card = document.createElement('article'); card.className = 'lead-card';
-  const header = document.createElement('div'); header.className = 'lead-card-header';
-  const name = document.createElement('button'); name.className = 'lead-name'; name.textContent = r.name; name.addEventListener('click', () => openDetail(r.id));
-  const source = document.createElement('span'); source.className = 'source-tag source-' + normalize(r.source).replace(/[^a-z]/g, ''); source.textContent = r.source;
-  const identity = document.createElement('div'); identity.className = 'lead-identity'; identity.append(name, source);
-  const badge = document.createElement('span'); badge.className = 'status-tag' + (r.status === 'done' ? ' attended' : ''); badge.textContent = r.status === 'done' ? '• Atendido' : '• Pendiente';
-  header.append(identity, badge);
-  const date = document.createElement('p'); date.className = 'lead-date'; date.textContent = '◷ ' + formatDate.format(r.date);
-  const fields = document.createElement('dl'); fields.className = 'lead-fields';
-  [['Grado académico', r.gradoAcademico], ['Ciudad', r.city], ['Preferencia', 'Horario: ' + r.time], ['WhatsApp', r.phone]].forEach(([label, value]) => {
-    const group = document.createElement('div'); const dt = document.createElement('dt'); dt.textContent = label; const dd = document.createElement('dd'); if (label === 'WhatsApp') dd.append(contactLink(value)); else dd.textContent = value;  group.append(dt, dd); fields.append(group);
-  });
-  const actions = document.createElement('div'); actions.className = 'lead-actions';
-  const change = document.createElement('button'); change.className = 'lead-status-action'; change.textContent = r.status === 'pending' ? '✓  Marcar atendido' : '↶  Marcar pendiente'; change.setAttribute('aria-label', change.textContent + ': ' + r.name); change.addEventListener('click', () => toggleStatus(r.id));
-  const contact = document.createElement('button'); contact.className = 'lead-contact'; contact.setAttribute('aria-label', 'Ver contacto de ' + r.name); contact.title = 'Ver datos de contacto'; contact.innerHTML = '<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>'; contact.addEventListener('click', () => openDetail(r.id));
-  actions.append(change, contact); card.append(header, date, fields, actions); return card;
+ const card=element('article','lead-card');const header=element('div','lead-card-header');header.append(identity(r),badge(r));const info=element('dl','request-mobile-info');[['Ciudad',r.city],['Contacto',r.time],['Fecha',formatDate.format(r.date)]].forEach(([label,value])=>{const group=document.createElement('div');group.append(element('dt','',label),element('dd','',value));info.append(group);});const contact=contactLink(r.phone);contact.className='request-whatsapp';if(contact.hasAttribute('href'))contact.textContent='Contactar por WhatsApp ↗';const actions=element('div','lead-actions');actions.append(stateButton(r),detailButton(r));card.append(header,info,contact,actions);return card;
 }
 $('#mobile-account').addEventListener('click', () => $('#account-dialog').showModal());
 $('#close-account').addEventListener('click', () => $('#account-dialog').close());
@@ -100,6 +89,7 @@ async function toggleStatus(id) {
   const r = records.find(r => r.id === id);
   if (!r) return false;
   pendingChanges.add(id);
+  document.querySelectorAll("[data-record-id]").forEach(button=>{if(button.dataset.recordId===id){button.disabled=true;button.textContent="Guardando…";}});
   if (detailId === id) $("#detail-status").disabled = true;
   let saved = false;
   try {
@@ -114,6 +104,7 @@ async function toggleStatus(id) {
     $('#toast').textContent = r.name + ': estado guardado.';
   } catch { $('#toast').textContent = 'No se pudo guardar el estado. Vuelve a intentarlo.'; }
   pendingChanges.delete(id);
+  document.querySelectorAll("[data-record-id]").forEach(button=>{if(button.dataset.recordId===id){button.disabled=false;button.textContent=(records.find(item=>item.id===id)?.status||r.status)==='pending'?'✓ Marcar atendido':'↶ Marcar pendiente';}});
   if (detailId === id) $('#detail-status').disabled = false;
   $('#toast').hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(() => $('#toast').hidden = true, 3500);
   return saved;
@@ -138,10 +129,11 @@ async function loadRecords() {
     if (currentPage > lastPage) { currentPage = lastPage; return loadRecords(); }
     records = data.items.map(mapRecord); hasLoaded = true;
     render();
+    $("#last-updated").textContent = "Actualizado a las " + new Intl.DateTimeFormat("es-BO",{timeZone:"America/La_Paz",hour:"2-digit",minute:"2-digit"}).format(new Date()) + " · Hora de Bolivia";
   } catch (error) {
     if (sequence !== loadSequence) return;
     records = []; $('#records-body').replaceChildren(); $('#mobile-records').replaceChildren();
-    $('#results').textContent = 'No se pudo actualizar el listado.';
+    $('#results').textContent = 'No se pudo actualizar el listado.';$('#last-updated').textContent='No se pudo actualizar la información.';
     showLoadError(error);
     throw error;
   } finally {
@@ -157,22 +149,26 @@ function showLoadError(error) { $('#load-error').hidden = false; $('#load-error 
 $('#retry-load').addEventListener('click', refresh);
 $('#refresh').addEventListener('click', refresh);
 function selectTab(tab) { status = tab.dataset.status; currentPage = 1; document.querySelectorAll('[role=tab]').forEach(t => { t.setAttribute('aria-selected', String(t === tab)); t.tabIndex = t === tab ? 0 : -1; }); refresh(); }
-document.querySelectorAll('[role=tab]').forEach(tab => {
-  tab.addEventListener('click', () => selectTab(tab));
-  tab.addEventListener('keydown', event => { if (['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) { event.preventDefault(); const next = event.key === 'Home' ? $('#tab-pending') : event.key === 'End' ? $('#tab-done') : tab.dataset.status === 'pending' ? $('#tab-done') : $('#tab-pending'); selectTab(next); next.focus(); } });
+document.querySelectorAll('[role=tab]').forEach((tab,index) => {
+ tab.addEventListener('click',()=>selectTab(tab));
+ tab.addEventListener('keydown',event=>{const tabs=Array.from(document.querySelectorAll('[role=tab]'));let next;if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;else if(event.key==='ArrowRight')next=(index+1)%tabs.length;else if(event.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;else return;event.preventDefault();selectTab(tabs[next]);tabs[next].focus();});
 });
 function resetPage() { currentPage = 1; refresh(); }
 let searchTimer; $('#search').addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(resetPage, 250); }); $('#date-filter').addEventListener('change', resetPage);
 $('#page-size').addEventListener('change', event => { pageSize = Number(event.target.value); resetPage(); });
 $('#page-prev').addEventListener('click', () => { if (loading || currentPage <= 1) return; currentPage--; refresh(); });
 $('#page-next').addEventListener('click', () => { if (loading || currentPage >= Math.ceil(summary.filteredTotal / pageSize)) return; currentPage++; refresh(); });
-$('#clear-filters').addEventListener('click', () => { $('#search').value = ''; $('#date-filter').value = 'all'; resetPage(); });
+function clearFilters() { clearTimeout(searchTimer); $('#search').value='';$('#date-filter').value='all';selectTab($('#tab-all')); }
+$('#clear-filters').addEventListener('click',clearFilters);$('#reset-filters').addEventListener('click',clearFilters);
 $('#sort-date').addEventListener('click', () => { descending = !descending; currentPage = 1; $('#sort-arrow').textContent = descending ? '↓' : '↑'; $('#sort-date').closest('th').setAttribute('aria-sort', descending ? 'descending' : 'ascending'); refresh(); });
 $('#sort-date').closest('th').setAttribute('aria-sort', 'descending');
 function openDetail(id) {
   detailId = id; const r = records.find(r => r.id === id); $('#detail-name').textContent = r.name;
-  const fields = [['Fecha', formatDate.format(r.date)], ['Ciudad', r.city], ['Carrera', r.career], ['Edad', r.age ? `${r.age} años` : "No indicada"], ['Inicio de interés', r.start], ['Horario de contacto', r.time], ['Origen de campaña', r.source], ['Cómo nos conoció', r.declaredSource || 'No indicado'], ['Bachiller', r.bachiller || 'No indicado'], ['Grado académico', r.gradoAcademico], ['Título profesional o técnico', r.tituloProfesionalTecnico], ['Tutor', r.tutorName || 'No aplica'], ['Celular del tutor', r.tutorPhone || 'No aplica'], ['Campaña UTM', r.campaign || 'No indicada'], ['Medio UTM', r.medium || 'No indicado'], ['Contenido UTM', r.content || 'No indicado'], ['Término UTM', r.term || 'No indicado'], ['FBCLID', r.fbclid || 'No indicado'], ['Código', r.code], ['Fecha de atención', r.attendedAt ? formatDate.format(new Date(r.attendedAt)) : 'Pendiente'], ['WhatsApp', r.phone], ['Correo', r.email || 'No indicado'], ['Atendido por', r.attendedBy || 'Pendiente']];
-  $('#detail-fields').replaceChildren(...fields.flatMap(([key, value]) => { const dt = document.createElement('dt'); dt.textContent = key; const dd = document.createElement('dd'); if (key === 'WhatsApp' || key === 'Celular del tutor') dd.append(contactLink(value)); else dd.textContent = value; return [dt, dd]; }));
+  $('#detail-contact').replaceChildren(contactLink(r.phone));$('#detail-contact a').className='request-whatsapp';
+  const fields=[['WhatsApp',r.phone],['Ciudad',r.city],['Inicio de interés',r.start],['Horario de contacto',r.time],['Bachiller',r.bachiller||'No indicado'],['Grado académico',r.gradoAcademico],['Fecha de registro',formatDate.format(r.date)],['Estado',r.status==='done'?'Atendido':'Pendiente'],['Fecha de atención',r.attendedAt?formatDate.format(new Date(r.attendedAt)):'Pendiente'],['Atendido por',r.attendedBy||'Pendiente'],['Código',r.code]];
+  const extra=[['Carrera',r.career==='No indicado'?'':r.career],['Edad',r.age],['Correo',r.email],['Tutor',r.tutorName],['Celular del tutor',r.tutorPhone],['Título profesional o técnico',r.tituloProfesionalTecnico==='No indicado'?'':r.tituloProfesionalTecnico],['Origen de campaña',r.source],['Cómo nos conoció',r.declaredSource],['Campaña UTM',r.campaign],['Medio UTM',r.medium],['Contenido UTM',r.content],['Término UTM',r.term],['FBCLID',r.fbclid]].filter(([,value])=>value);
+  function detailFields(rows) {return rows.flatMap(([key,value])=>{const dt=element('dt','',key);const dd=element('dd','',value||'No indicado');if(key==='Celular del tutor'){dd.replaceChildren(contactLink(value));}return [dt,dd];});}
+  $('#detail-fields').replaceChildren(...detailFields(fields));$('#detail-extra-fields').replaceChildren(...detailFields(extra));$('#detail-extra').open=false;
   $('#detail-status').disabled = pendingChanges.has(id);
   $('#detail-status').textContent = r.status === 'pending' ? 'Marcar como atendido' : 'Marcar como pendiente'; $('#detail-dialog').showModal();
 }
@@ -189,4 +185,4 @@ $('#export').addEventListener('click', async () => {
 refresh();
 fetch('/api/demo', { cache:'no-store' }).then(r => r.ok ? r.json() : null).then(demo => { if (demo) $('#environment-badge').hidden = false; }).catch(() => {});
 
-fetch('/api/auth/me', {cache:'no-store'}).then(r => r.ok ? r.json() : null).then(me => { if (me?.administrator) { $('#manage-users').hidden = false; $('#mobile-manage-users').hidden = false; } }).catch(() => {});
+fetch('/api/auth/me', {cache:'no-store'}).then(r => r.ok ? r.json() : null).then(me => { if (!me) return;const role=me.administrator?'Administrador':'Vendedor';$('#session-role').textContent=$('#account-role').textContent=role;$('#session-email').textContent=$('#account-email').textContent=me.email; if (me.administrator) { $('#manage-users').hidden = false; $('#mobile-manage-users').hidden = false; } }).catch(() => {});
