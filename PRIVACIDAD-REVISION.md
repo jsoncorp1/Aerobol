@@ -68,3 +68,7 @@ El cliente proporcionó AIRFLYBOL ACADEMY SRL, con nombre comercial AEROBOL ACAD
 ## Aviso visual retirado a petición del usuario
 
 El 13 de noviembre se retiró de las tres páginas el recuadro «Borrador para revisión». El usuario indica que considera aprobado ese contenido por el cliente. No se eliminan los pendientes operativos registrados en este documento ni se presenta el cambio visual como verificación jurídica o estatal.
+
+## Canal de privacidad confirmado
+
+El 13 de noviembre el usuario aportó la respuesta del cliente «Ese correo por favor», que confirma aerobolacademy.ceo@gmail.com para solicitudes de privacidad. Se publica como canal confirmado. La respuesta «Correcto» aparece junto a una cita abreviada que menciona la identidad y dirección; no se trata como confirmación inequívoca de que la dirección de atención sea el domicilio legal. Ese punto sigue pendiente.

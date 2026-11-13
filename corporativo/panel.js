@@ -1,15 +1,4 @@
 const $ = selector => document.querySelector(selector);
-document.querySelectorAll('.session-link').forEach(link => link.addEventListener('click', async event => {
-  event.preventDefault();
-  try {
-    const tokenResponse = await fetch('/api/auth/token', { cache: 'no-store' });
-    if (!tokenResponse.ok) throw new Error();
-    const { token } = await tokenResponse.json();
-    const response = await fetch('/api/auth/logout', { method: 'POST', headers: { 'X-CSRF-TOKEN': token } });
-    if (!response.ok) throw new Error();
-    location.href = '/corporativo/';
-  } catch { alert('No se pudo cerrar la sesión. Vuelve a intentarlo.'); }
-}));
 const formatDate = new Intl.DateTimeFormat('es-BO', { timeZone: 'America/La_Paz', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
 const pendingChanges = new Set();
 let loading = false;
@@ -80,8 +69,19 @@ function desktopRow(r) {
  const tr=document.createElement('tr');const person=cell('');person.append(identity(r));const phone=cell('','request-phone');phone.append(contactLink(r.phone));const city=cell(r.city);const time=cell(r.time);const date=cell(formatDate.format(r.date),'request-date');const state=cell('');state.append(badge(r));const actions=cell('','request-actions');const actionGroup=element('div','request-action-group');actionGroup.append(detailButton(r),stateButton(r));actions.append(actionGroup);tr.append(person,phone,city,time,date,state,actions);return tr;
 }
 function mobileCard(r) {
- const card=element('article','lead-card');const header=element('div','lead-card-header');header.append(identity(r),badge(r));const info=element('dl','request-mobile-info');[['Ciudad',r.city],['Contacto',r.time],['Fecha',formatDate.format(r.date)]].forEach(([label,value])=>{const group=document.createElement('div');group.append(element('dt','',label),element('dd','',value));info.append(group);});const contact=contactLink(r.phone);contact.className='request-whatsapp';if(contact.hasAttribute('href'))contact.textContent='Contactar por WhatsApp ↗';const actions=element('div','lead-actions');actions.append(stateButton(r),detailButton(r));card.append(header,info,contact,actions);return card;
+ const card=element('article','lead-card'+(r.status==='done'?' is-attended':''));
+ const header=element('div','lead-card-header');header.append(identity(r),badge(r));
+ const info=element('dl','request-mobile-info');
+ [['Ciudad',r.city],['Contacto',r.time],['Fecha',formatDate.format(r.date)]].forEach(([label,value])=>{const group=document.createElement('div');group.append(element('dt','',label),element('dd','',value));info.append(group);});
+ const contact=contactLink(r.phone);contact.className='request-whatsapp';
+ if(contact.hasAttribute('href')) {contact.replaceChildren(element('span','',r.status==='done'?'WhatsApp ↗':'Contactar por WhatsApp ↗'),element('small','',r.phone));}
+ const actions=element('div','lead-actions');
+ if(r.status!=='done') actions.append(stateButton(r));
+ actions.append(detailButton(r));card.append(header,info,contact,actions);return card;
 }
+const mobileLayout = matchMedia('(max-width:700px)');
+function arrangeDateFilters() { $('#date-options').open = !mobileLayout.matches; }
+mobileLayout.addEventListener('change',arrangeDateFilters);arrangeDateFilters();
 $('#mobile-account').addEventListener('click', () => $('#account-dialog').showModal());
 $('#close-account').addEventListener('click', () => $('#account-dialog').close());
 async function toggleStatus(id) {
@@ -154,11 +154,11 @@ document.querySelectorAll('[role=tab]').forEach((tab,index) => {
  tab.addEventListener('keydown',event=>{const tabs=Array.from(document.querySelectorAll('[role=tab]'));let next;if(event.key==='Home')next=0;else if(event.key==='End')next=tabs.length-1;else if(event.key==='ArrowRight')next=(index+1)%tabs.length;else if(event.key==='ArrowLeft')next=(index+tabs.length-1)%tabs.length;else return;event.preventDefault();selectTab(tabs[next]);tabs[next].focus();});
 });
 function resetPage() { currentPage = 1; refresh(); }
-let searchTimer; $('#search').addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(resetPage, 250); }); $('#date-filter').addEventListener('change', resetPage);
+let searchTimer; $('#search').addEventListener('input', () => { clearTimeout(searchTimer); searchTimer = setTimeout(resetPage, 250); }); $('#date-filter').addEventListener('change', () => { if(mobileLayout.matches) $('#date-options').open=false; resetPage(); });
 $('#page-size').addEventListener('change', event => { pageSize = Number(event.target.value); resetPage(); });
 $('#page-prev').addEventListener('click', () => { if (loading || currentPage <= 1) return; currentPage--; refresh(); });
 $('#page-next').addEventListener('click', () => { if (loading || currentPage >= Math.ceil(summary.filteredTotal / pageSize)) return; currentPage++; refresh(); });
-function clearFilters() { clearTimeout(searchTimer); $('#search').value='';$('#date-filter').value='all';selectTab($('#tab-all')); }
+function clearFilters() { if(mobileLayout.matches) $('#date-options').open=false;clearTimeout(searchTimer); $('#search').value='';$('#date-filter').value='all';selectTab($('#tab-all')); }
 $('#clear-filters').addEventListener('click',clearFilters);$('#reset-filters').addEventListener('click',clearFilters);
 $('#sort-date').addEventListener('click', () => { descending = !descending; currentPage = 1; $('#sort-arrow').textContent = descending ? '↓' : '↑'; $('#sort-date').closest('th').setAttribute('aria-sort', descending ? 'descending' : 'ascending'); refresh(); });
 $('#sort-date').closest('th').setAttribute('aria-sort', 'descending');
