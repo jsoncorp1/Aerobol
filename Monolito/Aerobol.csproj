@@ -18,6 +18,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="../index.html" Link="wwwroot/index.html" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../version-2/*.html" Link="wwwroot/version-2/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="../version-3/*.html" Link="wwwroot/version-3/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../privacidad/*.html" Link="wwwroot/privacidad/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../terminos/*.html" Link="wwwroot/terminos/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <Content Include="../cookies/*.html" Link="wwwroot/cookies/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />

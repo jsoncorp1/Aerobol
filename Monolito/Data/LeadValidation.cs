@@ -16,7 +16,7 @@ public static class LeadValidation
             return "Datos demasiado extensos.";
         string V(string key) => datos.GetValueOrDefault(key, "").Trim();
         if (V("botcheck") != "") return "No se pudo enviar el formulario.";
-        if (new[] { "nombre", "whatsapp", "ciudad", "inicio", "bachiller", "horario_contacto" }.Any(key => V(key) == ""))
+        if (new[] { "nombre", "whatsapp", "ciudad" }.Any(key => V(key) == ""))
             return "Completa los campos obligatorios.";
         if (V("nombre").Split(' ', StringSplitOptions.RemoveEmptyEntries).Count(word => Regex.IsMatch(word, @"^[\p{L}'.-]{2,}$")) < 2)
             return "Escribe tu nombre y apellido.";
@@ -25,9 +25,9 @@ public static class LeadValidation
         if (!ValidPhone(V("whatsapp"))) return "Revisa el número de WhatsApp.";
         if (V("privacidad") != "true") return "Debes autorizar el tratamiento de tus datos para tramitar la solicitud.";
         if (V("privacidad_version") != LegalPolicy.Version) return "La información de privacidad cambió. Recarga la página y revisa la autorización antes de enviar.";
-        if (!new[] { "Mañana", "Tarde", "Noche" }.Contains(V("horario_contacto"))
-            || !new[] { "Sí", "Este año", "No" }.Contains(V("bachiller"))
-            || !new[] { "Lo antes posible", "Gestión 2027", "Solo estoy averiguando" }.Contains(V("inicio"))
+        if (!new[] { "", "Mañana", "Tarde", "Noche" }.Contains(V("horario_contacto"))
+            || !new[] { "", "Sí", "Este año", "No" }.Contains(V("bachiller"))
+            || !new[] { "", "Lo antes posible", "Gestión 2027", "Solo estoy averiguando" }.Contains(V("inicio"))
             || V("titulo_profesional_tecnico") is not ("" or "true" or "false")
             || !Ciudades.Contains(V("ciudad"))
             || (V("carrera") != "" && !Carreras.Contains(V("carrera")))

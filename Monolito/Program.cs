@@ -216,6 +216,17 @@ app.Use(async (context, next) =>
         context.Response.Headers.CacheControl = "no-store";
     await next();
 });
+// Demos de la landing en subcarpetas: se redirige la ruta sin barra final a la carpeta.
+// Debe correr antes de los archivos estáticos para no entrar en bucle con el enrutado.
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.Value is "/version-2" or "/version-3")
+    {
+        context.Response.Redirect(context.Request.Path.Value + "/");
+        return;
+    }
+    await next();
+});
 // El webroot publicado contiene únicamente los recursos públicos seleccionados.
 app.UseDefaultFiles();
 app.UseStaticFiles(new StaticFileOptions
